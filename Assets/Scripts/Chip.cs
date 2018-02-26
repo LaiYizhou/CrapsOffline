@@ -1,23 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public enum EChip
+{
+    _10 = 0,
+    _100,
+    _200,
+    _500,
+
+    _1K,
+    _2K,
+    _5K,
+    _10K,
+    _20K,
+    _25K,
+    _50K,
+    _100K,
+    _250K,
+    _500K,
+
+    _1M,
+    _1_25M,
+    _2M,
+    _2_5M,
+    _5M,
+    _10M,
+    _12_5M,
+    _25M,
+    _50M,
+    _100M,
+
+    Count
+
+}
 
 public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 
-    //记录鼠标位置.
     Vector3 newPosition;
 
     private Canvas canvas;
     private Vector3 originalPos;
 
-    [SerializeField]
-    private long value;
+    [SerializeField] private Image chipImage;
+    [SerializeField] private EChip ChipType;
+    [SerializeField] private long value;
 
 
-    private void InitChip(long value)
+    public void Init(EChip eChip)
     {
-        this.value = value;
+        ChipType = eChip;
+        value = GameHelper.Instance.GetChipValue(eChip);
+        chipImage.sprite = GameHelper.Instance.GetChipSprite(eChip);
     }
 
     void Awake()
@@ -40,13 +76,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //拖拽开始时记下自己的父物体.
-        //myParent = transform.parent;
 
-        //拖拽开始时禁用检测.
-        //cg.blocksRaycasts = false;
-
-        //this.transform.SetParent(tempParent);
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)

@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
     <Compile Include="Assets\Scripts\CanvasControl.cs" />
     <Compile Include="Assets\Scripts\Chip.cs" />
+    <Compile Include="Assets\Scripts\ChipsManager.cs" />
     <Compile Include="Assets\Scripts\CrapsTableArea.cs" />
     <Compile Include="Assets\Scripts\CrapsTableManager.cs" />
     <Compile Include="Assets\Scripts\GameHelper.cs" />

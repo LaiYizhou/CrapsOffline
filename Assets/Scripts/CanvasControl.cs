@@ -6,6 +6,8 @@ public class CanvasControl : MonoBehaviour
 
     public static CanvasControl Instance;
 
+    [Header("Managers")]
+    public ChipsManager chipsManager;
     public HistoryPanelManager historyPanelManager;
 
     // Use this for initialization
@@ -13,6 +15,10 @@ public class CanvasControl : MonoBehaviour
     {
 
         Instance = this;
+
+
+        //Test Code
+        //chipsManager.BuildChips(GameHelper.Instance.GetCrapSceneInfo(1));
 
     }
 	
