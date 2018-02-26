@@ -1,0 +1,19 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameTopBar.png (512 x 512)
+# $TexturePacker:SmartUpdate:946e8034950132b11fa9af8cce843015:68eed377ce6a183d10ba9dd995911ee2:e6d344586e5b5f40680512eb96b03355$
+#
+
+btn_STORE;2;447;258;63;0.5;0.5
+button_add_normal;2;338;54;42;0.5;0.5
+button_setting_normal;132;347;69;48;0.5;0.5
+gems_background;262;462;210;48;0.5;0.5
+hall_topbar_btn_vip;132;397;119;48;0.5;0.5
+icon_gem_0;394;405;70;55;0.5;0.5
+topbar_btn_buy;2;382;128;63;0.5;0.5
+topbar_btn_sale;262;397;130;63;0.5;0.5
+vip_hall_button_setting;394;355;69;48;0.5;0.5

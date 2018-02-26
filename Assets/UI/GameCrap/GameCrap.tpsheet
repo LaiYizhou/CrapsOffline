@@ -1,0 +1,29 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameCrap.png (512 x 512)
+# $TexturePacker:SmartUpdate:492e22c3a60452e62ec598d1a2ed7b71:351d413d8c22b59510f6effddf593313:c21e379d3ba59eaf413a25685bb9b41b$
+#
+
+craps_btn _sitdown;205;370;122;69;0.5;0.5
+craps_btn_clear;178;202;95;69;0.5;0.5
+craps_btn_morechips;260;441;130;69;0.5;0.5
+craps_btn_off;427;370;68;69;0.5;0.5
+craps_btn_on;178;132;68;68;0.5;0.5
+craps_btn_ready;329;370;96;69;0.5;0.5
+craps_btn_rebet;392;441;96;69;0.5;0.5
+craps_btn_roll;81;441;177;69;0.5;0.5
+craps_btn_sitdown_on;81;370;122;69;0.5;0.5
+craps_btn_undo;81;8;95;69;0.5;0.5
+craps_dice1;372;273;95;95;0.5;0.5
+craps_dice2;275;273;95;95;0.5;0.5
+craps_dice3;178;273;95;95;0.5;0.5
+craps_dice4;81;79;95;95;0.5;0.5
+craps_dice5;81;176;95;95;0.5;0.5
+craps_dice6;81;273;95;95;0.5;0.5
+craps_history_down;248;133;68;67;0.5;0.5
+craps_history_up;178;63;68;67;0.5;0.5
+craps_historybg;2;56;77;454;0.5;0.5

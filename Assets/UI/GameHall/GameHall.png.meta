@@ -1,0 +1,164 @@
+fileFormatVersion: 2
+guid: 36f03e5504685e248b74763c50b8bc05
+timeCreated: 1519454335
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: AECraps_title
+    21300002: Craps_level1
+    21300004: Craps_level1_title
+    21300006: Craps_level2
+    21300008: Craps_level2_title
+    21300010: Craps_level3
+    21300012: Craps_level3_title
+    21300014: Craps_level4
+    21300016: Craps_level4_title
+    21300018: Craps_level5
+    21300020: Craps_level5_title
+    21300022: Craps_level6
+    21300024: Craps_level6_title
+    21300026: Craps_playnow
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Craps_level1
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 628
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_level2
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 826
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_level3
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 826
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_level4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 36
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_level5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 234
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_level6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 630
+        width: 258
+        height: 392
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Craps_playnow
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 432
+        width: 258
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

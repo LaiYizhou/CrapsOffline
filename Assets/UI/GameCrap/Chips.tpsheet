@@ -1,0 +1,58 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Chips.png (2048 x 2048)
+# $TexturePacker:SmartUpdate:7ca72774ceace536df68c41e3a8b6da4:a0c16c5efbec651a38783f34c5d14ccd:d67239c92a365dede5b62acf83602cc5$
+#
+
+craps_chips1.25m;1142;1478;188;188;0.5;0.5
+craps_chips1.25m_an;952;1478;188;188;0.5;0.5
+craps_chips10;762;1478;188;188;0.5;0.5
+craps_chips100;572;1478;188;188;0.5;0.5
+craps_chips100_an;382;148;188;188;0.5;0.5
+craps_chips100k;382;338;188;188;0.5;0.5
+craps_chips100k_an;382;528;188;188;0.5;0.5
+craps_chips100m;382;718;188;188;0.5;0.5
+craps_chips100m_an;382;908;188;188;0.5;0.5
+craps_chips10_an;382;1098;188;188;0.5;0.5
+craps_chips10k;382;1288;188;188;0.5;0.5
+craps_chips10k_an;382;1478;188;188;0.5;0.5
+craps_chips10m;1712;1668;188;188;0.5;0.5
+craps_chips10m_an;1522;1668;188;188;0.5;0.5
+craps_chips12.5m;1332;1668;188;188;0.5;0.5
+craps_chips12.5m_an;1142;1668;188;188;0.5;0.5
+craps_chips1k;952;1668;188;188;0.5;0.5
+craps_chips1k_an;762;1668;188;188;0.5;0.5
+craps_chips1m;572;1668;188;188;0.5;0.5
+craps_chips1m_an;382;1668;188;188;0.5;0.5
+craps_chips2.5m;192;148;188;188;0.5;0.5
+craps_chips2.5m_an;192;338;188;188;0.5;0.5
+craps_chips200;192;528;188;188;0.5;0.5
+craps_chips200_an;192;718;188;188;0.5;0.5
+craps_chips20k;192;908;188;188;0.5;0.5
+craps_chips20k_an;192;1098;188;188;0.5;0.5
+craps_chips250k;192;1288;188;188;0.5;0.5
+craps_chips250k_an;192;1478;188;188;0.5;0.5
+craps_chips25k;192;1668;188;188;0.5;0.5
+craps_chips25k_an;1712;1858;188;188;0.5;0.5
+craps_chips25m;1522;1858;188;188;0.5;0.5
+craps_chips25m_an;1332;1858;188;188;0.5;0.5
+craps_chips2k;1142;1858;188;188;0.5;0.5
+craps_chips2k_an;952;1858;188;188;0.5;0.5
+craps_chips2m;762;1858;188;188;0.5;0.5
+craps_chips2m_an;572;1858;188;188;0.5;0.5
+craps_chips500;382;1858;188;188;0.5;0.5
+craps_chips500_an;192;1858;188;188;0.5;0.5
+craps_chips500k;2;148;188;188;0.5;0.5
+craps_chips500k_an;2;338;188;188;0.5;0.5
+craps_chips50k;2;528;188;188;0.5;0.5
+craps_chips50k_an;2;718;188;188;0.5;0.5
+craps_chips50m;2;908;188;188;0.5;0.5
+craps_chips50m_an;2;1098;188;188;0.5;0.5
+craps_chips5k;2;1288;188;188;0.5;0.5
+craps_chips5k_an;2;1478;188;188;0.5;0.5
+craps_chips5m;2;1668;188;188;0.5;0.5
+craps_chips5m_an;2;1858;188;188;0.5;0.5

@@ -1,0 +1,22 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Icons.png (256 x 256)
+# $TexturePacker:SmartUpdate:85b20a26d5f90db206b250dbf37b6320:b04344b58f642619596ca654e312f9cb:8700ff3222e3186ea5478c85b55629c1$
+#
+
+icon_chip_0;182;132;58;60;0.5;0.5
+icon_chip_1;122;132;58;60;0.5;0.5
+icon_chip_10;62;8;58;60;0.5;0.5
+icon_chip_11;62;70;58;60;0.5;0.5
+icon_chip_2;62;132;58;60;0.5;0.5
+icon_chip_3;182;194;58;60;0.5;0.5
+icon_chip_4;122;194;58;60;0.5;0.5
+icon_chip_5;62;194;58;60;0.5;0.5
+icon_chip_6;2;8;58;60;0.5;0.5
+icon_chip_7;2;70;58;60;0.5;0.5
+icon_chip_8;2;132;58;60;0.5;0.5
+icon_chip_9;2;194;58;60;0.5;0.5

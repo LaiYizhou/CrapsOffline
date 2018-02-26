@@ -1,0 +1,302 @@
+fileFormatVersion: 2
+guid: d7d57f4537cb97d489f5b3f750bbcb85
+timeCreated: 1519607502
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: craps_anycraps_an
+    21300002: craps_anycraps_light
+    21300004: craps_anycraps_select
+    21300006: craps_buy_an
+    21300008: craps_buy_light
+    21300010: craps_buy_select
+    21300012: craps_come_an
+    21300014: craps_come_light
+    21300016: craps_come_selct
+    21300018: craps_eight_an
+    21300020: craps_eight_light
+    21300022: craps_eight_select
+    21300024: craps_field_an
+    21300026: craps_field_light
+    21300028: craps_field_select
+    21300030: craps_hard_an
+    21300032: craps_hard_light
+    21300034: craps_hard_select
+    21300036: craps_notcome_an
+    21300038: craps_notcome_light
+    21300040: craps_notcome_select
+    21300042: craps_notpass2_an
+    21300044: craps_notpass2_light
+    21300046: craps_notpass2_select
+    21300048: craps_notpass_an
+    21300050: craps_notpass_light
+    21300052: craps_notpass_select
+    21300054: craps_notpassodds_an
+    21300056: craps_notpassodds_light
+    21300058: craps_notpassodds_select
+    21300060: craps_onevalue_an
+    21300062: craps_onevalue_light
+    21300064: craps_onevalue_select
+    21300066: craps_pass_an
+    21300068: craps_pass_light
+    21300070: craps_pass_select
+    21300072: craps_passodds_an
+    21300074: craps_passodds_light
+    21300076: craps_passodds_select
+    21300078: craps_point_an
+    21300080: craps_point_light
+    21300082: craps_point_select
+    21300084: craps_six_an
+    21300086: craps_six_light
+    21300088: craps_six_select
+    21300090: craps_normalRect_an
+    21300092: craps_normalRect_light
+    21300094: craps_normalRect_select
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: craps_eight_an
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 844
+        width: 71
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_eight_light
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 904
+        width: 71
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_eight_select
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 964
+        width: 71
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_field_an
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 477
+        width: 389
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_field_light
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 543
+        width: 389
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_field_select
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 609
+        width: 389
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_normalRect_an
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 760
+        width: 65
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_normalRect_light
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 788
+        width: 65
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_normalRect_select
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 816
+        width: 65
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_pass_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 271
+        width: 468
+        height: 347
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_pass_light
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 675
+        width: 468
+        height: 347
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_pass_select
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 675
+        width: 468
+        height: 347
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_six_an
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 605
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_six_light
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 620
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_six_select
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 690
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

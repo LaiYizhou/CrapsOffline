@@ -1,0 +1,731 @@
+fileFormatVersion: 2
+guid: db60a237549eb4748b2348ad8b6b0af3
+timeCreated: 1519459290
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: craps_chips1.25m
+    21300002: craps_chips1.25m_an
+    21300004: craps_chips10
+    21300006: craps_chips100
+    21300008: craps_chips100_an
+    21300010: craps_chips100k
+    21300012: craps_chips100k_an
+    21300014: craps_chips100m
+    21300016: craps_chips100m_an
+    21300018: craps_chips10_an
+    21300020: craps_chips10k
+    21300022: craps_chips10k_an
+    21300024: craps_chips10m
+    21300026: craps_chips10m_an
+    21300028: craps_chips12.5m
+    21300030: craps_chips12.5m_an
+    21300032: craps_chips1k
+    21300034: craps_chips1k_an
+    21300036: craps_chips1m
+    21300038: craps_chips1m_an
+    21300040: craps_chips2.5m
+    21300042: craps_chips2.5m_an
+    21300044: craps_chips200
+    21300046: craps_chips200_an
+    21300048: craps_chips20k
+    21300050: craps_chips20k_an
+    21300052: craps_chips250k
+    21300054: craps_chips250k_an
+    21300056: craps_chips25k
+    21300058: craps_chips25k_an
+    21300060: craps_chips25m
+    21300062: craps_chips25m_an
+    21300064: craps_chips2k
+    21300066: craps_chips2k_an
+    21300068: craps_chips2m
+    21300070: craps_chips2m_an
+    21300072: craps_chips500
+    21300074: craps_chips500_an
+    21300076: craps_chips500k
+    21300078: craps_chips500k_an
+    21300080: craps_chips50k
+    21300082: craps_chips50k_an
+    21300084: craps_chips50m
+    21300086: craps_chips50m_an
+    21300088: craps_chips5k
+    21300090: craps_chips5k_an
+    21300092: craps_chips5m
+    21300094: craps_chips5m_an
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: craps_chips1.25m
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips1.25m_an
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 148
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100k
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 338
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100k_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 528
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100m
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 718
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips100m_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 908
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1098
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10k
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1288
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10k_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10m
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips10m_an
+      rect:
+        serializedVersion: 2
+        x: 1522
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips12.5m
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips12.5m_an
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips1k
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips1k_an
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips1m
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips1m_an
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2.5m
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 148
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2.5m_an
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 338
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips200
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 528
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips200_an
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 718
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips20k
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 908
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips20k_an
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1098
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips250k
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1288
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips250k_an
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips25k
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips25k_an
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips25m
+      rect:
+        serializedVersion: 2
+        x: 1522
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips25m_an
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2k
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2k_an
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2m
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips2m_an
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips500
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips500_an
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips500k
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 148
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips500k_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 338
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips50k
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 528
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips50k_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 718
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips50m
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 908
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips50m_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1098
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips5k
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1288
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips5k_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1478
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips5m
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1668
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_chips5m_an
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1858
+        width: 188
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

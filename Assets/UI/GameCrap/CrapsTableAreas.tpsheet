@@ -1,0 +1,25 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: CrapsTableAreas.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:fb6df4a0dfffa63cc2f16fe0c1344d39:0a66eda809d5bb2feb1338dc339ec9ef:7363b972cbbc8f5e64b292e7c358b460$
+#
+
+craps_eight_an;942;844;71;58;0.5;0.5
+craps_eight_light;942;904;71;58;0.5;0.5
+craps_eight_select;942;964;71;58;0.5;0.5
+craps_field_an;472;477;389;64;0.5;0.5
+craps_field_light;472;543;389;64;0.5;0.5
+craps_field_select;472;609;389;64;0.5;0.5
+craps_normalRect_an;942;760;65;26;0.5;0.5
+craps_normalRect_light;942;788;65;26;0.5;0.5
+craps_normalRect_select;942;816;65;26;0.5;0.5
+craps_pass_an;2;271;468;347;0.5;0.5
+craps_pass_light;472;675;468;347;0.5;0.5
+craps_pass_select;2;675;468;347;0.5;0.5
+craps_six_an;863;605;58;68;0.5;0.5
+craps_six_light;942;620;58;68;0.5;0.5
+craps_six_select;942;690;58;68;0.5;0.5
