@@ -39,4 +39,9 @@ public class GameTestHelper : MonoBehaviour
         }
             
     }
+
+    public void ShowTutorialButton()
+    {
+       CanvasControl.Instance.gameTutorial.Show();
+    }
 }

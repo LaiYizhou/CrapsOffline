@@ -6,6 +6,10 @@ public class CanvasControl : MonoBehaviour
 
     public static CanvasControl Instance;
 
+    [Header("GameXXX")]
+    public GameTutorial gameTutorial;
+    
+
     [Header("Managers")]
     public ChipsManager chipsManager;
     public HistoryPanelManager historyPanelManager;
@@ -26,4 +30,10 @@ public class CanvasControl : MonoBehaviour
 	void Update () {
 	
 	}
+
+    public void LoadCrapScenes(int levelId)
+    {
+        chipsManager.BuildChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
+    }
+
 }

@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\CrapsTableManager.cs" />
     <Compile Include="Assets\Scripts\GameHelper.cs" />
     <Compile Include="Assets\Scripts\GameTestHelper.cs" />
+    <Compile Include="Assets\Scripts\GameTutorial.cs" />
     <Compile Include="Assets\Scripts\HisDice.cs" />
     <Compile Include="Assets\Scripts\HistoryPanelManager.cs" />
   </ItemGroup>

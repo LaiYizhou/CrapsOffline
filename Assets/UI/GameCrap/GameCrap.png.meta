@@ -23,6 +23,13 @@ TextureImporter:
     21300032: craps_history_down
     21300034: craps_history_up
     21300036: craps_historybg
+    21300038: craps_guide_btnclose
+    21300040: craps_guide_dot
+    21300042: craps_guide_doton
+    21300044: craps_guide_left_darkl
+    21300046: craps_guide_left_normal
+    21300048: craps_guide_right_dark
+    21300050: craps_guide_right_normal
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -88,8 +95,8 @@ TextureImporter:
       name: craps_btn_clear
       rect:
         serializedVersion: 2
-        x: 178
-        y: 202
+        x: 332
+        y: 122
         width: 95
         height: 69
       alignment: 0
@@ -114,8 +121,8 @@ TextureImporter:
       name: craps_btn_off
       rect:
         serializedVersion: 2
-        x: 427
-        y: 370
+        x: 429
+        y: 193
         width: 68
         height: 69
       alignment: 0
@@ -127,8 +134,8 @@ TextureImporter:
       name: craps_btn_on
       rect:
         serializedVersion: 2
-        x: 178
-        y: 132
+        x: 250
+        y: 106
         width: 68
         height: 68
       alignment: 0
@@ -192,8 +199,8 @@ TextureImporter:
       name: craps_btn_undo
       rect:
         serializedVersion: 2
-        x: 81
-        y: 8
+        x: 332
+        y: 193
         width: 95
         height: 69
       alignment: 0
@@ -205,8 +212,8 @@ TextureImporter:
       name: craps_dice1
       rect:
         serializedVersion: 2
-        x: 372
-        y: 273
+        x: 235
+        y: 176
         width: 95
         height: 95
       alignment: 0
@@ -216,6 +223,32 @@ TextureImporter:
       tessellationDetail: -1
     - serializedVersion: 2
       name: craps_dice2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 176
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_dice3
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 264
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_dice4
       rect:
         serializedVersion: 2
         x: 275
@@ -228,37 +261,11 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: craps_dice3
+      name: craps_dice5
       rect:
         serializedVersion: 2
         x: 178
         y: 273
-        width: 95
-        height: 95
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: craps_dice4
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 79
-        width: 95
-        height: 95
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: craps_dice5
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 176
         width: 95
         height: 95
       alignment: 0
@@ -280,11 +287,102 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
+      name: craps_guide_btnclose
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 361
+        width: 78
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_dot
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_doton
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 29
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_left_darkl
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 46
+        width: 55
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_left_normal
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 155
+        width: 55
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_right_dark
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 67
+        width: 54
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_guide_right_normal
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 67
+        width: 54
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
       name: craps_history_down
       rect:
         serializedVersion: 2
-        x: 248
-        y: 133
+        x: 429
+        y: 55
         width: 68
         height: 67
       alignment: 0
@@ -296,8 +394,8 @@ TextureImporter:
       name: craps_history_up
       rect:
         serializedVersion: 2
-        x: 178
-        y: 63
+        x: 429
+        y: 124
         width: 68
         height: 67
       alignment: 0
