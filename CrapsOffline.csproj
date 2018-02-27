@@ -88,7 +88,9 @@
     <Compile Include="Assets\Scripts\Chip.cs" />
     <Compile Include="Assets\Scripts\ChipsManager.cs" />
     <Compile Include="Assets\Scripts\CrapsTableArea.cs" />
-    <Compile Include="Assets\Scripts\CrapsTableManager.cs" />
+    <Compile Include="Assets\Scripts\CrapsTableAreaManager.cs" />
+    <Compile Include="Assets\Scripts\GameCrap.cs" />
+    <Compile Include="Assets\Scripts\GameHall.cs" />
     <Compile Include="Assets\Scripts\GameHelper.cs" />
     <Compile Include="Assets\Scripts\GameTestHelper.cs" />
     <Compile Include="Assets\Scripts\GameTutorial.cs" />

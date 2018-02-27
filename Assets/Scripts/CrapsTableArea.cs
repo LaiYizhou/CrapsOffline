@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public enum EArea
@@ -143,7 +144,7 @@ public class CrapsTableArea : MonoBehaviour
                 break;
             case EState.Light:
                 image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                image.sprite = selectSprite;
+                image.sprite = lightSprite;
                 break;
             case EState.Dark:
                 image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -160,25 +161,48 @@ public class CrapsTableArea : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    public void ShowUI()
     {
-        Debug.Log("OnTriggerEnter2D");
+        //if (CanvasControl.Instance.gameCrap.GameStage == EGameStage.ComeOut)
+        //{
+        //    //if(this.AreaType == EArea.PassLine || this)
+        //}
 
-        State = EState.Select;
+        //List<EArea> list = GameHelper.Instance.GetValidAreaList()
+
+        if(GameHelper.Instance.GetValidAreaList(CanvasControl.Instance.gameCrap.GameStage).Contains(this.AreaType))
+            State = EState.Normal;
+        else
+            State = EState.Dark;
     }
 
-    void OnTriggerStay2D(Collider2D coll)
+    public void ResetUI()
     {
-       Debug.Log("OnTriggerStay2D");
-
-        State = EState.Select;
-    }
-
-    void OnTriggerExit2D(Collider2D coll)
-    {
-        Debug.Log("OnTriggerExit2D");
-
         State = EState.Normal;
-
     }
+
+    //void OnTriggerEnter2D(Collider2D coll)
+    //{
+    //    Debug.Log("CrapsTableArea | OnTriggerEnter2D : " + coll.name);
+
+    //    if(State != EState.Dark)
+    //        State = EState.Select;
+    //}
+
+    //void OnTriggerStay2D(Collider2D coll)
+    //{
+    //    //Debug.Log("CrapsTableArea | OnTriggerStay2D : " + this.AreaType);
+
+    //    if (State != EState.Dark)
+    //        State = EState.Select;
+    //}
+
+    //void OnTriggerExit2D(Collider2D coll)
+    //{
+    //    //Debug.Log("CrapsTableArea | OnTriggerExit2D : " + this.AreaType);
+
+    //    if (State != EState.Dark)
+    //        State = EState.Normal;
+
+    //}
 }

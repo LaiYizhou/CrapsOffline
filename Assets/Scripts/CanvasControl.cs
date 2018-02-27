@@ -7,11 +7,13 @@ public class CanvasControl : MonoBehaviour
     public static CanvasControl Instance;
 
     [Header("GameXXX")]
+    public GameHall gameHall;
     public GameTutorial gameTutorial;
-    
 
     [Header("Managers")]
+    public GameCrap gameCrap;
     public ChipsManager chipsManager;
+    public CrapsTableAreaManager crapsTableAreaManager;
     public HistoryPanelManager historyPanelManager;
 
     // Use this for initialization
@@ -22,7 +24,8 @@ public class CanvasControl : MonoBehaviour
 
 
         //Test Code
-        //chipsManager.BuildChips(GameHelper.Instance.GetCrapSceneInfo(1));
+        //chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(1));
+        //chipsManager.BuildCandiChips()
 
     }
 	
@@ -33,7 +36,7 @@ public class CanvasControl : MonoBehaviour
 
     public void LoadCrapScenes(int levelId)
     {
-        chipsManager.BuildChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
+        chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
     }
 
 }

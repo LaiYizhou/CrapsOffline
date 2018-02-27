@@ -6,7 +6,7 @@ public class GameTestHelper : MonoBehaviour
 {
 
     [SerializeField] private InputField levelInputField;
-    [SerializeField] private Button loadButton;
+    [SerializeField] private HisDice showeDice;
 
 
 	// Use this for initialization
@@ -23,6 +23,8 @@ public class GameTestHelper : MonoBehaviour
     {
         DiceState diceState = GameHelper.Instance.RandomDice();
 
+        showeDice.Init(diceState);
+
         CanvasControl.Instance.historyPanelManager.AddDiceState(diceState);
     }
 
@@ -32,9 +34,10 @@ public class GameTestHelper : MonoBehaviour
         if (int.TryParse(levelInputField.text, out levelId))
         {
             if(levelId > 0 && levelId <= 6)
-                CanvasControl.Instance.chipsManager.BuildChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
+                CanvasControl.Instance.chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
 
             levelInputField.text = "";
+            CanvasControl.Instance.gameHall.gameObject.SetActive(false);
 
         }
             

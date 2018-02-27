@@ -11,6 +11,10 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private List<Sprite> chipSpriteList;
     [SerializeField] private List<Sprite> chipDarkSpriteList;
 
+    public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
+    public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+
     private List<long> chipValueList = new List<long>()
     {   10L, 100L, 200L, 500L,
         1000L, 2000L, 5000L, 10000L, 20000L, 25000L, 50000L, 100000L, 250000L, 500000L,
@@ -30,7 +34,10 @@ public class GameHelper : MonoBehaviour
             {6, new CrapSceneInfo(6, 1000000L, 1000000*100L, 1000000*500L, new List<EChip>(){EChip._1M, EChip._2M, EChip._5M, EChip._10M, EChip._50M})},
         };
 
-
+    private Dictionary<EGameStage, List<EArea>> validEAreaDictionary = new Dictionary<EGameStage, List<EArea>>()
+        {
+            {EGameStage.ComeOut, new List<EArea>(){EArea.PassLine, EArea.DontPassH, EArea.DontPassV} },
+        };
 
 	// Use this for initialization
 	void Start ()
@@ -57,6 +64,14 @@ public class GameHelper : MonoBehaviour
     {
         if (index > 0 && index <= crapSceneInfoDictionary.Count)
             return crapSceneInfoDictionary[index];
+        else
+            return null;
+    }
+
+    public List<EArea> GetValidAreaList(EGameStage eGameStage)
+    {
+        if (validEAreaDictionary.ContainsKey(eGameStage))
+            return validEAreaDictionary[eGameStage];
         else
             return null;
     }

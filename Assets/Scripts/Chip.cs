@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -42,12 +43,21 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     Vector3 newPosition;
 
     private Canvas canvas;
-    private Vector3 originalPos;
+    public Vector3 OriginalPos { get; private set; }
+
+    [SerializeField] private CrapsTableArea touchedCrapsTableArea;
 
     [SerializeField] private Image chipImage;
     [SerializeField] private EChip ChipType;
     [SerializeField] private long value;
 
+
+
+    public void Init(Chip chip, Vector3 originalPos)
+    {
+        Init(chip.ChipType);
+        OriginalPos = originalPos;
+    }
 
     public void Init(EChip eChip)
     {
@@ -61,7 +71,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
-        originalPos = this.GetComponent<RectTransform>().anchoredPosition;
+        OriginalPos = this.GetComponent<RectTransform>().anchoredPosition;
     }
 
     // Use this for initialization
@@ -76,7 +86,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-
+        CanvasControl.Instance.crapsTableAreaManager.ShowAllUIs();
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
@@ -85,28 +95,68 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, canvas.worldCamera, out newPosition);
 
-        transform.position = newPosition + new Vector3(0.0f, 20.0f, 0.0f);
-        //transform.position = newPosition;
-        transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+        transform.position = newPosition + GameHelper.ChipOnDragPosOffset;
+        transform.localScale = GameHelper.ChipOnDragScale;
+
+       
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
 
-        //cg.blocksRaycasts = true;
+        //Debug.Log("JustNow Pos : " + this.transform.localPosition);
 
-        //if (CanvasControl.Instance.imageControl.IsCanFill())
+        if (touchedCrapsTableArea != null && touchedCrapsTableArea.State != EState.Dark)
         {
-            //CanvasControl.Instance.imageControl.FillImage(this.gameObject.GetComponent<ShapeItem>());
-            //StartCoroutine(DelayDestroy());
-        }
-        //else
-        {
-            //int sourceIndex = this.gameObject.GetComponent<ShapeItem>().SourceIndex;
-
-            transform.localPosition = originalPos;
-            transform.localScale = Vector3.one;
+            CanvasControl.Instance.chipsManager.BuildTableChip(this.transform.localPosition, this);
         }
 
+        transform.localPosition = OriginalPos;
+        transform.localScale = Vector3.one;
+        CanvasControl.Instance.crapsTableAreaManager.ResetAllUIs();
+    }
+
+    public void TakeBack()
+    {
+        StartCoroutine(DelayDestroy());
+        this.GetComponent<RectTransform>().DOLocalMove(OriginalPos, 0.5f);
+    }
+
+    IEnumerator DelayDestroy()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        Debug.Log("Chip | OnTriggerEnter2D : " + coll.name);
+
+        touchedCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
+
+        if (touchedCrapsTableArea.State != EState.Dark)
+            touchedCrapsTableArea.State = EState.Select;
+    }
+
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        Debug.Log("Chip | OnTriggerStay2D : " + coll.name);
+
+        touchedCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
+
+        if (touchedCrapsTableArea.State != EState.Dark)
+            touchedCrapsTableArea.State = EState.Select;
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        Debug.Log("Chip | OnTriggerExit2D : " + coll.name);
+
+        touchedCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
+        if (touchedCrapsTableArea.State != EState.Dark)
+            touchedCrapsTableArea.State = EState.Normal;
+
+        touchedCrapsTableArea = null;
+       
     }
 }
