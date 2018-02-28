@@ -34,6 +34,92 @@ public class GameHelper : MonoBehaviour
             {6, new CrapSceneInfo(6, 1000000L, 1000000*100L, 1000000*500L, new List<EChip>(){EChip._1M, EChip._2M, EChip._5M, EChip._10M, EChip._50M})},
         };
 
+    /// <summary>
+    /// Odds -- Returned Payment
+    /// zero: it's Odds can't be calculated only according the EArea, should calculate it Both AREA and DICE
+    /// pos: it is Odds
+    /// neg: it is Odds and should remove 5% commission
+    /// </summary>
+    private Dictionary<EArea, float> areaOddsDictionary = new Dictionary<EArea, float>()
+    {
+        { EArea.PassLine, 1.0f},
+        { EArea.PassOdd, 0.0f}, //zero
+
+        { EArea.Six, 1.0f},
+        { EArea.Eight, 1.0f},
+
+        { EArea.DontPassH, 1.0f},
+        { EArea.DontPassOdd, 0.0f}, //zero
+        { EArea.DontPassV, 1.0f},
+
+        { EArea.Field, 0.0f},
+
+        { EArea.Come, 1.0f},
+        { EArea.DontCome, 1.0f},
+
+        { EArea.Buy4, -2.0f},
+        { EArea.Buy5, -1.5f},
+        { EArea.Buy6, -1.2f},
+        { EArea.Buy8, -1.2f},
+        { EArea.Buy9, -1.5f},
+        { EArea.Buy10, -2.0f},
+
+        { EArea.Lay4, -1.0f/2.0f},
+        { EArea.Lay5, -2.0f/3.0f},
+        { EArea.Lay6, -5.0f/6.0f},
+        { EArea.Lay8, -5.0f/6.0f},
+        { EArea.Lay9, -2.0f/3.0f},
+        { EArea.Lay10, -1.0f/2.0f},
+
+        { EArea.PlaceLoss4, 5.0f/11.0f},
+        { EArea.PlaceLoss5, 5.0f/8.0f},
+        { EArea.PlaceLoss6, 4.0f/5.0f},
+        { EArea.PlaceLoss8, 4.0f/5.0f},
+        { EArea.PlaceLoss9, 5.0f/8.0f},
+        { EArea.PlaceLoss10, 5.0f/11.0f},
+
+
+        { EArea.DontCome4, -1.0f/2.0f},
+        { EArea.DontCome5, -2.0f/3.0f},
+        { EArea.DontCome6, -5.0f/6.0f},
+        { EArea.DontCome8, -5.0f/6.0f},
+        { EArea.DontCome9, -2.0f/3.0f},
+        { EArea.DontCome10, -1.0f/2.0f},
+
+
+        { EArea.Come4, -2.0f},
+        { EArea.Come5, -1.5f},
+        { EArea.Come6, -1.2f},
+        { EArea.Come8, -1.2f},
+        { EArea.Come9, -1.5f},
+        { EArea.Come10, -2.0f},
+
+
+        { EArea.PlaceBets4, 1.8f},
+        { EArea.PlaceBets5, 1.4f},
+        { EArea.PlaceBets6, 7.0f/6.0f},
+        { EArea.PlaceBets8, 7.0f/6.0f},
+        { EArea.PlaceBets9, 1.4f},
+        { EArea.PlaceBets10, 1.8f},
+
+        { EArea.Any7, 4.0f},
+
+        { EArea.Hard22, 7.0f},
+        { EArea.Hard55, 7.0f},
+        { EArea.Hard33, 9.0f},
+        { EArea.Hard44, 9.0f},
+
+        { EArea.Horn12, 30.0f},
+        { EArea.Horn56, 15.0f},
+        { EArea.Horn11, 15.0f},
+        { EArea.Horn66, 30.0f},
+
+        { EArea.AnyCraps, 7.0f},
+
+
+
+    };
+
     private Dictionary<EGameStage, List<EArea>> validEAreaDictionary = new Dictionary<EGameStage, List<EArea>>()
         {
             {EGameStage.ComeOut, new List<EArea>(){EArea.PassLine, EArea.DontPassH, EArea.DontPassV} },
@@ -47,6 +133,8 @@ public class GameHelper : MonoBehaviour
 	    Instance = this;
 
 	    player = new Player();
+
+        //Debug.Log(areaOddsDictionary.Count);
 
 	}
 	
@@ -62,6 +150,41 @@ public class GameHelper : MonoBehaviour
 
         return new DiceState(number1, number2);
 
+    }
+
+    public long GetOdds(Chip chip, EArea eArea, DiceState diceState)
+    {
+        if (areaOddsDictionary.ContainsKey(eArea))
+        {
+            float value = areaOddsDictionary[eArea];
+
+            if (value > 0)
+            {
+                return (long)((value + 1) * chip.Value);
+            }
+            else if (value < 0)
+            {
+                return (long) ((-value + 1) * chip.Value - chip.Value * 0.05f);
+            }
+            else
+            {
+                if (eArea == EArea.Field)
+                {
+                    if (diceState.Sum == 3 || diceState.Sum == 4 || diceState.Sum == 9 || diceState.Sum == 10 ||
+                        diceState.Sum == 11)
+                        return 2L * chip.Value;
+                    else if (diceState.Sum == 2 || diceState.Sum == 12)
+                        return 3L * chip.Value;
+                }
+                else
+                {
+                    return 0L;
+                }
+            }
+
+        }
+
+        return 0L;
     }
 
     public CrapSceneInfo GetCrapSceneInfo(int index)
@@ -135,78 +258,6 @@ public class GameHelper : MonoBehaviour
         }
     }
 
-}
-
-public class DiceState
-{
-    private int number1;
-    public int Number1
-    {
-        get
-        {
-            return number1;
-        }
-
-        set
-        {
-            number1 = value;
-        }
-    }
-
-    private int number2;
-    public int Number2
-    {
-        get
-        {
-            return number2;
-        }
-
-        set
-        {
-            number2 = value;
-        }
-    }
-
-    public int Sum
-    {
-        get
-        {
-            return number1+number2;
-        }
-    }
-
-    /// <summary>
-    /// the Sum is 2, 3 or 12
-    /// </summary>
-    /// <returns></returns>
-    public bool IsCraps()
-    {
-        return Sum == 2 || Sum == 3 || Sum == 12;
-    }
-
-    /// <summary>
-    /// the Sum is 7 or 11 
-    /// </summary>
-    /// <returns></returns>
-    public bool IsNatural()
-    {
-        return Sum == 7 || Sum == 11;
-    }
-
-    /// <summary>
-    /// the Sum is 4, 5, 6, 8, 9 or 10
-    /// </summary>
-    /// <returns></returns>
-    public bool IsPoint()
-    {
-        return !IsCraps() && !IsNatural();
-    }
-
-    public DiceState(int number1, int number2)
-    {
-        this.Number1 = number1;
-        this.Number2 = number2;
-    }
 }
 
 public class CrapSceneInfo

@@ -37,6 +37,7 @@ public class ChipsManager : MonoBehaviour
 
         TableChipList.Add(itemChip);
 
+        Debug.Log("! ! ! Use Coins : " + chip.Value);
         GameHelper.player.ChangeCoins(-1L * chip.Value);
 
     }

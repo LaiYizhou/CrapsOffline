@@ -133,16 +133,24 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         OriginalPos = this.GetComponent<RectTransform>().anchoredPosition;
+
+
     }
 
     private void Win()
     {
         TakeBack();
-        GameHelper.player.ChangeCoins(2L * Value);
+
+        long winNumber = GameHelper.Instance.GetOdds(this, OnArea,
+            CanvasControl.Instance.gameCrap.CurrentDiceState);
+
+        Debug.Log("! ! ! WIN Coins : " + winNumber);
+        GameHelper.player.ChangeCoins(winNumber);
     }
 
     private void Lose()
     {
+        Debug.Log("! ! ! Loss Coins : " + this.Value);
         LoseAndTakeAway();
     }
 
@@ -210,7 +218,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log("Chip | OnTriggerEnter2D : " + coll.name);
+        //Debug.Log("Chip | OnTriggerEnter2D : " + coll.name);
 
         onCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
 
@@ -220,7 +228,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     void OnTriggerStay2D(Collider2D coll)
     {
-        Debug.Log("Chip | OnTriggerStay2D : " + coll.name);
+        //Debug.Log("Chip | OnTriggerStay2D : " + coll.name);
 
         onCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
 
@@ -230,7 +238,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        Debug.Log("Chip | OnTriggerExit2D : " + coll.name);
+        //Debug.Log("Chip | OnTriggerExit2D : " + coll.name);
 
         onCrapsTableArea = coll.gameObject.GetComponent<CrapsTableArea>();
         if (onCrapsTableArea.State != EState.Dark)

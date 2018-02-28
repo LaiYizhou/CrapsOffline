@@ -8,74 +8,75 @@ public enum EArea
     PassLine = 0,
     PassOdd,
 
-    Six,
+    Six = 2,
     Eight,
 
-    DontPassH,
+    DontPassH = 4,
     DontPassOdd,
     DontPassV,
 
-    Field,
+    Field = 7,
 
-    Come,
+    Come = 8,
     DontCome,
 
-    Point4,
-    Point5,
-    Point6,
-    Point8,
-    Point9,
-    Point10,
+    Buy4 = 10,
+    Buy5,
+    Buy6,
+    Buy8,
+    Buy9,
+    Buy10,
 
-    Lay4,
+    Lay4 = 16,
     Lay5,
     Lay6,
     Lay8,
     Lay9,
     Lay10,
 
-    PlaceLoss4,
+    PlaceLoss4 = 22,
     PlaceLoss5,
     PlaceLoss6,
     PlaceLoss8,
     PlaceLoss9,
     PlaceLoss10,
 
-    DontCome4,
+    DontCome4 = 28,
     DontCome5,
     DontCome6,
     DontCome8,
     DontCome9,
     DontCome10,
 
-    Come4,
+    Come4 = 34,
     Come5,
     Come6,
     Come8,
     Come9,
     Come10,
 
-    PlaceBets4,
+    PlaceBets4 = 40,
     PlaceBets5,
     PlaceBets6,
     PlaceBets8,
     PlaceBets9,
     PlaceBets10,
 
-    Hard7,
+    Any7 = 46,
 
-    Horn22,
-    Horn55,
-    Horn33,
-    Horn44,
+    Hard22 = 47,
+    Hard55,
+    Hard33,
+    Hard44,
+
     Horn12,
     Horn56,
     Horn11,
     Horn66,
 
-    AnyCraps,
+    AnyCraps = 55,
 
-    Count
+    Count = 56
 
 }
 

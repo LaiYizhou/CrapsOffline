@@ -27,6 +27,7 @@ public class GameCrap : MonoBehaviour
         {
             currentDiceState = value;
             CheckChips();
+            UpdateGameStage();
         }
     }
 
@@ -36,6 +37,7 @@ public class GameCrap : MonoBehaviour
     public HistoryPanelManager historyPanelManager;
 
     [Header("CrapsPoint")]
+    private Vector3 crapsPointOriginalPos;
     [SerializeField] private Image crapsPointImage;
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
@@ -47,12 +49,20 @@ public class GameCrap : MonoBehaviour
         //Test code
 	    CurrentGameStage = EGameStage.ComeOut;
 
-	}
+        crapsPointOriginalPos = crapsPointImage.GetComponent<RectTransform>().localPosition;
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public void UpdateGameStage()
+    {
+
+    }
 
     public void CheckChips()
     {
