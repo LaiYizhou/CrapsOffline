@@ -14,18 +14,38 @@ public enum EGameStage
 public class GameCrap : MonoBehaviour
 {
 
-    public EGameStage GameStage;
+    public EGameStage CurrentGameStage;
+    private DiceState currentDiceState;
+    public DiceState CurrentDiceState
+    {
+        get
+        {
+            return currentDiceState;
+        }
+
+        set
+        {
+            currentDiceState = value;
+            CheckChips();
+        }
+    }
+
+    [Header("Managers")]
+    public ChipsManager chipsManager;
+    public CrapsTableAreaManager crapsTableAreaManager;
+    public HistoryPanelManager historyPanelManager;
 
     [Header("CrapsPoint")]
     [SerializeField] private Image crapsPointImage;
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
 
+
     // Use this for initialization
     void Start () {
 
         //Test code
-	    GameStage = EGameStage.ComeOut;
+	    CurrentGameStage = EGameStage.ComeOut;
 
 	}
 	
@@ -33,4 +53,10 @@ public class GameCrap : MonoBehaviour
 	void Update () {
 	
 	}
+
+    public void CheckChips()
+    {
+        Debug.Log("### CheckChips...");
+       CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
+    }
 }

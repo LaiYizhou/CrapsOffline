@@ -12,8 +12,8 @@ public class HisDice : MonoBehaviour
 
     public void Init(DiceState diceState)
     {
-        image1.sprite = GameHelper.Instance.GetDiceSprite(diceState.GetNumber1());
-        image2.sprite = GameHelper.Instance.GetDiceSprite(diceState.GetNumber2());
+        image1.sprite = GameHelper.Instance.GetDiceSprite(diceState.Number1);
+        image2.sprite = GameHelper.Instance.GetDiceSprite(diceState.Number2);
     }
 
     // Use this for initialization

@@ -25,7 +25,7 @@ public class GameHall : MonoBehaviour {
 
         if (levelId > 0 && levelId <= 6)
         {
-            CanvasControl.Instance.chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
+            CanvasControl.Instance.gameCrap.chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
             this.gameObject.SetActive(false);
         }
         

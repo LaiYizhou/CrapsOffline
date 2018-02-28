@@ -13,7 +13,7 @@ public class GameHelper : MonoBehaviour
 
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
-
+    public static long StartCoins = 1000000L;
 
     private List<long> chipValueList = new List<long>()
     {   10L, 100L, 200L, 500L,
@@ -39,10 +39,14 @@ public class GameHelper : MonoBehaviour
             {EGameStage.ComeOut, new List<EArea>(){EArea.PassLine, EArea.DontPassH, EArea.DontPassV} },
         };
 
-	// Use this for initialization
-	void Start ()
+    public static Player player;
+
+    // Use this for initialization
+    void Start ()
 	{
 	    Instance = this;
+
+	    player = new Player();
 
 	}
 	
@@ -136,28 +140,72 @@ public class GameHelper : MonoBehaviour
 public class DiceState
 {
     private int number1;
+    public int Number1
+    {
+        get
+        {
+            return number1;
+        }
+
+        set
+        {
+            number1 = value;
+        }
+    }
+
     private int number2;
-
-    public int GetNumber1()
+    public int Number2
     {
-        return number1;
+        get
+        {
+            return number2;
+        }
+
+        set
+        {
+            number2 = value;
+        }
     }
 
-    public int GetNumber2()
+    public int Sum
     {
-        return number2;
+        get
+        {
+            return number1+number2;
+        }
     }
 
-    public int GetSum()
+    /// <summary>
+    /// the Sum is 2, 3 or 12
+    /// </summary>
+    /// <returns></returns>
+    public bool IsCraps()
     {
-        return number1 + number2;
-        
+        return Sum == 2 || Sum == 3 || Sum == 12;
+    }
+
+    /// <summary>
+    /// the Sum is 7 or 11 
+    /// </summary>
+    /// <returns></returns>
+    public bool IsNatural()
+    {
+        return Sum == 7 || Sum == 11;
+    }
+
+    /// <summary>
+    /// the Sum is 4, 5, 6, 8, 9 or 10
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPoint()
+    {
+        return !IsCraps() && !IsNatural();
     }
 
     public DiceState(int number1, int number2)
     {
-        this.number1 = number1;
-        this.number2 = number2;
+        this.Number1 = number1;
+        this.Number2 = number2;
     }
 }
 

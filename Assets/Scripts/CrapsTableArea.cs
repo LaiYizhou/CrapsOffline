@@ -163,14 +163,14 @@ public class CrapsTableArea : MonoBehaviour
 
     public void ShowUI()
     {
-        //if (CanvasControl.Instance.gameCrap.GameStage == EGameStage.ComeOut)
+        //if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.ComeOut)
         //{
         //    //if(this.AreaType == EArea.PassLine || this)
         //}
 
         //List<EArea> list = GameHelper.Instance.GetValidAreaList()
 
-        if(GameHelper.Instance.GetValidAreaList(CanvasControl.Instance.gameCrap.GameStage).Contains(this.AreaType))
+        if(GameHelper.Instance.GetValidAreaList(CanvasControl.Instance.gameCrap.CurrentGameStage).Contains(this.AreaType))
             State = EState.Normal;
         else
             State = EState.Dark;

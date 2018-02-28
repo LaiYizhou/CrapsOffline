@@ -23,7 +23,7 @@ public class ChipsManager : MonoBehaviour
         }
     }
 
-    public void BuildTableChip(Vector3 pos, Chip chip)
+    public void BuildTableChip(Vector3 pos, Chip chip, CrapsTableArea area)
     {
         GameObject goPrefab = Resources.Load("chip") as GameObject;
 
@@ -33,10 +33,22 @@ public class ChipsManager : MonoBehaviour
         go.transform.localPosition = pos;
 
         Chip itemChip = go.GetComponent<Chip>();
-        itemChip.Init(chip,chip.OriginalPos);
+        itemChip.Init(chip,chip.OriginalPos, area);
 
         TableChipList.Add(itemChip);
 
+        GameHelper.player.ChangeCoins(-1L * chip.Value);
+
+    }
+
+    public void CheckChips()
+    {
+        for (int i = 0; i < TableChipList.Count; i++)
+        {
+            if(!TableChipList[i].Check())
+                TableChipList.RemoveAt(i);
+        }
+        
     }
 
     public void Undo()
@@ -45,6 +57,7 @@ public class ChipsManager : MonoBehaviour
         if (count > 0)
         {
             TableChipList[count-1].TakeBack();
+            GameHelper.player.ChangeCoins(TableChipList[count-1].Value);
             TableChipList.RemoveAt(count-1);
         }
     }
@@ -54,6 +67,7 @@ public class ChipsManager : MonoBehaviour
         for (int i = 0; i < TableChipList.Count; i++)
         {
             TableChipList[i].TakeBack();
+            GameHelper.player.ChangeCoins(TableChipList[i].Value);
         }
 
         TableChipList.Clear();

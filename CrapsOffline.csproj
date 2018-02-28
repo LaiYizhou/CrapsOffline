@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\GameTutorial.cs" />
     <Compile Include="Assets\Scripts\HisDice.cs" />
     <Compile Include="Assets\Scripts\HistoryPanelManager.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
