@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 
 public class ChipsManager : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class ChipsManager : MonoBehaviour
         itemChip.Init(chip,chip.OriginalPos, area);
 
         TableChipList.Add(itemChip);
+        CanvasControl.Instance.gameCrap.AddChipArea(area.AreaType);
 
         Debug.Log("! ! ! Use Coins : " + chip.Value);
         GameHelper.player.ChangeCoins(-1L * chip.Value);
@@ -44,12 +46,25 @@ public class ChipsManager : MonoBehaviour
 
     public void CheckChips()
     {
+        Debug.Log("Check Total Chips : " + TableChipList.Count);
+
+        List<Chip> toBeRemovedList = new List<Chip>();
+
         for (int i = 0; i < TableChipList.Count; i++)
         {
-            if(!TableChipList[i].Check())
-                TableChipList.RemoveAt(i);
+            Debug.Log("### CheckChips ["+i+"] ...");
+            bool isRemain = TableChipList[i].Check();
+            if (!isRemain)
+                toBeRemovedList.Add(TableChipList[i]);
         }
-        
+
+        for (int i = 0; i < toBeRemovedList.Count; i++)
+        {
+            if (TableChipList.Contains(toBeRemovedList[i]))
+                TableChipList.Remove(toBeRemovedList[i]);
+        }
+
+
     }
 
     public void Undo()

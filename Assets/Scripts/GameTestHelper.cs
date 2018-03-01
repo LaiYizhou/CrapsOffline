@@ -8,6 +8,7 @@ public class GameTestHelper : MonoBehaviour
     public static GameTestHelper Instance;
 
     [SerializeField] private InputField levelInputField;
+    [SerializeField] private InputField diceInputField;
     [SerializeField] private HisDice showeDice;
     [SerializeField] private Text coinsText;
 
@@ -36,6 +37,52 @@ public class GameTestHelper : MonoBehaviour
         CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
     }
 
+    public void CrapsButton()
+    {
+        DiceState diceState = GameHelper.Instance.RandomDice();
+
+        while (!diceState.IsCraps())
+        {
+            diceState = GameHelper.Instance.RandomDice();
+        }
+
+        showeDice.Init(diceState);
+
+        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+
+    }
+
+    public void NaturalButton()
+    {
+        DiceState diceState = GameHelper.Instance.RandomDice();
+
+        while (!diceState.IsNatural())
+        {
+            diceState = GameHelper.Instance.RandomDice();
+        }
+
+        showeDice.Init(diceState);
+
+        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+    }
+
+    public void PointButton()
+    {
+        DiceState diceState = GameHelper.Instance.RandomDice();
+
+        while (!diceState.IsPoint())
+        {
+            diceState = GameHelper.Instance.RandomDice();
+        }
+
+        showeDice.Init(diceState);
+
+        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+    }
+
     public void LoadButton()
     {
         int levelId;
@@ -49,6 +96,28 @@ public class GameTestHelper : MonoBehaviour
 
         }
             
+    }
+
+    public void OkButton()
+    {
+        int diceNumber;
+        if (int.TryParse(diceInputField.text, out diceNumber))
+        {
+            if (diceNumber >= 2 && diceNumber <= 12)
+            {
+                DiceState diceState = GameHelper.Instance.RandomDice();
+
+                while (diceState.Sum != diceNumber)
+                {
+                    diceState = GameHelper.Instance.RandomDice();
+                }
+
+                showeDice.Init(diceState);
+
+                CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+                CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+            }
+        }
     }
 
     public void ResetCoinsButton()

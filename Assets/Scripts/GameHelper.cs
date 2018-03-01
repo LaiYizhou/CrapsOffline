@@ -127,6 +127,8 @@ public class GameHelper : MonoBehaviour
 
     public static Player player;
 
+    public List<int> list;
+
     // Use this for initialization
     void Start ()
 	{
@@ -134,11 +136,19 @@ public class GameHelper : MonoBehaviour
 
 	    player = new Player();
 
-        //Debug.Log(areaOddsDictionary.Count);
+
+        list = new List<int>(){1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	    for (int i = 0; i < list.Count; i++)
+	    {
+            if ((list[i] & 1) != 0)
+                list.RemoveAt(i);
+        }
+
+	    //Debug.Log(areaOddsDictionary.Count);
 
 	}
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
 	void Update () {
 	
 	}
@@ -195,12 +205,24 @@ public class GameHelper : MonoBehaviour
             return null;
     }
 
-    public List<EArea> GetValidAreaList(EGameStage eGameStage)
+    /// <summary>
+    /// EArea lastChipEArea = EArea.Count means : para lastChipEArea is null
+    /// </summary>
+    /// <param name="eGameStage"></param>
+    /// <param name="lastChipEArea"></param>
+    /// <returns></returns>
+    public List<EArea> GetValidAreaList(EGameStage eGameStage, EArea lastChipEArea = EArea.Count)
     {
-        if (validEAreaDictionary.ContainsKey(eGameStage))
-            return validEAreaDictionary[eGameStage];
-        else
-            return null;
+        if (lastChipEArea == EArea.Count)
+        {
+            if (validEAreaDictionary.ContainsKey(eGameStage))
+                return validEAreaDictionary[eGameStage];
+            else
+                return null;
+        }
+
+        return null;
+
     }
 
     /// <summary>

@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public enum EGameStage
 {
     ComeOut = 2,
 
-    Dont_Pass_Point = 4,
-    Pass_Point = 6
+    Point
 
 }
 
@@ -26,10 +27,15 @@ public class GameCrap : MonoBehaviour
         set
         {
             currentDiceState = value;
+            
             CheckChips();
             UpdateGameStage();
+
         }
     }
+
+    // Current all Chips on the TableArea
+    public List<EArea> CurrentChipsTableAreaList = new List<EArea>();
 
     [Header("Managers")]
     public ChipsManager chipsManager;
@@ -37,7 +43,9 @@ public class GameCrap : MonoBehaviour
     public HistoryPanelManager historyPanelManager;
 
     [Header("CrapsPoint")]
-    private Vector3 crapsPointOriginalPos;
+    public int CurrentCrapsPointValue;
+    [SerializeField] private Vector3 crapsPointOriginalPos;
+    [SerializeField] private List<Vector3> crapPointPosList;
     [SerializeField] private Image crapsPointImage;
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
@@ -49,9 +57,6 @@ public class GameCrap : MonoBehaviour
         //Test code
 	    CurrentGameStage = EGameStage.ComeOut;
 
-        crapsPointOriginalPos = crapsPointImage.GetComponent<RectTransform>().localPosition;
-
-
     }
 	
 	// Update is called once per frame
@@ -59,14 +64,78 @@ public class GameCrap : MonoBehaviour
 	
 	}
 
+    public void AddChipArea(EArea eArea)
+    {
+        if(!CurrentChipsTableAreaList.Contains(eArea))
+            CurrentChipsTableAreaList.Add(eArea);
+    }
+
+    public void RemoveChipArea(EArea eArea)
+    {
+        if (CurrentChipsTableAreaList.Contains(eArea))
+            CurrentChipsTableAreaList.Remove(eArea);
+    }
+
     public void UpdateGameStage()
     {
+        if (CurrentGameStage == EGameStage.ComeOut)
+        {
+            if (CurrentDiceState.IsPoint())
+            {
+                CurrentGameStage = EGameStage.Point;
+                MovePoint(CurrentDiceState.Sum);
+            }
+        }
+        else
+        {
+            if (CurrentDiceState.IsAnySeven() || CurrentDiceState.Sum == CurrentCrapsPointValue)
+            {
+                CurrentGameStage = EGameStage.ComeOut;
+                ResetPoint();
+            }
 
+        }
+    }
+
+    private void MovePoint(int diceNumber)
+    {
+        if (diceNumber >= 4 && diceNumber <= 10 && diceNumber != 7)
+        {
+            Vector3 targetVector3 = crapPointPosList[diceNumber - 4];
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(crapsPointImage.GetComponent<RectTransform>().DOLocalMove(targetVector3, 0.5f));
+            sequence.AppendCallback(() =>
+            {
+                crapsPointImage.sprite = crapsPointOnSprite;
+                CurrentCrapsPointValue = diceNumber;
+            });
+        }
+    }
+
+    private void ResetPoint()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(crapsPointImage.GetComponent<RectTransform>().DOLocalMove(crapsPointOriginalPos, 0.5f));
+        sequence.AppendCallback(() =>
+        {
+            crapsPointImage.sprite = crapsPointOffSprite;
+        });
     }
 
     public void CheckChips()
     {
         Debug.Log("### CheckChips...");
-       CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
+
+        if (CurrentDiceState.IsNatural() || CurrentDiceState.IsCraps())
+        {
+
+        }
+        else
+        {
+
+        }
+
+        CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
     }
 }

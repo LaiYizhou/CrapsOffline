@@ -42,7 +42,6 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     Vector3 newPosition;
 
-    private Canvas canvas;
     public Vector3 OriginalPos { get; private set; }
 
     // Only for show In Inspector Panel
@@ -93,51 +92,115 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     /// </summary>
     public bool Check()
     {
+        switch (OnArea)
+        {
+            case EArea.PassLine:
+                return PassLineCheck();
+            case EArea.PassOdd:
+                return PassLineOddsCheck();
+            case EArea.DontPassH:
+            case EArea.DontPassV:
+                return DontPassLineCheck();
+            case EArea.DontPassOdd:
+                return DontPassLineOddsCheck();
+            default:
+                return true;
+        }
+    }
+
+    #region All Areas Check
+
+    private bool PassLineCheck()
+    {
         if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.ComeOut)
         {
             if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsNatural())
             {
-                if (OnArea == EArea.PassLine)
-                {
-                    // Win
-                    Win();
-                    return false;
-                }
-                else if (OnArea == EArea.DontPassH || OnArea == EArea.DontPassV)
-                {
-                    Lose();
-                    return false;
-                }
+                return Win();
             }
             else if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsCraps())
             {
-                if (OnArea == EArea.PassLine)
-                {
-                    Lose();
-                    return false;
-                }
-                else if (OnArea == EArea.DontPassH || OnArea == EArea.DontPassV)
-                {
-                    Win();
-                    return false;
-                }
+                return Lose();
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.Point)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            {
+                return Lose();
+            }
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
+            {
+                return Win();
+            }
+            else
+            {
+                return true;
             }
         }
 
         return true;
     }
 
+    private bool PassLineOddsCheck()
+    {
+        return PassLineCheck();
+    }
+
+    private bool DontPassLineCheck()
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.ComeOut)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsNatural())
+            {
+                return Lose();
+            }
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsCraps())
+            {
+                if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 12)
+                    return ReturnPrincipal();
+                else
+                    return Win();
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.Point)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            {
+                return Win();
+            }
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
+            {
+                return Lose();
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    private bool DontPassLineOddsCheck()
+    {
+        return DontPassLineCheck();
+    }
+
+    #endregion
+
     void Awake()
     {
 
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-
         OriginalPos = this.GetComponent<RectTransform>().anchoredPosition;
-
 
     }
 
-    private void Win()
+    /// <summary>
+    /// return false : this chip DON'T remain on the Table
+    /// </summary>
+    /// <returns></returns>
+    private bool Win()
     {
         TakeBack();
 
@@ -146,12 +209,41 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         Debug.Log("! ! ! WIN Coins : " + winNumber);
         GameHelper.player.ChangeCoins(winNumber);
+
+        CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
+
+        return false;
     }
 
-    private void Lose()
+    /// <summary>
+    /// return false : this chip DON'T remain on the Table
+    /// </summary>
+    /// <returns></returns>
+    private bool Lose()
     {
         Debug.Log("! ! ! Loss Coins : " + this.Value);
         LoseAndTakeAway();
+
+        CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
+
+        return false;
+    }
+
+    /// <summary>
+    /// return false : this chip DON'T remain on the Table
+    /// </summary>
+    /// <returns></returns>
+    private bool ReturnPrincipal()
+    {
+        TakeBack();
+
+        Debug.Log("! ! ! Return Coins : " + Value);
+        GameHelper.player.ChangeCoins(Value);
+
+        CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
+
+        return false;
+
     }
 
     // Use this for initialization
@@ -171,9 +263,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        //cg.blocksRaycasts = false;
 
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, canvas.worldCamera, out newPosition);
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, Camera.main, out newPosition);
 
         transform.position = newPosition + GameHelper.ChipOnDragPosOffset;
         transform.localScale = GameHelper.ChipOnDragScale;
@@ -183,8 +274,6 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
-        //Debug.Log("JustNow Pos : " + this.transform.localPosition);
 
         if (onCrapsTableArea != null && onCrapsTableArea.State != EState.Dark)
         {
