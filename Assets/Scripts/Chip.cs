@@ -96,13 +96,56 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             case EArea.PassLine:
                 return PassLineCheck();
-            case EArea.PassOdd:
+            case EArea.PassOdds:
                 return PassLineOddsCheck();
+
+            case EArea.Six:
+                return BigCheck(6);
+            case EArea.Eight:
+                return BigCheck(8);
+
             case EArea.DontPassH:
             case EArea.DontPassV:
                 return DontPassLineCheck();
-            case EArea.DontPassOdd:
+            case EArea.DontPassOdds:
                 return DontPassLineOddsCheck();
+
+            case EArea.Field:
+                return FieldCheck();
+
+            case EArea.PlaceWin4:
+                return PlaceWinCheck(4);
+            case EArea.PlaceWin5:
+                return PlaceWinCheck(5);
+            case EArea.PlaceWin6:
+                return PlaceWinCheck(6);
+            case EArea.PlaceWin8:
+                return PlaceWinCheck(8);
+            case EArea.PlaceWin9:
+                return PlaceWinCheck(9);
+            case EArea.PlaceWin10:
+                return PlaceWinCheck(10);
+            case EArea.Hard22:
+                return HardCheck(4);
+            case EArea.Hard33:
+                return HardCheck(6);
+            case EArea.Hard44:
+                return HardCheck(8);
+            case EArea.Hard55:
+                return HardCheck(10);
+            
+            case EArea.AnySeven:
+                return AnySevenCheck();
+            case EArea.AnyCraps:
+                return AnyCrapsCheck();
+            case EArea.Horn11:
+                return Horn11Check();
+            case EArea.Horn56:
+                return Horn56Check();
+            case EArea.Horn12:
+                return Horn12Check();
+            case EArea.Horn66:
+                return Horn66Check();
             default:
                 return true;
         }
@@ -185,6 +228,93 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private bool DontPassLineOddsCheck()
     {
         return DontPassLineCheck();
+    }
+
+    private bool BigCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            return Lose();
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+        {
+            return Win();
+        }
+
+        return true;
+    }
+
+    private bool HardCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            return Lose();
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsHard())
+                return Win();
+            else
+                return Lose();
+        }
+
+        return true;
+    }
+
+    private bool FieldCheck()
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsField())
+            return Win();
+        else
+            return Lose();
+    }
+
+    private bool AnySevenCheck()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven() ? Win() : Lose();
+    }
+
+
+    private bool AnyCrapsCheck()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnyCraps() ? Win() : Lose();
+    }
+
+    private bool Horn12Check()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsHorn_1_2() ? Win() : Lose();
+    }
+
+    private bool Horn56Check()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsHorn_5_6() ? Win() : Lose();
+    }
+
+    private bool Horn11Check()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsHorn_1_1() ? Win() : Lose();
+    }
+
+    private bool Horn66Check()
+    {
+        return CanvasControl.Instance.gameCrap.CurrentDiceState.IsHorn_6_6() ? Win() : Lose();
+    }
+
+    private bool PlaceWinCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.Point)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            {
+                return Lose();
+            }
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+            {
+                return Win();
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        return true;
     }
 
     #endregion
@@ -295,7 +425,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         StartCoroutine(DelayDestroy());
 
-        // Hard Code
+        // HardCheck Code
         this.GetComponent<RectTransform>().DOLocalMove(new Vector3(30.0f, 700.0f, 0.0f), 1.0f);
     }
 

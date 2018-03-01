@@ -43,13 +43,13 @@ public class GameHelper : MonoBehaviour
     private Dictionary<EArea, float> areaOddsDictionary = new Dictionary<EArea, float>()
     {
         { EArea.PassLine, 1.0f},
-        { EArea.PassOdd, 0.0f}, //zero
+        { EArea.PassOdds, 0.0f}, //zero
 
         { EArea.Six, 1.0f},
         { EArea.Eight, 1.0f},
 
         { EArea.DontPassH, 1.0f},
-        { EArea.DontPassOdd, 0.0f}, //zero
+        { EArea.DontPassOdds, 0.0f}, //zero
         { EArea.DontPassV, 1.0f},
 
         { EArea.Field, 0.0f},
@@ -79,30 +79,30 @@ public class GameHelper : MonoBehaviour
         { EArea.PlaceLoss10, 5.0f/11.0f},
 
 
-        { EArea.DontCome4, -1.0f/2.0f},
-        { EArea.DontCome5, -2.0f/3.0f},
-        { EArea.DontCome6, -5.0f/6.0f},
-        { EArea.DontCome8, -5.0f/6.0f},
-        { EArea.DontCome9, -2.0f/3.0f},
-        { EArea.DontCome10, -1.0f/2.0f},
+        { EArea.DontComeOdds4, -1.0f/2.0f},
+        { EArea.DontComeOdds5, -2.0f/3.0f},
+        { EArea.DontComeOdds6, -5.0f/6.0f},
+        { EArea.DontComeOdds8, -5.0f/6.0f},
+        { EArea.DontComeOdds9, -2.0f/3.0f},
+        { EArea.DontComeOdds10, -1.0f/2.0f},
 
 
-        { EArea.Come4, -2.0f},
-        { EArea.Come5, -1.5f},
-        { EArea.Come6, -1.2f},
-        { EArea.Come8, -1.2f},
-        { EArea.Come9, -1.5f},
-        { EArea.Come10, -2.0f},
+        { EArea.ComeOdds4, -2.0f},
+        { EArea.ComeOdds5, -1.5f},
+        { EArea.ComeOdds6, -1.2f},
+        { EArea.ComeOdds8, -1.2f},
+        { EArea.ComeOdds9, -1.5f},
+        { EArea.ComeOdds10, -2.0f},
 
 
-        { EArea.PlaceBets4, 1.8f},
-        { EArea.PlaceBets5, 1.4f},
-        { EArea.PlaceBets6, 7.0f/6.0f},
-        { EArea.PlaceBets8, 7.0f/6.0f},
-        { EArea.PlaceBets9, 1.4f},
-        { EArea.PlaceBets10, 1.8f},
+        { EArea.PlaceWin4, 1.8f},
+        { EArea.PlaceWin5, 1.4f},
+        { EArea.PlaceWin6, 7.0f/6.0f},
+        { EArea.PlaceWin8, 7.0f/6.0f},
+        { EArea.PlaceWin9, 1.4f},
+        { EArea.PlaceWin10, 1.8f},
 
-        { EArea.Any7, 4.0f},
+        { EArea.AnySeven, 4.0f},
 
         { EArea.Hard22, 7.0f},
         { EArea.Hard55, 7.0f},

@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public enum EArea
 {
     PassLine = 0,
-    PassOdd,
+    PassOdds,
 
     Six = 2,
     Eight,
 
     DontPassH = 4,
-    DontPassOdd,
+    DontPassOdds,
     DontPassV,
 
     Field = 7,
@@ -41,28 +41,28 @@ public enum EArea
     PlaceLoss9,
     PlaceLoss10,
 
-    DontCome4 = 28,
-    DontCome5,
-    DontCome6,
-    DontCome8,
-    DontCome9,
-    DontCome10,
+    DontComeOdds4 = 28,
+    DontComeOdds5,
+    DontComeOdds6,
+    DontComeOdds8,
+    DontComeOdds9,
+    DontComeOdds10,
 
-    Come4 = 34,
-    Come5,
-    Come6,
-    Come8,
-    Come9,
-    Come10,
+    ComeOdds4 = 34,
+    ComeOdds5,
+    ComeOdds6,
+    ComeOdds8,
+    ComeOdds9,
+    ComeOdds10,
 
-    PlaceBets4 = 40,
-    PlaceBets5,
-    PlaceBets6,
-    PlaceBets8,
-    PlaceBets9,
-    PlaceBets10,
+    PlaceWin4 = 40,
+    PlaceWin5,
+    PlaceWin6,
+    PlaceWin8,
+    PlaceWin9,
+    PlaceWin10,
 
-    Any7 = 46,
+    AnySeven = 46,
 
     Hard22 = 47,
     Hard55,

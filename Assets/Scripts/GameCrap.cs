@@ -44,6 +44,7 @@ public class GameCrap : MonoBehaviour
 
     [Header("CrapsPoint")]
     public int CurrentCrapsPointValue;
+    public int CurrentComePointValue;
     [SerializeField] private Vector3 crapsPointOriginalPos;
     [SerializeField] private List<Vector3> crapPointPosList;
     [SerializeField] private Image crapsPointImage;

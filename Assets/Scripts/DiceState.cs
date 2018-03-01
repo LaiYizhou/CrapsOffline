@@ -85,25 +85,35 @@ public class DiceState
         return IsCraps();
     }
 
-    public bool IsHard_2_2()
+    public bool IsHard()
     {
-        return Number1 == 2 && Number2 == 2;
+        return Number1 == Number2;
     }
 
-    public bool IsHard_5_5()
+    public bool IsField()
     {
-        return Number1 == 5 && Number2 == 5;
+        return Sum == 2 || Sum == 3 || Sum == 4 || Sum == 9 || Sum == 10 || Sum == 11 || Sum == 12;
     }
 
-    public bool IsHard_3_3()
-    {
-        return Number1 == 3 && Number2 == 3;
-    }
+    //public bool IsHard_2_2()
+    //{
+    //    return Number1 == 2 && Number2 == 2;
+    //}
 
-    public bool IsHard_4_4()
-    {
-        return Number1 == 4 && Number2 == 4;
-    }
+    //public bool IsHard_5_5()
+    //{
+    //    return Number1 == 5 && Number2 == 5;
+    //}
+
+    //public bool IsHard_3_3()
+    //{
+    //    return Number1 == 3 && Number2 == 3;
+    //}
+
+    //public bool IsHard_4_4()
+    //{
+    //    return Number1 == 4 && Number2 == 4;
+    //}
 
     public bool IsHorn_1_2()
     {
