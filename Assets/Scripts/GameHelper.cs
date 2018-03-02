@@ -13,6 +13,7 @@ public class GameHelper : MonoBehaviour
 
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
+    public static Vector3 CrapsPointOriginalPos = new Vector3(277.0f, 130.0f, 0.0f);
     public static long StartCoins = 1000000L;
 
     private List<long> chipValueList = new List<long>()
@@ -120,11 +121,6 @@ public class GameHelper : MonoBehaviour
 
     };
 
-    private Dictionary<EGameStage, List<EArea>> validEAreaDictionary = new Dictionary<EGameStage, List<EArea>>()
-        {
-            {EGameStage.ComeOut, new List<EArea>(){EArea.PassLine, EArea.DontPassH, EArea.DontPassV} },
-        };
-
     public static Player player;
 
     // Use this for initialization
@@ -133,6 +129,8 @@ public class GameHelper : MonoBehaviour
 	    Instance = this;
 
 	    player = new Player();
+
+        //Debug.Log(basicPassAreaList.Count+basicComeAreaList.Count+allComeOddsAreaList.Count+allDontComeOddsAreaList.Count+multiRollAreaList.Count+singleRollAreaList.Count);
 
 	    //Debug.Log(areaOddsDictionary.Count);
 
@@ -199,6 +197,16 @@ public class GameHelper : MonoBehaviour
 
     private List<EArea> basicComeAreaList = new List<EArea>(){EArea.Come, EArea.DontCome};
 
+    private List<EArea> allComeOddsAreaList = new List<EArea>()
+    {
+        EArea.ComeOdds4, EArea.ComeOdds5, EArea.ComeOdds6, EArea.ComeOdds8, EArea.ComeOdds9, EArea.ComeOdds10
+    };
+
+    private List<EArea> allDontComeOddsAreaList = new List<EArea>()
+    {
+        EArea.DontComeOdds4, EArea.DontComeOdds5, EArea.DontComeOdds6, EArea.DontComeOdds8, EArea.DontComeOdds9, EArea.DontComeOdds10
+    };
+
     private List<EArea> multiRollAreaList = new List<EArea>()
     {
         EArea.Hard22, EArea.Hard33, EArea.Hard44, EArea.Hard55, EArea.BigSix, EArea.BigEight,
@@ -211,7 +219,6 @@ public class GameHelper : MonoBehaviour
     private List<EArea> singleRollAreaList = new List<EArea>()
     {
         EArea.AnySeven, 
-        EArea.Hard22, EArea.Hard33, EArea.Hard44, EArea.Hard55,
         EArea.Horn11, EArea.Horn12, EArea.Horn56, EArea.Horn66,
         EArea.AnyCraps,
         EArea.Field
@@ -232,7 +239,8 @@ public class GameHelper : MonoBehaviour
             List<EArea> currentChipsTableAreaList = CanvasControl.Instance.gameCrap.CurrentChipsTableAreaList;
             List<EArea> resAreaList = new List<EArea>();
 
-            if (eGameStage == EGameStage.ComeOut)
+            if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.PointOff_ComePointOff
+                || CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.PointOff_ComePointOn)
             {
                 if (currentChipsTableAreaList.Contains(EArea.PassLine) ||
                     currentChipsTableAreaList.Contains(EArea.DontPassH) ||
@@ -250,20 +258,40 @@ public class GameHelper : MonoBehaviour
                 return resAreaList;
             }
 
-            if (eGameStage == EGameStage.Point)
+            if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.PointOn_ComePointOff)
             {
                 resAreaList.AddRange(basicComeAreaList);
                 resAreaList.AddRange(singleRollAreaList);
                 resAreaList.AddRange(multiRollAreaList);
 
-                if(currentChipsTableAreaList.Contains(EArea.PassLine))
+                if (currentChipsTableAreaList.Contains(EArea.PassLine))
                     resAreaList.Add(EArea.PassOdds);
 
-                if(currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
+                if (currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
                     resAreaList.Add(EArea.DontPassOdds);
 
                 return resAreaList;
+            }
 
+            if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.PointOn_ComePointOn)
+            {
+                resAreaList.AddRange(basicComeAreaList);
+                resAreaList.AddRange(singleRollAreaList);
+                resAreaList.AddRange(multiRollAreaList);
+
+                if (currentChipsTableAreaList.Contains(EArea.PassLine))
+                    resAreaList.Add(EArea.PassOdds);
+
+                if (currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
+                    resAreaList.Add(EArea.DontPassOdds);
+
+                foreach (EArea eArea in currentChipsTableAreaList)
+                {
+                    if(allComeOddsAreaList.Contains(eArea) || allDontComeOddsAreaList.Contains(eArea))
+                        resAreaList.Add(eArea);
+                }
+
+                return resAreaList;
             }
 
         }

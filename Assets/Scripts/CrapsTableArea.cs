@@ -20,6 +20,7 @@ public enum EArea
     Come = 8,
     DontCome,
 
+    // the same as PlaceWin
     Buy4 = 10,
     Buy5,
     Buy6,
@@ -27,6 +28,7 @@ public enum EArea
     Buy9,
     Buy10,
 
+    // the same as PlaceLose
     Lay4 = 16,
     Lay5,
     Lay6,

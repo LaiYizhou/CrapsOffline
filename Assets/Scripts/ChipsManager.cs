@@ -8,19 +8,24 @@ public class ChipsManager : MonoBehaviour
 
 
     [SerializeField] private List<Chip> TableChipList = new List<Chip>();
+    [SerializeField] private Transform candiChipsTranforTransform;
 
 
     public void BuildCandiChips(CrapSceneInfo crapSceneInfo)
     {
-        if (crapSceneInfo.CandiChipList.Count == this.transform.childCount)
+        if (crapSceneInfo.CandiChipList.Count == candiChipsTranforTransform.childCount)
         {
-            int count = this.transform.childCount;
+            int count = candiChipsTranforTransform.childCount;
             for (int i = 0; i < count; i++)
             {
-                Chip chip = this.transform.GetChild(i).gameObject.GetComponent<Chip>();
+                Chip chip = candiChipsTranforTransform.GetChild(i).gameObject.GetComponent<Chip>();
                 chip.Init(crapSceneInfo.CandiChipList[i]);
 
             }
+        }
+        else
+        {
+            Debug.LogError("CandiChips number error");
         }
     }
 
@@ -31,10 +36,13 @@ public class ChipsManager : MonoBehaviour
         GameObject go = Instantiate(goPrefab) as GameObject;
         go.transform.SetParent(this.transform);
         go.transform.localScale = GameHelper.ChipOnDragScale;
-        go.transform.localPosition = pos;
+
+        //go.transform.localPosition = pos;
+        go.transform.localPosition = GetTableChipPos(pos);
 
         Chip itemChip = go.GetComponent<Chip>();
-        itemChip.Init(chip,chip.OriginalPos, area);
+        //itemChip.Init(chip,chip.OriginalPos, area);
+        itemChip.Init(chip, GetTableChipPos(chip.OriginalPos), area);
 
         TableChipList.Add(itemChip);
         CanvasControl.Instance.gameCrap.AddChipArea(area.AreaType);
@@ -42,6 +50,20 @@ public class ChipsManager : MonoBehaviour
         Debug.Log("! ! ! Use Coins : " + chip.Value);
         GameHelper.player.ChangeCoins(-1L * chip.Value);
 
+    }
+
+
+    /// <summary>
+    /// convert LocalPostion (parent : candiChipsTranforTransform) to LocalPositon (parent : this.transform)
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public Vector3 GetTableChipPos(Vector3 pos)
+    {
+
+        // No Usage
+        Vector3 res = this.transform.InverseTransformVector(candiChipsTranforTransform.TransformPoint(pos));
+        return new Vector3(res.x, res.y, 0.0f);
     }
 
     public void CheckChips()
@@ -52,7 +74,7 @@ public class ChipsManager : MonoBehaviour
 
         for (int i = 0; i < TableChipList.Count; i++)
         {
-            Debug.Log("### CheckChips ["+i+"] ...");
+            //Debug.Log("### CheckChips ["+i+"] ...");
             bool isRemain = TableChipList[i].Check();
             if (!isRemain)
                 toBeRemovedList.Add(TableChipList[i]);

@@ -114,6 +114,7 @@ public class GameTestHelper : MonoBehaviour
 
                 showeDice.Init(diceState);
 
+                diceInputField.text = "";
                 CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
                 CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
             }

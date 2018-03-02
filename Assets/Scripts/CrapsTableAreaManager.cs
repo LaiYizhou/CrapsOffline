@@ -7,6 +7,8 @@ public class CrapsTableAreaManager : MonoBehaviour
 {
 
     [SerializeField] private List<CrapsTableArea> crapsTableAreaList;
+    [SerializeField] private List<RectTransform> comeOddsAreaTransformList;
+    [SerializeField] private List<RectTransform> dontComeOddsAreaTransformList;
 
     public void ShowAllUIs()
     {
@@ -32,8 +34,24 @@ public class CrapsTableAreaManager : MonoBehaviour
         Debug.Log("crapsTableAreaList.Count = " + crapsTableAreaList.Count);
 
 	}
-	
-	// Update is called once per frame
+
+    public RectTransform GetComeOdds(int point)
+    {
+        if (point >= 4 && point <= 10 && point != 7)
+            return comeOddsAreaTransformList[point - 4];
+        else
+            return null;
+    }
+
+    public RectTransform GetDontComeOdds(int point)
+    {
+        if (point >= 4 && point <= 10 && point != 7)
+            return dontComeOddsAreaTransformList[point - 4];
+        else
+            return null;
+    }
+
+    // Update is called once per frame
 	void Update () {
 	
 	}

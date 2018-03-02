@@ -6,16 +6,55 @@ using UnityEngine.UI;
 
 public enum EGameStage
 {
-    ComeOut = 2,
+    //ComeOut = 2,
 
-    Point
+    //Point,
+
+    //ComePoint
+
+    PointOn_ComePointOn,
+
+    PointOn_ComePointOff,
+
+    PointOff_ComePointOn,
+
+    PointOff_ComePointOff,
+
 
 }
 
 public class GameCrap : MonoBehaviour
 {
 
-    public EGameStage CurrentGameStage;
+
+   
+
+    [SerializeField] private bool isPointOn;
+    public bool IsPointOn
+    {
+        get { return isPointOn; }
+    }
+    [SerializeField] private bool isComePointOn;
+    public bool IsComePointOn
+    {
+        get { return isComePointOn; }
+    }
+
+    public EGameStage CurrentGameStage
+    {
+        get
+        {
+           if(IsPointOn && IsComePointOn)
+                return EGameStage.PointOn_ComePointOn;
+           else if(IsPointOn && !IsComePointOn)
+                return EGameStage.PointOn_ComePointOff;
+           else if(!IsPointOn && IsComePointOn)
+                return EGameStage.PointOff_ComePointOn;
+           else
+                return EGameStage.PointOff_ComePointOff;
+        }
+    }
+
     private DiceState currentDiceState;
     public DiceState CurrentDiceState
     {
@@ -29,10 +68,14 @@ public class GameCrap : MonoBehaviour
             currentDiceState = value;
             
             CheckChips();
+            //UpdateComePoints();
             UpdateGameStage();
 
         }
     }
+
+    [SerializeField]
+    private List<int> crpasComePointsList = new List<int>();
 
     // Current all Chips on the TableArea
     public List<EArea> CurrentChipsTableAreaList = new List<EArea>();
@@ -44,19 +87,32 @@ public class GameCrap : MonoBehaviour
 
     [Header("CrapsPoint")]
     public int CurrentCrapsPointValue;
-    public int CurrentComePointValue;
-    [SerializeField] private Vector3 crapsPointOriginalPos;
+   
     [SerializeField] private List<Vector3> crapPointPosList;
     [SerializeField] private Image crapsPointImage;
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
 
 
+    public void SetPointOn(int num)
+    {
+        isPointOn = true;
+        MovePoint(num);
+    }
+
+    public void SetPointOff()
+    {
+        isPointOn = false;
+        ResetPoint();
+    }
+
     // Use this for initialization
     void Start () {
 
         //Test code
-	    CurrentGameStage = EGameStage.ComeOut;
+	    //CurrentGameStage = EGameStage.ComeOut;
+        isComePointOn = false;
+        SetPointOff();
 
     }
 	
@@ -64,6 +120,19 @@ public class GameCrap : MonoBehaviour
 	void Update () {
 	
 	}
+
+    public void UpdateComePoints(int point)
+    {
+        if (crpasComePointsList.Contains(point))
+            crpasComePointsList.Remove(point);
+        else
+            crpasComePointsList.Add(point);
+
+        if (crapPointPosList.Count == 0 || crapPointPosList == null)
+            isComePointOn = false;
+        else
+            isComePointOn = true;
+    }
 
     public void AddChipArea(EArea eArea)
     {
@@ -79,23 +148,40 @@ public class GameCrap : MonoBehaviour
 
     public void UpdateGameStage()
     {
-        if (CurrentGameStage == EGameStage.ComeOut)
+
+        if (!IsPointOn)
         {
-            if (CurrentDiceState.IsPoint())
-            {
-                CurrentGameStage = EGameStage.Point;
-                MovePoint(CurrentDiceState.Sum);
-            }
+            if(CurrentDiceState.IsPoint())
+                SetPointOn(CurrentDiceState.Sum);
         }
         else
         {
             if (CurrentDiceState.IsAnySeven() || CurrentDiceState.Sum == CurrentCrapsPointValue)
-            {
-                CurrentGameStage = EGameStage.ComeOut;
-                ResetPoint();
-            }
-
+                SetPointOff();
         }
+
+        //if (!isComePointOn)
+        //{
+
+        //}
+
+        //if (CurrentGameStage == EGameStage.ComeOut)
+        //{
+        //    if (CurrentChipsTableAreaList.Contains(EArea.Come) || CurrentChipsTableAreaList.Contains(EArea.DontCome))
+        //    {
+        //        if(CurrentDiceState.IsPoint())
+        //            CurrentGameStage = EGameStage.ComePoint;
+        //    }
+        //}
+        //else
+        //{
+        //    if (CurrentDiceState.IsAnySeven() || CurrentDiceState.Sum == CurrentCrapsPointValue)
+        //    {
+        //        CurrentGameStage = EGameStage.ComeOut;
+        //        SetPointOff();
+        //    }
+
+        //}
     }
 
     private void MovePoint(int diceNumber)
@@ -117,10 +203,11 @@ public class GameCrap : MonoBehaviour
     private void ResetPoint()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(crapsPointImage.GetComponent<RectTransform>().DOLocalMove(crapsPointOriginalPos, 0.5f));
+        sequence.Append(crapsPointImage.GetComponent<RectTransform>().DOLocalMove(GameHelper.CrapsPointOriginalPos, 0.5f));
         sequence.AppendCallback(() =>
         {
             crapsPointImage.sprite = crapsPointOffSprite;
+            CurrentCrapsPointValue = 0;
         });
     }
 
