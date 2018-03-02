@@ -45,8 +45,8 @@ public class GameHelper : MonoBehaviour
         { EArea.PassLine, 1.0f},
         { EArea.PassOdds, 0.0f}, //zero
 
-        { EArea.Six, 1.0f},
-        { EArea.Eight, 1.0f},
+        { EArea.BigSix, 1.0f},
+        { EArea.BigEight, 1.0f},
 
         { EArea.DontPassH, 1.0f},
         { EArea.DontPassOdds, 0.0f}, //zero
@@ -71,12 +71,12 @@ public class GameHelper : MonoBehaviour
         { EArea.Lay9, -2.0f/3.0f},
         { EArea.Lay10, -1.0f/2.0f},
 
-        { EArea.PlaceLoss4, 5.0f/11.0f},
-        { EArea.PlaceLoss5, 5.0f/8.0f},
-        { EArea.PlaceLoss6, 4.0f/5.0f},
-        { EArea.PlaceLoss8, 4.0f/5.0f},
-        { EArea.PlaceLoss9, 5.0f/8.0f},
-        { EArea.PlaceLoss10, 5.0f/11.0f},
+        { EArea.PlaceLose4, 5.0f/11.0f},
+        { EArea.PlaceLose5, 5.0f/8.0f},
+        { EArea.PlaceLose6, 4.0f/5.0f},
+        { EArea.PlaceLose8, 4.0f/5.0f},
+        { EArea.PlaceLose9, 5.0f/8.0f},
+        { EArea.PlaceLose10, 5.0f/11.0f},
 
 
         { EArea.DontComeOdds4, -1.0f/2.0f},
@@ -127,22 +127,12 @@ public class GameHelper : MonoBehaviour
 
     public static Player player;
 
-    public List<int> list;
-
     // Use this for initialization
     void Start ()
 	{
 	    Instance = this;
 
 	    player = new Player();
-
-
-        list = new List<int>(){1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	    for (int i = 0; i < list.Count; i++)
-	    {
-            if ((list[i] & 1) != 0)
-                list.RemoveAt(i);
-        }
 
 	    //Debug.Log(areaOddsDictionary.Count);
 
@@ -205,6 +195,30 @@ public class GameHelper : MonoBehaviour
             return null;
     }
 
+    private List<EArea> basicPassAreaList = new List<EArea>(){ EArea.PassLine, EArea.DontPassH, EArea.DontPassV };
+
+    private List<EArea> basicComeAreaList = new List<EArea>(){EArea.Come, EArea.DontCome};
+
+    private List<EArea> multiRollAreaList = new List<EArea>()
+    {
+        EArea.Hard22, EArea.Hard33, EArea.Hard44, EArea.Hard55, EArea.BigSix, EArea.BigEight,
+        EArea.PlaceWin4, EArea.PlaceWin5, EArea.PlaceWin6, EArea.PlaceWin8, EArea.PlaceWin9, EArea.PlaceWin10,
+        EArea.PlaceLose4, EArea.PlaceLose5, EArea.PlaceLose6, EArea.PlaceLose8, EArea.PlaceLose9, EArea.PlaceLose10,
+        EArea.Buy4, EArea.Buy5, EArea.Buy6, EArea.Buy8, EArea.Buy9, EArea.Buy10,
+        EArea.Lay4, EArea.Lay5, EArea.Lay6, EArea.Lay8, EArea.Lay9, EArea.Lay10
+    };
+
+    private List<EArea> singleRollAreaList = new List<EArea>()
+    {
+        EArea.AnySeven, 
+        EArea.Hard22, EArea.Hard33, EArea.Hard44, EArea.Hard55,
+        EArea.Horn11, EArea.Horn12, EArea.Horn56, EArea.Horn66,
+        EArea.AnyCraps,
+        EArea.Field
+    };
+
+
+
     /// <summary>
     /// EArea lastChipEArea = EArea.Count means : para lastChipEArea is null
     /// </summary>
@@ -215,10 +229,43 @@ public class GameHelper : MonoBehaviour
     {
         if (lastChipEArea == EArea.Count)
         {
-            if (validEAreaDictionary.ContainsKey(eGameStage))
-                return validEAreaDictionary[eGameStage];
-            else
-                return null;
+            List<EArea> currentChipsTableAreaList = CanvasControl.Instance.gameCrap.CurrentChipsTableAreaList;
+            List<EArea> resAreaList = new List<EArea>();
+
+            if (eGameStage == EGameStage.ComeOut)
+            {
+                if (currentChipsTableAreaList.Contains(EArea.PassLine) ||
+                    currentChipsTableAreaList.Contains(EArea.DontPassH) ||
+                    currentChipsTableAreaList.Contains(EArea.DontPassV))
+                {
+                    resAreaList.AddRange(basicPassAreaList);
+                    resAreaList.AddRange(singleRollAreaList);
+                    resAreaList.AddRange(multiRollAreaList);
+                }
+                else
+                {
+                    resAreaList.AddRange(basicPassAreaList);
+                }
+
+                return resAreaList;
+            }
+
+            if (eGameStage == EGameStage.Point)
+            {
+                resAreaList.AddRange(basicComeAreaList);
+                resAreaList.AddRange(singleRollAreaList);
+                resAreaList.AddRange(multiRollAreaList);
+
+                if(currentChipsTableAreaList.Contains(EArea.PassLine))
+                    resAreaList.Add(EArea.PassOdds);
+
+                if(currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
+                    resAreaList.Add(EArea.DontPassOdds);
+
+                return resAreaList;
+
+            }
+
         }
 
         return null;

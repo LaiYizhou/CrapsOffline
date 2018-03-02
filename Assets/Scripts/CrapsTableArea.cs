@@ -8,8 +8,8 @@ public enum EArea
     PassLine = 0,
     PassOdds,
 
-    Six = 2,
-    Eight,
+    BigSix = 2,
+    BigEight,
 
     DontPassH = 4,
     DontPassOdds,
@@ -34,12 +34,12 @@ public enum EArea
     Lay9,
     Lay10,
 
-    PlaceLoss4 = 22,
-    PlaceLoss5,
-    PlaceLoss6,
-    PlaceLoss8,
-    PlaceLoss9,
-    PlaceLoss10,
+    PlaceLose4 = 22,
+    PlaceLose5,
+    PlaceLose6,
+    PlaceLose8,
+    PlaceLose9,
+    PlaceLose10,
 
     DontComeOdds4 = 28,
     DontComeOdds5,
@@ -164,12 +164,6 @@ public class CrapsTableArea : MonoBehaviour
 
     public void ShowUI()
     {
-        //if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.ComeOut)
-        //{
-        //    //if(this.AreaType == EArea.PassLine || this)
-        //}
-
-        //List<EArea> list = GameHelper.Instance.GetValidAreaList()
 
         if(GameHelper.Instance.GetValidAreaList(CanvasControl.Instance.gameCrap.CurrentGameStage).Contains(this.AreaType))
             State = EState.Normal;

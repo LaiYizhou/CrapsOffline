@@ -45,8 +45,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public Vector3 OriginalPos { get; private set; }
 
     // Only for show In Inspector Panel
-    [SerializeField]
-    private EArea onArea;
+    [SerializeField] private EArea onArea;
+
     public EArea OnArea
     {
         get { return onArea; }
@@ -58,17 +58,12 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [SerializeField] private Image chipImage;
     [SerializeField] private EChip ChipType;
     [SerializeField] private long value;
+
     public long Value
     {
-        get
-        {
-            return value;
-        }
+        get { return value; }
 
-        private set
-        {
-            this.value = value;
-        }
+        private set { this.value = value; }
     }
 
 
@@ -99,9 +94,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             case EArea.PassOdds:
                 return PassLineOddsCheck();
 
-            case EArea.Six:
+            case EArea.BigSix:
                 return BigCheck(6);
-            case EArea.Eight:
+            case EArea.BigEight:
                 return BigCheck(8);
 
             case EArea.DontPassH:
@@ -112,6 +107,19 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
             case EArea.Field:
                 return FieldCheck();
+
+            case EArea.PlaceLose4:
+                return PlaceLoseCheck(4);
+            case EArea.PlaceLose5:
+                return PlaceLoseCheck(5);
+            case EArea.PlaceLose6:
+                return PlaceLoseCheck(6);
+            case EArea.PlaceLose8:
+                return PlaceLoseCheck(8);
+            case EArea.PlaceLose9:
+                return PlaceLoseCheck(9);
+            case EArea.PlaceLose10:
+                return PlaceLoseCheck(10);
 
             case EArea.PlaceWin4:
                 return PlaceWinCheck(4);
@@ -125,6 +133,10 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 return PlaceWinCheck(9);
             case EArea.PlaceWin10:
                 return PlaceWinCheck(10);
+
+
+
+
             case EArea.Hard22:
                 return HardCheck(4);
             case EArea.Hard33:
@@ -133,7 +145,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 return HardCheck(8);
             case EArea.Hard55:
                 return HardCheck(10);
-            
+
             case EArea.AnySeven:
                 return AnySevenCheck();
             case EArea.AnyCraps:
@@ -172,7 +184,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             {
                 return Lose();
             }
-            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum ==
+                     CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
             {
                 return Win();
             }
@@ -212,7 +225,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             {
                 return Win();
             }
-            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum ==
+                     CanvasControl.Instance.gameCrap.CurrentCrapsPointValue)
             {
                 return Lose();
             }
@@ -315,6 +329,22 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
 
         return true;
+    }
+
+    private bool PlaceLoseCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+        {
+            return Win();
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+        {
+            return Lose();
+        }
+        else
+        {
+            return true;
+        }
     }
 
     #endregion
