@@ -117,8 +117,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
             case EArea.Come:
                 return ComeCheck();
-            //case EArea.DontCome:
-            //    return FieldCheck();
+            case EArea.DontCome:
+                return DontComeCheck();
 
             case EArea.Buy4:
                 return BuyCheck(4);
@@ -159,31 +159,31 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             case EArea.PlaceLose10:
                 return PlaceLoseCheck(10);
 
-            //case EArea.DontComeOdds4:
-            //    return PlaceLoseCheck(4);
-            //case EArea.DontComeOdds5:
-            //    return PlaceLoseCheck(5);
-            //case EArea.DontComeOdds6:
-            //    return PlaceLoseCheck(6);
-            //case EArea.DontComeOdds8:
-            //    return PlaceLoseCheck(8);
-            //case EArea.DontComeOdds9:
-            //    return PlaceLoseCheck(9);
-            //case EArea.DontComeOdds10:
-            //    return PlaceLoseCheck(10);
+            case EArea.DontComeOdds4:
+                return DontComeOddsCheck(4);
+            case EArea.DontComeOdds5:
+                return DontComeOddsCheck(5);
+            case EArea.DontComeOdds6:
+                return DontComeOddsCheck(6);
+            case EArea.DontComeOdds8:
+                return DontComeOddsCheck(8);
+            case EArea.DontComeOdds9:
+                return DontComeOddsCheck(9);
+            case EArea.DontComeOdds10:
+                return DontComeOddsCheck(10);
 
-            //case EArea.ComeOdds4:
-            //    return PlaceLoseCheck(4);
-            //case EArea.ComeOdds5:
-            //    return PlaceLoseCheck(5);
-            //case EArea.ComeOdds6:
-            //    return PlaceLoseCheck(6);
-            //case EArea.ComeOdds8:
-            //    return PlaceLoseCheck(8);
-            //case EArea.ComeOdds9:
-            //    return PlaceLoseCheck(9);
-            //case EArea.ComeOdds10:
-            //    return PlaceLoseCheck(10);
+            case EArea.ComeOdds4:
+                return ComeOddsCheck(4);
+            case EArea.ComeOdds5:
+                return ComeOddsCheck(5);
+            case EArea.ComeOdds6:
+                return ComeOddsCheck(6);
+            case EArea.ComeOdds8:
+                return ComeOddsCheck(8);
+            case EArea.ComeOdds9:
+                return ComeOddsCheck(9);
+            case EArea.ComeOdds10:
+                return ComeOddsCheck(10);
 
             case EArea.PlaceWin4:
                 return PlaceWinCheck(4);
@@ -313,11 +313,35 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             }
             else if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsCraps())
             {
-                return Lose();
+                if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 12)
+                    return ReturnPrincipal();
+                else
+                    return Win();
             }
             else
             {
                 return MovetoComePoint(CanvasControl.Instance.gameCrap.CurrentDiceState.Sum);
+            }
+        }
+
+        return true;
+    }
+
+    private bool DontComeCheck()
+    {
+        if (CanvasControl.Instance.gameCrap.IsPointOn)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsNatural())
+            {
+                return Lose();
+            }
+            else if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsCraps())
+            {
+                return Lose();
+            }
+            else
+            {
+                return MovetoDontComePoint(CanvasControl.Instance.gameCrap.CurrentDiceState.Sum);
             }
         }
 
@@ -437,6 +461,26 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
     }
 
+    private bool ComeOddsCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            return Lose();
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+            return Win();
+        else
+            return true;
+    }
+
+    private bool DontComeOddsCheck(int sum)
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsAnySeven())
+            return Win();
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == sum)
+            return Lose();
+        else
+            return true;
+    }
+
     private bool LayCheck(int sum)
     {
         return PlaceLoseCheck(sum);
@@ -494,7 +538,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         sequence.Append(this.GetComponent<RectTransform>().DOLocalMove(targetRct.anchoredPosition, 0.5f));
         sequence.AppendCallback(() =>
         {
+            CanvasControl.Instance.gameCrap.RemoveChipArea(OnArea);
             onCrapsTableArea = targetRct.GetComponent<CrapsTableArea>();
+            CanvasControl.Instance.gameCrap.AddChipArea(OnArea);
         });
 
         return true;
@@ -510,7 +556,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         sequence.Append(this.GetComponent<RectTransform>().DOLocalMove(targetRct.anchoredPosition, 0.5f));
         sequence.AppendCallback(() =>
         {
+            CanvasControl.Instance.gameCrap.RemoveChipArea(OnArea);
             onCrapsTableArea = targetRct.GetComponent<CrapsTableArea>();
+            CanvasControl.Instance.gameCrap.AddChipArea(OnArea);
         });
 
         return true;

@@ -26,9 +26,6 @@ public enum EGameStage
 public class GameCrap : MonoBehaviour
 {
 
-
-   
-
     [SerializeField] private bool isPointOn;
     public bool IsPointOn
     {
@@ -68,7 +65,7 @@ public class GameCrap : MonoBehaviour
             currentDiceState = value;
             
             CheckChips();
-            //UpdateComePoints();
+            //UpdateComePoints(currentDiceState.Sum);
             UpdateGameStage();
 
         }
@@ -160,28 +157,27 @@ public class GameCrap : MonoBehaviour
                 SetPointOff();
         }
 
-        //if (!isComePointOn)
-        //{
 
-        //}
+        if (CurrentChipsTableAreaList.Contains(EArea.Come)
+            || CurrentChipsTableAreaList.Contains(EArea.DontCome)
 
-        //if (CurrentGameStage == EGameStage.ComeOut)
-        //{
-        //    if (CurrentChipsTableAreaList.Contains(EArea.Come) || CurrentChipsTableAreaList.Contains(EArea.DontCome))
-        //    {
-        //        if(CurrentDiceState.IsPoint())
-        //            CurrentGameStage = EGameStage.ComePoint;
-        //    }
-        //}
-        //else
-        //{
-        //    if (CurrentDiceState.IsAnySeven() || CurrentDiceState.Sum == CurrentCrapsPointValue)
-        //    {
-        //        CurrentGameStage = EGameStage.ComeOut;
-        //        SetPointOff();
-        //    }
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds4)
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds5)
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds6)
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds8)
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds9)
+            || CurrentChipsTableAreaList.Contains(EArea.ComeOdds10)
 
-        //}
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds4)
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds5)
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds6)
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds8)
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds9)
+            || CurrentChipsTableAreaList.Contains(EArea.DontComeOdds10)
+        )
+
+            UpdateComePoints(CurrentDiceState.Sum);
+
     }
 
     private void MovePoint(int diceNumber)
@@ -214,15 +210,6 @@ public class GameCrap : MonoBehaviour
     public void CheckChips()
     {
         Debug.Log("### CheckChips...");
-
-        if (CurrentDiceState.IsNatural() || CurrentDiceState.IsCraps())
-        {
-
-        }
-        else
-        {
-
-        }
 
         CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
     }
