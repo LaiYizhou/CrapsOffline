@@ -63,8 +63,10 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [SerializeField] private CrapsTableArea onCrapsTableArea;
 
     [SerializeField] private Image chipImage;
-    [SerializeField] private EChip ChipType;
+    [SerializeField] private EChip chipType;
     [SerializeField] private long value;
+
+    public EChip ChipType { get { return chipType; }}
 
     public long Value
     {
@@ -76,7 +78,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void Init(Chip chip, Vector3 originalPos, CrapsTableArea area)
     {
-        Init(chip.ChipType);
+        Init(chip.chipType);
         OriginalPos = originalPos;
         onCrapsTableArea = area;
         OnArea = onCrapsTableArea.AreaType;
@@ -84,7 +86,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void Init(EChip eChip)
     {
-        ChipType = eChip;
+        chipType = eChip;
         Value = GameHelper.Instance.GetChipValue(eChip);
         chipImage.sprite = GameHelper.Instance.GetChipSprite(eChip);
     }
@@ -509,6 +511,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         Debug.Log("! ! ! WIN Coins : " + winNumber);
         GameHelper.player.ChangeCoins(winNumber);
 
+        GameTestHelper.Instance.Log(string.Format("   [Win]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "+"+winNumber, GameHelper.player.Coins));
+
         CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
 
         return false;
@@ -520,7 +524,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     /// <returns></returns>
     private bool Lose()
     {
-        Debug.Log("! ! ! Loss Coins : " + this.Value);
+        Debug.Log("! ! ! Lose Coins : " + this.Value);
+        GameTestHelper.Instance.Log(string.Format("  [Lose]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "lose", GameHelper.player.Coins));
+
         LoseAndTakeAway();
 
         CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
@@ -573,7 +579,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         TakeBack();
 
         Debug.Log("! ! ! Return Coins : " + Value);
+        
         GameHelper.player.ChangeCoins(Value);
+        GameTestHelper.Instance.Log(string.Format("[Return]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, Value, GameHelper.player.Coins));
 
         CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
 

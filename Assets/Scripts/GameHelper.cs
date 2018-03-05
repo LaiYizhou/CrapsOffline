@@ -44,13 +44,13 @@ public class GameHelper : MonoBehaviour
     private Dictionary<EArea, float> areaOddsDictionary = new Dictionary<EArea, float>()
     {
         { EArea.PassLine, 1.0f},
-        { EArea.PassOdds, 0.0f}, //zero
+        { EArea.PassOdds, 0.0f},
 
         { EArea.BigSix, 1.0f},
         { EArea.BigEight, 1.0f},
 
         { EArea.DontPassH, 1.0f},
-        { EArea.DontPassOdds, 0.0f}, //zero
+        { EArea.DontPassOdds, 0.0f}, 
         { EArea.DontPassV, 1.0f},
 
         { EArea.Field, 0.0f},
@@ -80,20 +80,20 @@ public class GameHelper : MonoBehaviour
         { EArea.PlaceLose10, 5.0f/11.0f},
 
 
-        { EArea.DontComeOdds4, -1.0f/2.0f},
-        { EArea.DontComeOdds5, -2.0f/3.0f},
-        { EArea.DontComeOdds6, -5.0f/6.0f},
-        { EArea.DontComeOdds8, -5.0f/6.0f},
-        { EArea.DontComeOdds9, -2.0f/3.0f},
-        { EArea.DontComeOdds10, -1.0f/2.0f},
+        { EArea.DontComeOdds4, 1.0f/2.0f},
+        { EArea.DontComeOdds5, 2.0f/3.0f},
+        { EArea.DontComeOdds6, 5.0f/6.0f},
+        { EArea.DontComeOdds8, 5.0f/6.0f},
+        { EArea.DontComeOdds9, 2.0f/3.0f},
+        { EArea.DontComeOdds10, 1.0f/2.0f},
 
 
-        { EArea.ComeOdds4, -2.0f},
-        { EArea.ComeOdds5, -1.5f},
-        { EArea.ComeOdds6, -1.2f},
-        { EArea.ComeOdds8, -1.2f},
-        { EArea.ComeOdds9, -1.5f},
-        { EArea.ComeOdds10, -2.0f},
+        { EArea.ComeOdds4, 2.0f},
+        { EArea.ComeOdds5, 1.5f},
+        { EArea.ComeOdds6, 1.2f},
+        { EArea.ComeOdds8, 1.2f},
+        { EArea.ComeOdds9, 1.5f},
+        { EArea.ComeOdds10, 2.0f},
 
 
         { EArea.PlaceWin4, 1.8f},
@@ -110,9 +110,9 @@ public class GameHelper : MonoBehaviour
         { EArea.Hard33, 9.0f},
         { EArea.Hard44, 9.0f},
 
-        { EArea.Horn12, 30.0f},
+        { EArea.Horn12, 15.0f},
         { EArea.Horn56, 15.0f},
-        { EArea.Horn11, 15.0f},
+        { EArea.Horn11, 30.0f},
         { EArea.Horn66, 30.0f},
 
         { EArea.AnyCraps, 7.0f},
@@ -174,10 +174,25 @@ public class GameHelper : MonoBehaviour
                     else if (diceState.Sum == 2 || diceState.Sum == 12)
                         return 3L * chip.Value;
                 }
-                else
+                else if(eArea == EArea.PassOdds)
                 {
-                    return 0L;
+                    if (diceState.Sum == 4 || diceState.Sum == 10)
+                        return (long) ((2.0f/1.0f + 1) * chip.Value);
+                    else if(diceState.Sum == 5 || diceState.Sum == 9)
+                        return (long)((3.0f / 2.0f + 1) * chip.Value);
+                    else if(diceState.Sum == 6 || diceState.Sum == 8)
+                        return (long)((6.0f / 5.0f + 1) * chip.Value);
                 }
+                else if (eArea == EArea.DontPassOdds)
+                {
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 4 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 10)
+                        return (long) ((1.0f / 2.0f + 1) * chip.Value);
+                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 5 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 9)
+                        return (long) ((2.0f / 3.0f + 1) * chip.Value);
+                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 6 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 8)
+                        return (long) ((5.0f / 6.0f + 1) * chip.Value);
+                }
+                
             }
 
         }

@@ -48,8 +48,9 @@ public class ChipsManager : MonoBehaviour
         CanvasControl.Instance.gameCrap.AddChipArea(area.AreaType);
 
         Debug.Log("! ! ! Use Coins : " + chip.Value);
-        GameHelper.player.ChangeCoins(-1L * chip.Value);
 
+        GameHelper.player.ChangeCoins(-1L * chip.Value);
+        GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", itemChip.ChipType, itemChip.Value, itemChip.OnArea, -1L * chip.Value, GameHelper.player.Coins));
     }
 
 

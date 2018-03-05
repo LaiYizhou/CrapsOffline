@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 using UnityEngine.UI;
 
 public class GameTestHelper : MonoBehaviour
@@ -11,6 +12,8 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private InputField diceInputField;
     [SerializeField] private HisDice showeDice;
     [SerializeField] private Text coinsText;
+    [SerializeField] private Transform Logbg;
+    [SerializeField] private Text logText;
 
 	// Use this for initialization
 	IEnumerator Start ()
@@ -19,6 +22,7 @@ public class GameTestHelper : MonoBehaviour
 
 	    Instance = this;
 	    ShowPlayerCoin();
+	    GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
 
     }
 	
@@ -96,6 +100,30 @@ public class GameTestHelper : MonoBehaviour
 
         }
             
+    }
+
+    public void ShowLogSwitch()
+    {
+       
+        if(Logbg.gameObject.activeInHierarchy)
+            Logbg.gameObject.SetActive(false);
+        else
+            Logbg.gameObject.SetActive(true);
+    }
+
+    public void ClearLog()
+    {
+        logText.text = "";
+    }
+
+    public void Log(string s)
+    {
+        StringBuilder sb = new StringBuilder(logText.text);
+
+        sb.Append(System.Environment.NewLine).Append(s);
+
+        logText.text = sb.ToString();
+
     }
 
     public void OkButton()

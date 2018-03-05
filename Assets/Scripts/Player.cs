@@ -37,6 +37,7 @@ public class Player
     {
         if (Coins == -1)
             ChangeCoins(1 + GameHelper.StartCoins);
+
     }
 
     public void ResetData()
