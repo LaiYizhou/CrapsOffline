@@ -6,9 +6,14 @@ using UnityEditor.Animations;
 public class ChipsManager : MonoBehaviour
 {
 
-
-    [SerializeField] private List<Chip> TableChipList = new List<Chip>();
     [SerializeField] private Transform candiChipsTranforTransform;
+
+    [SerializeField] private List<Chip> TableAllChipList = new List<Chip>();
+
+    [SerializeField] private List<Chip> TableCurrentChipList = new List<Chip>();
+
+    [Header("BetMax And TableMax")]
+    [SerializeField] private List<long> eAreaChipsValueList;
 
 
     public void BuildCandiChips(CrapSceneInfo crapSceneInfo)
@@ -41,10 +46,13 @@ public class ChipsManager : MonoBehaviour
         go.transform.localPosition = GetTableChipPos(pos);
 
         Chip itemChip = go.GetComponent<Chip>();
-        //itemChip.Init(chip,chip.OriginalPos, area);
         itemChip.Init(chip, GetTableChipPos(chip.OriginalPos), area);
 
-        TableChipList.Add(itemChip);
+        TableAllChipList.Add(itemChip);
+        TableCurrentChipList.Add(itemChip);
+
+        eAreaChipsValueList[(int) itemChip.OnArea] += itemChip.Value;
+
         CanvasControl.Instance.gameCrap.AddChipArea(area.AreaType);
 
         Debug.Log("! ! ! Use Coins : " + chip.Value);
@@ -53,6 +61,26 @@ public class ChipsManager : MonoBehaviour
         GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", itemChip.ChipType, itemChip.Value, itemChip.OnArea, -1L * chip.Value, GameHelper.player.Coins));
     }
 
+    public long GetEAreaChipsValue(EArea eArea)
+    {
+        int index = (int) eArea;
+
+        if (index >= 0 && index < eAreaChipsValueList.Count)
+            return eAreaChipsValueList[index];
+        else
+            return 0L;
+    }
+
+    public long GetAllChipsValue()
+    {
+        long res = 0;
+        for (int i = 0; i < eAreaChipsValueList.Count; i++)
+        {
+            res += eAreaChipsValueList[i];
+        }
+
+        return res;
+    }
 
     /// <summary>
     /// convert LocalPostion (parent : candiChipsTranforTransform) to LocalPositon (parent : this.transform)
@@ -69,22 +97,29 @@ public class ChipsManager : MonoBehaviour
 
     public void CheckChips()
     {
-        Debug.Log("Check Total Chips : " + TableChipList.Count);
+        Debug.Log("Check Total Chips : " + TableAllChipList.Count);
 
         List<Chip> toBeRemovedList = new List<Chip>();
 
-        for (int i = 0; i < TableChipList.Count; i++)
+        for (int i = 0; i < TableAllChipList.Count; i++)
         {
             //Debug.Log("### CheckChips ["+i+"] ...");
-            bool isRemain = TableChipList[i].Check();
+            bool isRemain = TableAllChipList[i].Check();
             if (!isRemain)
-                toBeRemovedList.Add(TableChipList[i]);
+                toBeRemovedList.Add(TableAllChipList[i]);
         }
 
         for (int i = 0; i < toBeRemovedList.Count; i++)
         {
-            if (TableChipList.Contains(toBeRemovedList[i]))
-                TableChipList.Remove(toBeRemovedList[i]);
+            if (TableAllChipList.Contains(toBeRemovedList[i]))
+            {
+                TableAllChipList.Remove(toBeRemovedList[i]);
+
+                eAreaChipsValueList[(int) toBeRemovedList[i].OnArea] -= toBeRemovedList[i].Value;
+
+
+            }
+           
         }
 
 
@@ -92,28 +127,54 @@ public class ChipsManager : MonoBehaviour
 
     public void Undo()
     {
-        int count = TableChipList.Count;
+        int count = TableCurrentChipList.Count;
         if (count > 0)
         {
-            TableChipList[count-1].TakeBack();
-            GameHelper.player.ChangeCoins(TableChipList[count-1].Value);
-            TableChipList.RemoveAt(count-1);
+            TableCurrentChipList[count-1].TakeBack();
+            GameHelper.player.ChangeCoins(TableCurrentChipList[count-1].Value);
+
+            if (TableAllChipList.Contains(TableCurrentChipList[count - 1]))
+            {
+                TableAllChipList.Remove(TableCurrentChipList[count - 1]);
+
+                eAreaChipsValueList[(int) TableCurrentChipList[count - 1].OnArea] -=
+                    TableCurrentChipList[count - 1].Value;
+            }
+           
+
+            TableCurrentChipList.RemoveAt(count-1);
         }
     }
 
     public void Clear()
     {
-        for (int i = 0; i < TableChipList.Count; i++)
+        for (int i = 0; i < TableCurrentChipList.Count; i++)
         {
-            TableChipList[i].TakeBack();
-            GameHelper.player.ChangeCoins(TableChipList[i].Value);
+            TableCurrentChipList[i].TakeBack();
+
+            if (TableAllChipList.Contains(TableCurrentChipList[i]))
+            {
+                TableAllChipList.Remove(TableCurrentChipList[i]);
+
+                eAreaChipsValueList[(int)TableCurrentChipList[i].OnArea] -=
+                    TableCurrentChipList[i].Value;
+
+            }
+            
+
+            GameHelper.player.ChangeCoins(TableCurrentChipList[i].Value);
         }
 
-        TableChipList.Clear();
+        TableCurrentChipList.Clear();
+    }
+
+    public void ClearTableCurrentChipList()
+    {
+        TableCurrentChipList.Clear();
     }
 
 // Use this for initialization
-	void Start () {
+    void Start () {
 	
 	}
 	

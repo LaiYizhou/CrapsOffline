@@ -23,7 +23,7 @@ public class GameHelper : MonoBehaviour
     };
 
     /// <summary>
-    /// Key: level (Start with 1)
+    /// Key: Level (Start with 1)
     /// </summary>
     private Dictionary<int, CrapSceneInfo> crapSceneInfoDictionary = new Dictionary<int, CrapSceneInfo>()
         {
@@ -251,7 +251,7 @@ public class GameHelper : MonoBehaviour
     {
         if (lastChipEArea == EArea.Count)
         {
-            List<EArea> currentChipsTableAreaList = CanvasControl.Instance.gameCrap.CurrentChipsTableAreaList;
+            List<EArea> currentChipsTableAreaList = CanvasControl.Instance.gameCrap.CurrentAllChipsTableAreaList;
             List<EArea> resAreaList = new List<EArea>();
 
             if (CanvasControl.Instance.gameCrap.CurrentGameStage == EGameStage.PointOff_ComePointOff
@@ -374,22 +374,22 @@ public class GameHelper : MonoBehaviour
 
 public class CrapSceneInfo
 {
-    public int level;
+    public int Level;
 
-    public long minLine;
+    public long JoinMin;
 
-    public long maxBet;
-    public long tableLimit;
+    public long BetMax;
+    public long TableMax;
 
     public List<EChip> CandiChipList;
 
-    public CrapSceneInfo(int level, long minLine, long maxBet, long tableLimit, List<EChip> candiChipList)
+    public CrapSceneInfo(int level, long joinMin, long betMax, long tableMax, List<EChip> candiChipList)
     {
-        this.level = level;
+        this.Level = level;
 
-        this.minLine = minLine;
-        this.maxBet = maxBet;
-        this.tableLimit = tableLimit;
+        this.JoinMin = joinMin;
+        this.BetMax = betMax;
+        this.TableMax = tableMax;
 
         this.CandiChipList = candiChipList;
 

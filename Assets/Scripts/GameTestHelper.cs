@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Text;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class GameTestHelper : MonoBehaviour
@@ -14,6 +15,8 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private Text coinsText;
     [SerializeField] private Transform Logbg;
     [SerializeField] private Text logText;
+    [SerializeField] private CanvasGroup tipCanvasGroup;
+    [SerializeField] private Text tipText;
 
 	// Use this for initialization
 	IEnumerator Start ()
@@ -25,8 +28,20 @@ public class GameTestHelper : MonoBehaviour
 	    GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
 
     }
-	
-	// Update is called once per frame
+
+    public void Tip(string s)
+    {
+        tipText.text = s;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(tipCanvasGroup.DOFade(1.0f, 0.5f));
+
+        sequence.Append(tipCanvasGroup.DOFade(0.0f, 0.5f));
+
+    }
+
+    // Update is called once per frame
 	void Update () {
 	
 	}

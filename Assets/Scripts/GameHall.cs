@@ -25,8 +25,16 @@ public class GameHall : MonoBehaviour {
 
         if (levelId > 0 && levelId <= 6)
         {
-            CanvasControl.Instance.gameCrap.chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
-            this.gameObject.SetActive(false);
+            if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMin)
+            {
+                CanvasControl.Instance.gameCrap.Init(levelId);
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
+            }
+   
         }
         
     }

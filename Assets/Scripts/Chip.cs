@@ -620,7 +620,18 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         if (onCrapsTableArea != null && onCrapsTableArea.State != EState.Dark)
         {
-            CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
+            if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetEAreaChipsValue(OnArea) <= GameHelper.Instance
+                    .GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).BetMax
+                && Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() <= GameHelper.Instance
+                    .GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax)
+            {
+                CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
+            }
+            else
+            {
+                GameTestHelper.Instance.Tip("Reach the BetMax ! ! !");
+            }
+            
         }
 
         transform.localPosition = OriginalPos;
