@@ -4,19 +4,41 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# Sprite sheet: GameHall.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:eed9afdeac15a483bd1dff5bf48c511c:f7e9d01147e966fdafcfa78482cc10af:d7b13242df8c9ad4c1b2d70e93f1a85b$
+# Sprite sheet: GameCrap.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:2affbe6c03b3bed1b97d22caeaad513d:2b61682e27d655e34008fde9002e455e:c21e379d3ba59eaf413a25685bb9b41b$
 #
 
-Craps_level1;2;234;258;196;0.5;0.5
-Craps_level2;2;432;258;196;0.5;0.5
-Craps_level3;262;512;258;196;0.5;0.5
-Craps_level4;522;628;258;196;0.5;0.5
-Craps_level5;262;710;258;196;0.5;0.5
-Craps_level6;2;630;258;392;0.5;0.5
-Craps_playnow;647;826;258;196;0.5;0.5
-bg_AD_lobby;262;908;383;114;0.5;0.5
-bg_buttom;907;777;42;122;0.5;0.5
-bth_daily bonus;907;961;96;61;0.5;0.5
-btn_gift;907;901;95;58;0.5;0.5
-gems_background;782;727;210;48;0.5;0.5
+bg_bet_bottom;252;2;70;50;0.5;0.5
+bg_chips_bottom;324;2;45;50;0.5;0.5
+bg_dice_bottom;2;417;172;149;0.5;0.5
+bth_AD;2;308;169;107;0.5;0.5
+bth_chips;245;895;56;56;0.5;0.5
+btn_help;179;821;64;64;0.5;0.5
+btn_return;82;17;71;71;0.5;0.5
+btn_setting;179;887;64;64;0.5;0.5
+btn_store;252;54;76;70;0.5;0.5
+button_add_normal;260;980;54;42;0.5;0.5
+craps_btn_clear;81;669;95;69;0.5;0.5
+craps_btn_off;81;598;68;69;0.5;0.5
+craps_btn_on;151;599;68;68;0.5;0.5
+craps_btn_ready;81;811;96;69;0.5;0.5
+craps_btn_rebet;81;882;96;69;0.5;0.5
+craps_btn_roll;81;953;177;69;0.5;0.5
+craps_btn_undo;81;740;95;69;0.5;0.5
+craps_dice1;212;126;95;95;0.5;0.5
+craps_dice2;212;223;95;95;0.5;0.5
+craps_dice3;155;17;95;95;0.5;0.5
+craps_dice4;115;114;95;95;0.5;0.5
+craps_dice5;173;320;95;95;0.5;0.5
+craps_dice6;115;211;95;95;0.5;0.5
+craps_guide_btnclose;2;10;78;78;0.5;0.5
+craps_guide_dot;108;571;25;25;0.5;0.5
+craps_guide_doton;81;571;25;25;0.5;0.5
+craps_guide_left_darkl;2;90;55;107;0.5;0.5
+craps_guide_left_normal;2;199;55;107;0.5;0.5
+craps_guide_right_dark;59;90;54;107;0.5;0.5
+craps_guide_right_normal;59;199;54;107;0.5;0.5
+craps_history_down;178;673;68;67;0.5;0.5
+craps_history_up;178;742;68;67;0.5;0.5
+craps_historybg;2;568;77;454;0.5;0.5
+craps_max_min;245;860;99;33;0.5;0.5

@@ -1,0 +1,17 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameSetting.png (256 x 256)
+# $TexturePacker:SmartUpdate:2def0ded26046bb883ed01dd2c29064c:3ae99f33c28651cfd23dec6acb624582:2bd8a61020ade898102eafeab05261ca$
+#
+
+bg_setting_bottom;2;28;102;74;0.5;0.5
+btn_music;106;2;59;59;0.5;0.5
+btn_music_unchecked;161;124;66;64;0.5;0.5
+btn_payout;2;104;157;74;0.5;0.5
+btn_restore;2;180;157;74;0.5;0.5
+btn_sound;161;63;59;59;0.5;0.5
+btn_sound_unchecked;161;190;66;64;0.5;0.5
