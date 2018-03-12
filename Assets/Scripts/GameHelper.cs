@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening.Plugins;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameHelper : MonoBehaviour
 {
 
     public static GameHelper Instance;
+
+    [SerializeField] private Text hallCoinsText;
 
     [SerializeField] private List<Sprite> diceSpriteList;
     [SerializeField] private List<Sprite> chipSpriteList;
@@ -130,14 +136,86 @@ public class GameHelper : MonoBehaviour
 
 	    player = new Player();
 
-        //Debug.Log(basicPassAreaList.Count+basicComeAreaList.Count+allComeOddsAreaList.Count+allDontComeOddsAreaList.Count+multiRollAreaList.Count+singleRollAreaList.Count);
+	    UpdatePlayerCoin();
 
-	    //Debug.Log(areaOddsDictionary.Count);
+	    //Test();
 
 	}
 
+    void Test()
+    {
+        int[] a = new[] {2, -3, 1, -10, 4, 5};
+
+
+       
+
+        int p = 0;
+        int r = a.Length-1;
+
+        MergeSort(a, p, r);
+
+      
+        for(int i = 0; i<a.Length; i++)
+            Debug.Log(a[i]);
+
+    }
+
+    void MergeSort(int[] a, int p, int r)
+    {
+        if (p >= r) return;
+            
+        int q = (p + r) / 2;
+        MergeSort(a, p, q);
+        MergeSort(a, q+1, r);
+
+        Merge(a, p, q, r);
+    }
+
+    void Merge(int[] a, int p, int q, int r)
+    {
+        int n1 = q - p + 1;
+        int n2 = r - (q + 1) + 1;
+
+        int[] L = new int[n1 + 1];
+        int[] R = new int[n2 + 1];
+
+        int i = 0;
+        int j = 0;
+
+        for (i = 0; i < n1; i++)
+        {
+            L[i] = a[p + i];
+        }
+
+        for (i = 0; i < n2; i++)
+        {
+            R[i] = a[q + 1 + i];
+        }
+
+        L[n1] = Int32.MaxValue;
+        R[n2] = Int32.MaxValue;
+
+        i = 0;
+        j = 0;
+
+        for (int k = p; k <= r; k++)
+        {
+            if (L[i] < R[j])
+            {
+                a[k] = L[i];
+                i++;
+            }
+            else
+            {
+                a[k] = R[j];
+                j++;
+            }
+        }
+
+    }
+
     // Update is called once per frame
-	void Update () {
+    void Update () {
 	
 	}
 
@@ -356,6 +434,11 @@ public class GameHelper : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public void UpdatePlayerCoin()
+    {
+        hallCoinsText.text = player.CoinToString();
     }
 
     public long GetChipValue(EChip eChip)

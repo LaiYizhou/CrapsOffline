@@ -1,0 +1,160 @@
+
+shipinanniu.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+10002
+  rotate: false
+  xy: 256, 54
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10003
+  rotate: false
+  xy: 338, 67
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10004
+  rotate: false
+  xy: 98, 32
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10005
+  rotate: false
+  xy: 94, 6
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10006
+  rotate: false
+  xy: 405, 71
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10007
+  rotate: false
+  xy: 180, 36
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10008
+  rotate: false
+  xy: 245, 28
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10009
+  rotate: false
+  xy: 159, 2
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10010
+  rotate: false
+  xy: 224, 2
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10011
+  rotate: false
+  xy: 289, 2
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10012
+  rotate: false
+  xy: 310, 28
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10013
+  rotate: false
+  xy: 354, 2
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+10014
+  rotate: false
+  xy: 403, 45
+  size: 63, 24
+  orig: 63, 24
+  offset: 0, 0
+  index: -1
+Free!
+  rotate: false
+  xy: 405, 97
+  size: 67, 29
+  orig: 67, 29
+  offset: 0, 0
+  index: -1
+shipinanniu10
+  rotate: false
+  xy: 256, 80
+  size: 80, 46
+  orig: 80, 46
+  offset: 0, 0
+  index: -1
+shipinanniu2
+  rotate: false
+  xy: 180, 62
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+shipinanniu3
+  rotate: false
+  xy: 180, 62
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+shipinanniu4
+  rotate: false
+  xy: 98, 58
+  size: 80, 68
+  orig: 80, 68
+  offset: 0, 0
+  index: -1
+shipinanniu5
+  rotate: false
+  xy: 474, 96
+  size: 32, 30
+  orig: 32, 30
+  offset: 0, 0
+  index: -1
+shipinanniu6
+  rotate: false
+  xy: 2, 47
+  size: 94, 79
+  orig: 94, 79
+  offset: 0, 0
+  index: -1
+shipinanniu8
+  rotate: false
+  xy: 2, 16
+  size: 90, 29
+  orig: 90, 29
+  offset: 0, 0
+  index: -1
+shipinanniu9
+  rotate: false
+  xy: 338, 93
+  size: 65, 33
+  orig: 65, 33
+  offset: 0, 0
+  index: -1

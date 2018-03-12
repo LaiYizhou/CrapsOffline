@@ -7,19 +7,16 @@ tpsheetFileNames:
 - Assets/UI/GameCrap/CrapsTableAreas.tpsheet
 - Assets/UI/GameCrap/GameCrap.tpsheet
 - Assets/UI/GameHall/GameHall.tpsheet
-- Assets/UI/GameTopBar/GameTopBar.tpsheet
-- Assets/UI/GameTopBar/Icons.tpsheet
+- Assets/UI/GameStore/GameStore.tpsheet
 textureFileNames:
 - Assets/ResourcesSlots/wolf/Texture/bg.png
 - Assets/Textures/Activity/Quest/Quest.png
 - Assets/UI/GameCrap/Chips.png
 - Assets/UI/GameCrap/CrapsTableAreas.png
-- Assets/UI/GameCrap/GameCrap.png
+- Assets/UI/GameCrap/GameHall.png
 - Assets/UI/GameHall/GameHall.png
-- Assets/UI/GameTopBar/GameTopBar.png
-- Assets/UI/GameTopBar/Icons.png
+- Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
-- 
 - 
 - 
 - 

@@ -4,33 +4,19 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# Sprite sheet: GameCrap.png (512 x 512)
-# $TexturePacker:SmartUpdate:3ed9b316d6ebf9205509da5a9a104295:7c5124dff51a8f3982334668de19e519:c21e379d3ba59eaf413a25685bb9b41b$
+# Sprite sheet: GameHall.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:eed9afdeac15a483bd1dff5bf48c511c:f7e9d01147e966fdafcfa78482cc10af:d7b13242df8c9ad4c1b2d70e93f1a85b$
 #
 
-craps_btn _sitdown;205;370;122;69;0.5;0.5
-craps_btn_clear;332;122;95;69;0.5;0.5
-craps_btn_morechips;260;441;130;69;0.5;0.5
-craps_btn_off;429;193;68;69;0.5;0.5
-craps_btn_on;250;106;68;68;0.5;0.5
-craps_btn_ready;329;370;96;69;0.5;0.5
-craps_btn_rebet;392;441;96;69;0.5;0.5
-craps_btn_roll;81;441;177;69;0.5;0.5
-craps_btn_sitdown_on;81;370;122;69;0.5;0.5
-craps_btn_undo;332;193;95;69;0.5;0.5
-craps_dice1;235;176;95;95;0.5;0.5
-craps_dice2;138;176;95;95;0.5;0.5
-craps_dice3;372;264;95;95;0.5;0.5
-craps_dice4;275;273;95;95;0.5;0.5
-craps_dice5;178;273;95;95;0.5;0.5
-craps_dice6;81;273;95;95;0.5;0.5
-craps_guide_btnclose;427;361;78;78;0.5;0.5
-craps_guide_dot;2;2;25;25;0.5;0.5
-craps_guide_doton;2;29;25;25;0.5;0.5
-craps_guide_left_darkl;81;46;55;107;0.5;0.5
-craps_guide_left_normal;81;155;55;107;0.5;0.5
-craps_guide_right_dark;194;67;54;107;0.5;0.5
-craps_guide_right_normal;138;67;54;107;0.5;0.5
-craps_history_down;429;55;68;67;0.5;0.5
-craps_history_up;429;124;68;67;0.5;0.5
-craps_historybg;2;56;77;454;0.5;0.5
+Craps_level1;2;234;258;196;0.5;0.5
+Craps_level2;2;432;258;196;0.5;0.5
+Craps_level3;262;512;258;196;0.5;0.5
+Craps_level4;522;628;258;196;0.5;0.5
+Craps_level5;262;710;258;196;0.5;0.5
+Craps_level6;2;630;258;392;0.5;0.5
+Craps_playnow;647;826;258;196;0.5;0.5
+bg_AD_lobby;262;908;383;114;0.5;0.5
+bg_buttom;907;777;42;122;0.5;0.5
+bth_daily bonus;907;961;96;61;0.5;0.5
+btn_gift;907;901;95;58;0.5;0.5
+gems_background;782;727;210;48;0.5;0.5

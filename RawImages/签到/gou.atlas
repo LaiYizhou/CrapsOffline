@@ -1,0 +1,97 @@
+
+gou.png
+size: 210,180
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dian
+  rotate: false
+  xy: 174, 32
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+dian1
+  rotate: false
+  xy: 193, 15
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+gou1
+  rotate: false
+  xy: 174, 13
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+gou2
+  rotate: true
+  xy: 179, 129
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+gou3
+  rotate: false
+  xy: 136, 16
+  size: 36, 35
+  orig: 36, 35
+  offset: 0, 0
+  index: -1
+gou4
+  rotate: true
+  xy: 99, 15
+  size: 47, 35
+  orig: 47, 35
+  offset: 0, 0
+  index: -1
+gou5
+  rotate: true
+  xy: 2, 2
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+gou5+1
+  rotate: true
+  xy: 144, 53
+  size: 70, 52
+  orig: 70, 52
+  offset: 0, 0
+  index: -1
+gou6
+  rotate: false
+  xy: 107, 125
+  size: 70, 53
+  orig: 70, 53
+  offset: 0, 0
+  index: -1
+guang
+  rotate: false
+  xy: 76, 64
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1
+liubian
+  rotate: false
+  xy: 2, 136
+  size: 103, 42
+  orig: 103, 42
+  offset: 0, 0
+  index: -1
+liubian1
+  rotate: false
+  xy: 2, 62
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+xingguang
+  rotate: false
+  xy: 49, 2
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1

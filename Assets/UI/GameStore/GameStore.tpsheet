@@ -1,0 +1,23 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameStore.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:f0f7fc20d1b7839c38e3519181b55d46:eb51bb0cc3657aabae66e5f1c30d41e9:d7b96d0dd55c38e9d055dfca27f3746a$
+#
+
+best-seller;2;57;184;46;0.5;0.5
+best;142;195;184;46;0.5;0.5
+bg_blue;2;243;885;75;0.5;0.5
+bg_remove ADS;929;952;69;70;0.5;0.5
+bg_store;890;369;121;35;0.5;0.5
+bth_chips;929;873;56;56;0.5;0.5
+common_btn_close;929;819;52;52;0.5;0.5
+common_popup_background_1;2;406;925;616;0.5;0.5
+store_button_buy;2;105;168;58;0.5;0.5
+store_free_icon;929;931;63;19;0.5;0.5
+store_item_background;983;794;39;77;0.5;0.5
+store_item_background_on;2;320;886;84;0.5;0.5
+store_percent_bg_on;2;165;138;76;0.5;0.5

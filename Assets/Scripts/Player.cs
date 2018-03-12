@@ -25,11 +25,21 @@ public class Player
         }
         private set
         {
-            coins = value;
-            Save();
-            //Test
-            if (GameTestHelper.Instance != null)
-                GameTestHelper.Instance.ShowPlayerCoin();
+            if (value >= 0)
+            {
+                coins = value;
+                Save();
+
+                if (GameHelper.Instance != null)
+                {
+                    GameHelper.Instance.UpdatePlayerCoin();
+                }
+
+                //Test
+                if (GameTestHelper.Instance != null)
+                    GameTestHelper.Instance.ShowPlayerCoin();
+            }
+            
         }
     }
 

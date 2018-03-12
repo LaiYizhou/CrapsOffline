@@ -5,13 +5,20 @@
 # http://www.codeandweb.com/texturepacker/unity
 #
 # Sprite sheet: GameHall.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:2c27cfdb4d24b390bf4b74b86e049eb5:ac773e9797a4cfdb296c04d15c2e5a31:5fc27d398a65e6409c24ae23f0304270$
+# $TexturePacker:SmartUpdate:b8ccfb20f0f6c700e9d560c1706ba027:07c88f560daac65d98d36bca7add268e:5fc27d398a65e6409c24ae23f0304270$
 #
 
-Craps_level1;262;628;258;196;0.5;0.5
-Craps_level2;522;826;258;196;0.5;0.5
-Craps_level3;262;826;258;196;0.5;0.5
-Craps_level4;2;36;258;196;0.5;0.5
-Craps_level5;2;234;258;196;0.5;0.5
+Craps_level1;2;234;258;196;0.5;0.5
+Craps_level2;2;432;258;196;0.5;0.5
+Craps_level3;262;512;258;196;0.5;0.5
+Craps_level4;522;628;258;196;0.5;0.5
+Craps_level5;262;710;258;196;0.5;0.5
 Craps_level6;2;630;258;392;0.5;0.5
-Craps_playnow;2;432;258;196;0.5;0.5
+Craps_playnow;647;826;258;196;0.5;0.5
+bg_AD_lobby;262;908;383;114;0.5;0.5
+bg_buttom;973;840;42;122;0.5;0.5
+bth_chips;907;840;56;56;0.5;0.5
+btn_gift;907;964;95;58;0.5;0.5
+btn_setting;907;898;64;64;0.5;0.5
+button_add_normal;907;796;54;42;0.5;0.5
+gems_background;782;746;210;48;0.5;0.5

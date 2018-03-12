@@ -18,6 +18,14 @@ TextureImporter:
     21300022: Craps_level6
     21300024: Craps_level6_title
     21300026: Craps_playnow
+    21300028: bg_AD_lobby
+    21300030: bg_buttom
+    21300032: bth_daily bonus
+    21300034: btn_gift
+    21300036: gems_background
+    21300038: bth_chips
+    21300040: btn_setting
+    21300042: button_add_normal
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -40,10 +48,10 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 1024
   textureSettings:
-    filterMode: -1
+    filterMode: 2
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -70,8 +78,8 @@ TextureImporter:
       name: Craps_level1
       rect:
         serializedVersion: 2
-        x: 262
-        y: 628
+        x: 2
+        y: 234
         width: 258
         height: 196
       alignment: 0
@@ -83,8 +91,8 @@ TextureImporter:
       name: Craps_level2
       rect:
         serializedVersion: 2
-        x: 522
-        y: 826
+        x: 2
+        y: 432
         width: 258
         height: 196
       alignment: 0
@@ -97,7 +105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 262
-        y: 826
+        y: 512
         width: 258
         height: 196
       alignment: 0
@@ -109,8 +117,8 @@ TextureImporter:
       name: Craps_level4
       rect:
         serializedVersion: 2
-        x: 2
-        y: 36
+        x: 522
+        y: 628
         width: 258
         height: 196
       alignment: 0
@@ -122,8 +130,8 @@ TextureImporter:
       name: Craps_level5
       rect:
         serializedVersion: 2
-        x: 2
-        y: 234
+        x: 262
+        y: 710
         width: 258
         height: 196
       alignment: 0
@@ -148,10 +156,101 @@ TextureImporter:
       name: Craps_playnow
       rect:
         serializedVersion: 2
-        x: 2
-        y: 432
+        x: 647
+        y: 826
         width: 258
         height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: bg_AD_lobby
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 908
+        width: 383
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: bg_buttom
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 840
+        width: 42
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: bth_chips
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 840
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: btn_gift
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 964
+        width: 95
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: btn_setting
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 898
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: button_add_normal
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 796
+        width: 54
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: gems_background
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 746
+        width: 210
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

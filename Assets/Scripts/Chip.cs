@@ -625,7 +625,21 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 && Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() <= GameHelper.Instance
                     .GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax)
             {
-                CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
+
+                if (this.Value <= GameHelper.player.Coins)
+                {
+                    CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
+
+                    Debug.Log("! ! ! Use Coins : " + this.Value);
+
+                    GameHelper.player.ChangeCoins(-1L * this.Value);
+                    GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, -1L * this.Value, GameHelper.player.Coins));
+                }
+                else
+                {
+                    GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
+                }
+                
             }
             else
             {
