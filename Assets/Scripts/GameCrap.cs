@@ -94,6 +94,14 @@ public class GameCrap : MonoBehaviour
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
 
+    [Space(10)]
+    [SerializeField] private Text coinsText;
+
+    public void UpdatePlayerCoin()
+    {
+        coinsText.text = GameHelper.CoinToString(GameHelper.player.Coins);
+    }
+
     public void Init(int levelId)
     {
 

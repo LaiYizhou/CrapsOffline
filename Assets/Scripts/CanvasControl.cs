@@ -10,6 +10,7 @@ public class CanvasControl : MonoBehaviour
     public GameHall gameHall;
     public GameTutorial gameTutorial;
     public GameCrap gameCrap;
+    public GameDailyGift gameDailyGift;
 
     // Use this for initialization
     void Start ()
@@ -20,9 +21,9 @@ public class CanvasControl : MonoBehaviour
         gameHall.gameObject.SetActive(true);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 

@@ -171,7 +171,8 @@ public class GameTestHelper : MonoBehaviour
 
     public void ShowPlayerCoin()
     {
-        coinsText.text = GameHelper.player.CoinToString();
+        //coinsText.text = GameHelper.player.CoinToString();
+        coinsText.text = GameHelper.CoinToString(GameHelper.player.Coins);
     }
 
     public void ShowTutorialButton()

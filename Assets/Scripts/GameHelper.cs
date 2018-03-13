@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening.Plugins;
+using System.Text;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -436,9 +435,42 @@ public class GameHelper : MonoBehaviour
         }
     }
 
+    public static string CoinToString(long coins)
+    {
+        string res = coins.ToString();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = res.Length - 1; i >= 0; i--)
+            sb.Append(res[i]);
+
+        res = sb.ToString();
+        sb = new StringBuilder();
+
+        for (int i = 0; i < res.Length; i++)
+        {
+            sb.Append(res[i]);
+            if ((i + 1) % 3 == 0 && (i+1) != res.Length)
+                sb.Append(',');
+        }
+
+        res = sb.ToString();
+        sb = new StringBuilder();
+
+        for (int i = res.Length - 1; i >= 0; i--)
+            sb.Append(res[i]);
+
+        res = sb.ToString();
+
+        return res;
+    }
+
     public void UpdatePlayerCoin()
     {
-        hallCoinsText.text = player.CoinToString();
+        //hallCoinsText.text = player.CoinToString();
+        //hallCoinsText.text = GameHelper.CoinToString(player.Coins);
+        CanvasControl.Instance.gameHall.UpdatePlayerCoin();
+        CanvasControl.Instance.gameCrap.UpdatePlayerCoin();
     }
 
     public long GetChipValue(EChip eChip)

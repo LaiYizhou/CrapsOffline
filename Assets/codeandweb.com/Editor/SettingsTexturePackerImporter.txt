@@ -6,6 +6,7 @@ tpsheetFileNames:
 - Assets/UI/GameCrap/Chips.tpsheet
 - Assets/UI/GameCrap/CrapsTableAreas.tpsheet
 - Assets/UI/GameCrap/GameCrap.tpsheet
+- Assets/UI/GameDailyGift/GameDailyGift.tpsheet
 - Assets/UI/GameHall/GameHall.tpsheet
 - Assets/UI/GameSetting/GameSetting.tpsheet
 - Assets/UI/GameStore/GameStore.tpsheet
@@ -15,10 +16,12 @@ textureFileNames:
 - Assets/UI/GameCrap/Chips.png
 - Assets/UI/GameCrap/CrapsTableAreas.png
 - Assets/UI/GameCrap/GameCrap.png
+- Assets/UI/GameDailyGift/GameDailyGift.png
 - Assets/UI/GameHall/GameHall.png
 - Assets/UI/GameSetting/GameSetting.png
 - Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
+- 
 - 
 - 
 - 

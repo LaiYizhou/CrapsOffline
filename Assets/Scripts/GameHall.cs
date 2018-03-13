@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class GameHall : MonoBehaviour {
+public class GameHall : MonoBehaviour
+{
+
+    [SerializeField] private Text coinsText;
 
 	// Use this for initialization
 	void Start () {
@@ -12,6 +16,16 @@ public class GameHall : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void UpdatePlayerCoin()
+    {
+        coinsText.text = GameHelper.CoinToString(GameHelper.player.Coins);
+    }
+
+    public void OnDailyGiftsButtonClicked()
+    {
+        CanvasControl.Instance.gameDailyGift.Show();
+    }
 
     public void OnCrapPlayNowButtonClicked()
     {

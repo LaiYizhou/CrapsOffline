@@ -66,9 +66,5 @@ public class Player
         PlayerPrefs.SetString("Coins", s);
     }
 
-    public string CoinToString()
-    {
-        //return "";
-        return Coins.ToString();
-    }
+   
 }

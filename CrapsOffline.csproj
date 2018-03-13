@@ -91,29 +91,29 @@
     <Reference Include="UnityStore">
       <HintPath>Assets\Plugins\UnityChannel\UnityStore.dll</HintPath>
     </Reference>
+    <Reference Include="Editor">
+      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Purchasing.Common">
+      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Purchasing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Stores">
+      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Apple">
+      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Apple\Apple.dll</HintPath>
+    </Reference>
     <Reference Include="FacebookStore">
       <HintPath>Assets\Plugins\UnityPurchasing\Bin\Facebook\FacebookStore.dll</HintPath>
     </Reference>
     <Reference Include="Security">
       <HintPath>Assets\Plugins\UnityPurchasing\Bin\Security\live\Security.dll</HintPath>
     </Reference>
-    <Reference Include="Purchasing.Common">
-      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Purchasing.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Apple">
-      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Apple\Apple.dll</HintPath>
-    </Reference>
-    <Reference Include="Stores">
-      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Stores.dll</HintPath>
-    </Reference>
     <Reference Include="Tizen">
       <HintPath>Assets\Plugins\UnityPurchasing\Bin\Tizen\Tizen.dll</HintPath>
     </Reference>
     <Reference Include="winrt">
       <HintPath>Assets\Plugins\UnityPurchasing\winrt\winrt.dll</HintPath>
-    </Reference>
-    <Reference Include="Editor">
-      <HintPath>Assets\Plugins\UnityPurchasing\Bin\Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -131,10 +131,14 @@
     <Compile Include="Assets\Scripts\ChipsManager.cs" />
     <Compile Include="Assets\Scripts\CrapsTableArea.cs" />
     <Compile Include="Assets\Scripts\CrapsTableAreaManager.cs" />
+    <Compile Include="Assets\Scripts\DailyGiftItem.cs" />
     <Compile Include="Assets\Scripts\DiceState.cs" />
     <Compile Include="Assets\Scripts\GameCrap.cs" />
+    <Compile Include="Assets\Scripts\GameDailyGift.cs" />
     <Compile Include="Assets\Scripts\GameHall.cs" />
     <Compile Include="Assets\Scripts\GameHelper.cs" />
+    <Compile Include="Assets\Scripts\GameSetting.cs" />
+    <Compile Include="Assets\Scripts\GameStore.cs" />
     <Compile Include="Assets\Scripts\GameTestHelper.cs" />
     <Compile Include="Assets\Scripts\GameTutorial.cs" />
     <Compile Include="Assets\Scripts\HisDice.cs" />
