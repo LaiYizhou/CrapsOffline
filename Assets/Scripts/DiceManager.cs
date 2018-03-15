@@ -57,17 +57,27 @@ public class DiceManager : MonoBehaviour
 
             IsInBox = true;
 
-            readyButton.gameObject.SetActive(true);
-            rebetButton.gameObject.SetActive(true);
-
-            rollButton.gameObject.SetActive(false);
-            rollButton.interactable = true;
+            StartCoroutine(DelayUpdateButton());   
         });
+    }
+
+    IEnumerator DelayUpdateButton()
+    {
+        yield return new WaitForSeconds(0.6f);
+
+        //readyButton.gameObject.SetActive(true);
+        //rebetButton.gameObject.SetActive(true);
+
+        //rollButton.gameObject.SetActive(false);
+        rollButton.interactable = true;
     }
 
     public void Roll()
     {
         DiceState diceState = GameHelper.Instance.RandomDice();
+
+        CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);
+        CanvasControl.Instance.gameCrap.OneRollResult = 0;
 
         ThrowTwoDices(diceState);
     }

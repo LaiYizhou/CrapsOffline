@@ -9,7 +9,6 @@ public class GameTestHelper : MonoBehaviour
 
     public static GameTestHelper Instance;
 
-    [SerializeField] private InputField levelInputField;
     [SerializeField] private InputField diceInputField;
     [SerializeField] private HisDice showeDice;
     [SerializeField] private Transform Logbg;
@@ -102,21 +101,6 @@ public class GameTestHelper : MonoBehaviour
 
         //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
         //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
-    }
-
-    public void LoadButton()
-    {
-        int levelId;
-        if (int.TryParse(levelInputField.text, out levelId))
-        {
-            if(levelId > 0 && levelId <= 6)
-                CanvasControl.Instance.gameCrap.chipsManager.BuildCandiChips(GameHelper.Instance.GetCrapSceneInfo(levelId));
-
-            levelInputField.text = "";
-            CanvasControl.Instance.gameHall.gameObject.SetActive(false);
-
-        }
-            
     }
 
     public void ShowLogSwitch()

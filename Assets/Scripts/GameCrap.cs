@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using DG.Tweening;
 using UnityEngine.UI;
 
@@ -66,8 +67,6 @@ public class GameCrap : MonoBehaviour
             currentDiceState = value;
             StartCoroutine(DelayCheck());
             
-
-
         }
     }
 
@@ -112,6 +111,32 @@ public class GameCrap : MonoBehaviour
     [SerializeField] private Button guideButton;
     [SerializeField] private Button settingButton;
     [SerializeField] private Button adButton;
+    [SerializeField] private Text gameStateText;
+
+    public long OneRollResult;
+
+    public void SetGameStateText(long number, bool isOnBet)
+    {
+        if (isOnBet)
+        {
+            gameStateText.text = "You bet " + GameHelper.CoinLongToString(number);
+        }
+        else
+        {
+            if (number > 0)
+            {
+                gameStateText.text = "You won " + GameHelper.CoinLongToString(number);
+            }
+            else if (number < 0)
+            {
+                gameStateText.text = "You Lost " + GameHelper.CoinLongToString(-number);
+            }
+            else
+            {
+                gameStateText.text = "[Test] " + GameHelper.CoinLongToString(number);
+            }
+        }
+    }
 
     public void OnBackButtonClicked()
     {
@@ -330,5 +355,6 @@ public class GameCrap : MonoBehaviour
         Debug.Log("### CheckChips...");
 
         CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
+        SetGameStateText(OneRollResult, false);
     }
 }

@@ -114,7 +114,6 @@ public class ChipsManager : MonoBehaviour
 
                 eAreaChipsValueList[(int) toBeRemovedList[i].OnArea] -= toBeRemovedList[i].Value;
 
-
             }
            
         }
