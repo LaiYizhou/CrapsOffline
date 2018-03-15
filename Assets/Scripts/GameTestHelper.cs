@@ -48,11 +48,6 @@ public class GameTestHelper : MonoBehaviour
     {
         DiceState diceState = GameHelper.Instance.RandomDice();
 
-        //showeDice.Init(diceState);
-
-        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
-
         CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
     }

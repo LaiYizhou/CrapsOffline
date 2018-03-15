@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class DiceManager : MonoBehaviour
 {
+
+    [SerializeField] private Button readyButton;
+    [SerializeField] private Button rebetButton;
+    [SerializeField] private Button rollButton;
 
     [SerializeField] private HisDice hisDice;
 
@@ -28,6 +33,7 @@ public class DiceManager : MonoBehaviour
 
         if (!dice1.IsThrow && !dice2.IsThrow)
         {
+            Debug.Log("Reset TwoDices");
             StartCoroutine(DelayResetTwoDices());   
         }
 
@@ -50,13 +56,43 @@ public class DiceManager : MonoBehaviour
             dice2.gameObject.SetActive(false);
 
             IsInBox = true;
+
+            readyButton.gameObject.SetActive(true);
+            rebetButton.gameObject.SetActive(true);
+
+            rollButton.gameObject.SetActive(false);
+            rollButton.interactable = true;
         });
+    }
+
+    public void Roll()
+    {
+        DiceState diceState = GameHelper.Instance.RandomDice();
+
+        ThrowTwoDices(diceState);
+    }
+
+    public void Ready()
+    {
+        readyButton.gameObject.SetActive(false);
+        rebetButton.gameObject.SetActive(false);
+
+        rollButton.gameObject.SetActive(true);
+        rollButton.interactable = true;
+    }
+
+    public void Rebet()
+    {
+
     }
 
     public void ThrowTwoDices(DiceState diceState)
     {
         //DiceState diceState = GameHelper.Instance.RandomDice();
         IsInBox = false;
+
+        rollButton.interactable = false;
+
         hisDice.Init(diceState);
 
         CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;

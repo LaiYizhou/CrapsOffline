@@ -37,44 +37,38 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-        #if UNITY_ANDROID
+    #if UNITY_ANDROID
             builder.AddProduct("Remove_Ads_1_99", ProductType.Subscription, new IDs(){
                 { "remove_ads_1_99_android", GooglePlay.Name}
             });
-        #elif UNITY_IOS
+    #elif UNITY_IOS
             builder.AddProduct("Remove_Ads_1_99", ProductType.NonConsumable, new IDs(){
                 { "Remove_Ads_1_99", AppleAppStore.Name },
             });
-        #endif
+    #endif
 
-        builder.AddProduct("Word_Find_1_99", ProductType.Consumable, new IDs(){
-            { "Word_Find_1_99", AppleAppStore.Name },
-            { "word_find_1_99", GooglePlay.Name}
+        builder.AddProduct("Craps_4_99", ProductType.Consumable, new IDs(){
+            { "Craps_4_99", AppleAppStore.Name }
         });
 
-        builder.AddProduct("Word_Connect_3_99", ProductType.Consumable, new IDs(){
-            { "Word_Connect_3_99", AppleAppStore.Name },
-            { "word_find_3_99", GooglePlay.Name}
+        builder.AddProduct("Craps_9_99", ProductType.Consumable, new IDs(){
+            { "Craps_9_99", AppleAppStore.Name }
         });
 
-        builder.AddProduct("Word_Connect_6_99", ProductType.Consumable, new IDs(){
-            { "Word_Connect_6_99", AppleAppStore.Name },
-            { "word_find_6_99", GooglePlay.Name}
+        builder.AddProduct("Craps_19_99", ProductType.Consumable, new IDs(){
+            { "Craps_19_99", AppleAppStore.Name }
         });
 
-        builder.AddProduct("Word_Connect_13_99", ProductType.Consumable, new IDs(){
-            { "Word_Connect_13_99", AppleAppStore.Name },
-            { "word_find_13_99", GooglePlay.Name}
+        builder.AddProduct("Craps_39_99", ProductType.Consumable, new IDs(){
+            { "Craps_39_99", AppleAppStore.Name }
         });
 
-        builder.AddProduct("Word_Connect_27_99", ProductType.Consumable, new IDs(){
-            { "Word_Connect_27_99", AppleAppStore.Name },
-            { "word_find_27_99", GooglePlay.Name}
+        builder.AddProduct("Craps_49_99", ProductType.Consumable, new IDs(){
+            { "Craps_49_99", AppleAppStore.Name }
         });
 
-        builder.AddProduct("Word_Connect_69_99", ProductType.Consumable, new IDs(){
-            { "Word_Connect_69_99", AppleAppStore.Name },
-            { "word_find_69_99", GooglePlay.Name}
+        builder.AddProduct("Craps_99_99", ProductType.Consumable, new IDs(){
+            { "Craps_99_99", AppleAppStore.Name }
         });
 
         UnityPurchasing.Initialize(this, builder);
@@ -192,51 +186,51 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
         // A consumable product has been purchased by this user.
-        if (String.Equals(args.purchasedProduct.definition.id, "Word_Find_1_99", StringComparison.Ordinal))
+        if (String.Equals(args.purchasedProduct.definition.id, "Craps_4_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 1400;
-            GameHelper.player.ChangeCoins(300);
+            GameHelper.player.ChangeCoins(200000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("300");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
-        else if(String.Equals(args.purchasedProduct.definition.id, "Word_Connect_3_99", StringComparison.Ordinal))
+        else if(String.Equals(args.purchasedProduct.definition.id, "Craps_9_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 1400;
-            GameHelper.player.ChangeCoins(720);
+            GameHelper.player.ChangeCoins(450000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("720");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Word_Connect_6_99", StringComparison.Ordinal))
+        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_19_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 2500;
-            GameHelper.player.ChangeCoins(1320);
+            GameHelper.player.ChangeCoins(1000000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("1,320");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Word_Connect_13_99", StringComparison.Ordinal))
+        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(2880);
+            GameHelper.player.ChangeCoins(3000000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("2,880");
@@ -244,12 +238,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 7000;
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Word_Connect_27_99", StringComparison.Ordinal))
+        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_49_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(6240);
+            GameHelper.player.ChangeCoins(4000000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("6,240");
@@ -257,12 +251,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 12000;
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Word_Connect_69_99", StringComparison.Ordinal))
+        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_99_99", StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(18000);
+            GameHelper.player.ChangeCoins(12000000);
             //GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("18,000");

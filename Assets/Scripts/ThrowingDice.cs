@@ -59,7 +59,7 @@ public class ThrowingDice : MonoBehaviour
         antiFactor = 1.0f;
         velocity = dir * v;
 
-        Debug.Log(ThrowingDiceType+" : "+dir.ToString()+"  "+v);
+        //Debug.Log(ThrowingDiceType+" : "+dir.ToString()+"  "+v);
 
         IsThrow = true;
     }
@@ -80,33 +80,34 @@ public class ThrowingDice : MonoBehaviour
     {
         //Debug.Log("Dice | OnTriggerEnter2D : " + coll.tag);
 
-        string tag = coll.tag;
+        if (IsThrow)
+        {
+            string tag = coll.tag;
 
-        if (tag == "TopBorder" || tag == "BottomBorder")
-        {
-            this.velocity = new Vector2(velocity.x * f, - velocity.y * f);
-            antiFactor = antiFactor * f;
-        }
-        else if (tag == "RightBorder")
-        {
-            this.velocity = new Vector2(-velocity.x * f, velocity.y * f);
-            antiFactor = antiFactor * f;
-        }
-        else if (tag == "LeftBorder")
-        {
-            if(antiFactor < 1.0f)
+            if (tag == "TopBorder" || tag == "BottomBorder")
+            {
+                this.velocity = new Vector2(velocity.x * f, -velocity.y * f);
+                antiFactor = antiFactor * f;
+            }
+            else if (tag == "RightBorder")
+            {
                 this.velocity = new Vector2(-velocity.x * f, velocity.y * f);
-            antiFactor = antiFactor * f;
-        }
-        else if (tag == "Dice")
-        {
-            if (antiFactor < 1.0f)
-                this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
-        }
+                antiFactor = antiFactor * f;
+            }
+            else if (tag == "LeftBorder")
+            {
+                if (antiFactor < 1.0f)
+                    this.velocity = new Vector2(-velocity.x * f, velocity.y * f);
+                antiFactor = antiFactor * f;
+            }
+            else if (tag == "Dice")
+            {
+                if (antiFactor < 1.0f)
+                    this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
+            }
 
-        //antiFactor = antiFactor * f;
-
-        ChecktoStop();
+            ChecktoStop();
+        }
 
     }
 
@@ -116,15 +117,8 @@ public class ThrowingDice : MonoBehaviour
         {
 
             DOTween.To(() => velocity, x => velocity = x, Vector2.one, 0.4f).OnComplete(() => { Stop(); });
-            //StartCoroutine(DelayStop());
 
         }
-    }
-
-    IEnumerator DelayStop()
-    {
-        yield return new WaitForSeconds(0.8f);
-        Stop();
     }
 
     private void Stop()
