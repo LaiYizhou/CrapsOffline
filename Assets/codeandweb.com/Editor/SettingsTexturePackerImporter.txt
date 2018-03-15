@@ -5,6 +5,8 @@ tpsheetFileNames:
 - Assets/Textures/Activity/Quest/Quest.tpsheet
 - Assets/UI/GameCrap/Chips.tpsheet
 - Assets/UI/GameCrap/CrapsTableAreas.tpsheet
+- Assets/UI/GameCrap/Dice1.tpsheet
+- Assets/UI/GameCrap/Dice2.tpsheet
 - Assets/UI/GameCrap/GameCrap.tpsheet
 - Assets/UI/GameDailyGift/GameDailyGift.tpsheet
 - Assets/UI/GameHall/GameHall.tpsheet
@@ -15,12 +17,16 @@ textureFileNames:
 - Assets/Textures/Activity/Quest/Quest.png
 - Assets/UI/GameCrap/Chips.png
 - Assets/UI/GameCrap/CrapsTableAreas.png
+- Assets/UI/GameCrap/Dice1.png
+- Assets/UI/GameCrap/Dice2.png
 - Assets/UI/GameCrap/GameCrap.png
 - Assets/UI/GameDailyGift/GameDailyGift.png
 - Assets/UI/GameHall/GameHall.png
 - Assets/UI/GameSetting/GameSetting.png
 - Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
+- 
+- 
 - 
 - 
 - 

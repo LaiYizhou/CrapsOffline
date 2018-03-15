@@ -10,8 +10,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
 {
 
     public static IAPManager Instance;
-    public Button RestoreButton;
-    public Text ButtonText;
 
     private static IStoreController m_StoreController;
     private static IExtensionProvider m_StoreExtensionProvider;
@@ -167,15 +165,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log("RestorePurchases FAIL. Not supported on this platform. Current = " + Application.platform);
         }
     }
-
-    IEnumerator DelayRestore()
-    {
-        yield return new WaitForSeconds(1.0f);
-
-        ButtonText.text = "Restore Purchase";
-        RestoreButton.interactable = true;
-    }
-
 
     // ! ! ! Compelete the IStoreListener
 

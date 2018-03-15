@@ -71,25 +71,29 @@ public class DailyGiftItem : MonoBehaviour
         if(this.dayNumber > 0 && this.dayNumber <= 30)
             dayText.text = "DAY " + this.dayNumber.ToString();
 
-        coinText.text = GameHelper.CoinToString(this.coinNumber);
+        coinText.text = GameHelper.CoinLongToString(this.coinNumber);
 
     }
 
     public void SetMark(bool flag)
     {
         this.isMarked = flag;
+        SetImageType(dayNumber % 5 == 0 ? EImageType.FiveDay : EImageType.Normal);
+
         if (this.isMarked)
         {
             markImage.fillAmount = 1.0f;
+            coverImage.gameObject.SetActive(true);
         }
         else
         {
             markImage.fillAmount = 0.0f;
+            coverImage.gameObject.SetActive(false);
         }
 
     }
 
-    public void OnClicked()
+    public void Mark()
     {
         Sequence sequence = DOTween.Sequence();
 
@@ -98,6 +102,7 @@ public class DailyGiftItem : MonoBehaviour
         sequence.AppendCallback(()=>
         {
             SetMark(true);
+            CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber);
         });
     }
 

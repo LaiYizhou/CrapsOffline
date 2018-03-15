@@ -7,9 +7,11 @@ public class CanvasControl : MonoBehaviour
     public static CanvasControl Instance;
 
     [Header("Game XXX")]
-    public GameHall gameHall;
-    public GameTutorial gameTutorial;
     public GameCrap gameCrap;
+    public GameTutorial gameTutorial;
+    public GameHall gameHall;
+    public GameSetting gameSetting;
+    public GameStore gameStore;
     public GameDailyGift gameDailyGift;
 
     // Use this for initialization
@@ -19,6 +21,7 @@ public class CanvasControl : MonoBehaviour
         Instance = this;
 
         gameHall.gameObject.SetActive(true);
+        gameDailyGift.gameObject.SetActive(true);
 
     }
 

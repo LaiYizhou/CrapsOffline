@@ -35,9 +35,6 @@ public class Player
                     GameHelper.Instance.UpdatePlayerCoin();
                 }
 
-                //Test
-                if (GameTestHelper.Instance != null)
-                    GameTestHelper.Instance.ShowPlayerCoin();
             }
             
         }

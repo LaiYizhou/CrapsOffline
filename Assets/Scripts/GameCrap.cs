@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -63,16 +64,23 @@ public class GameCrap : MonoBehaviour
         set
         {
             currentDiceState = value;
+            StartCoroutine(DelayCheck());
             
-            CheckChips();
-
-            //UpdateComePoints() is called in UpdateGameStage();
-            UpdateGameStage();
-
-            chipsManager.ClearTableCurrentChipList();
 
 
         }
+    }
+
+    IEnumerator DelayCheck()
+    {
+        yield return new WaitUntil(() => diceManager.IsInBox == true);
+
+        CheckChips();
+
+        //UpdateComePoints() is called in UpdateGameStage();
+        UpdateGameStage();
+
+        chipsManager.ClearTableCurrentChipList();
     }
 
     [SerializeField]
@@ -85,6 +93,7 @@ public class GameCrap : MonoBehaviour
     public ChipsManager chipsManager;
     public CrapsTableAreaManager crapsTableAreaManager;
     public HistoryPanelManager historyPanelManager;
+    public DiceManager diceManager;
 
     [Header("CrapsPoint")]
     public int CurrentCrapsPointValue;
@@ -94,16 +103,108 @@ public class GameCrap : MonoBehaviour
     [SerializeField] private Sprite crapsPointOffSprite;
     [SerializeField] private Sprite crapsPointOnSprite;
 
+
     [Space(10)]
+    [SerializeField] private Button backButton;
     [SerializeField] private Text coinsText;
+    [SerializeField] private Button addCoinButton;
+    [SerializeField] private Button cornerAddCoinButton;
+    [SerializeField] private Button guideButton;
+    [SerializeField] private Button settingButton;
+    [SerializeField] private Button adButton;
+
+    public void OnBackButtonClicked()
+    {
+
+        CanvasControl.Instance.gameSetting.Hide();
+        CanvasControl.Instance.gameHall.gameObject.SetActive(true);
+
+        ResetData();
+    }
+
+    public void OnAddCoinButtonClicked()
+    {
+        CanvasControl.Instance.gameStore.Show();
+    }
+
+    public void OnCornerAddCoinButtonClicked()
+    {
+        CanvasControl.Instance.gameStore.Show();
+    }
+
+    public void OnGuideButtonClicked()
+    {
+        CanvasControl.Instance.gameTutorial.Show();
+    }
+
+    public void OnSettinButtonClicked()
+    {
+        CanvasControl.Instance.gameSetting.Switch();
+    }
+
+    public void OnAdButtonClicked()
+    {
+
+    }
 
     public void UpdatePlayerCoin()
     {
-        coinsText.text = GameHelper.CoinToString(GameHelper.player.Coins);
+        //coinsText.text = GameHelper.CoinLongToString(GameHelper.player.Coins);
+
+        long currentCoins = 0;
+        long targetCoins = GameHelper.player.Coins;
+
+        try
+        {
+            currentCoins = GameHelper.CoinStringToLong(coinsText.text);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            currentCoins = targetCoins;
+        }
+
+        if (currentCoins != targetCoins)
+        {
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(DOTween.To(() => currentCoins,
+                x =>
+                {
+                    currentCoins = x;
+                    coinsText.text = GameHelper.CoinLongToString(currentCoins);
+                },
+                targetCoins, 1.0f));
+
+            sequence.AppendCallback(() =>
+            {
+                coinsText.text = GameHelper.CoinLongToString(currentCoins);
+            });
+        }
+        else
+        {
+            coinsText.text = GameHelper.CoinLongToString(currentCoins);
+        }
+    }
+
+    private void ResetData()
+    {
+        this.levelId = 0;
+
+        isComePointOn = false;
+        SetPointOff();
+
+        crpasComePointsList.Clear();
+        CurrentAllChipsTableAreaList.Clear();
+
+        chipsManager.Clear(false);
+
     }
 
     public void Init(int levelId)
     {
+
+        ResetData();
 
         CrapSceneInfo crapSceneInfo = GameHelper.Instance.GetCrapSceneInfo(levelId);
 
@@ -125,17 +226,14 @@ public class GameCrap : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () {
-
-        //Test code
-        isComePointOn = false;
-        SetPointOff();
+    void Start ()
+    {
 
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
 	void Update () {
-	
+    
 	}
 
     public void UpdateComePoints(int point)

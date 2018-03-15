@@ -143,7 +143,7 @@ public class ChipsManager : MonoBehaviour
         }
     }
 
-    public void Clear()
+    public void Clear(bool isReturnCoin)
     {
         for (int i = 0; i < TableCurrentChipList.Count; i++)
         {
@@ -158,8 +158,8 @@ public class ChipsManager : MonoBehaviour
 
             }
             
-
-            GameHelper.player.ChangeCoins(TableCurrentChipList[i].Value);
+            if(isReturnCoin)
+                GameHelper.player.ChangeCoins(TableCurrentChipList[i].Value);
         }
 
         TableCurrentChipList.Clear();

@@ -12,7 +12,6 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private InputField levelInputField;
     [SerializeField] private InputField diceInputField;
     [SerializeField] private HisDice showeDice;
-    [SerializeField] private Text coinsText;
     [SerializeField] private Transform Logbg;
     [SerializeField] private Text logText;
     [SerializeField] private CanvasGroup tipCanvasGroup;
@@ -24,7 +23,6 @@ public class GameTestHelper : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
 	    Instance = this;
-	    ShowPlayerCoin();
 	    GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
 
     }
@@ -50,10 +48,13 @@ public class GameTestHelper : MonoBehaviour
     {
         DiceState diceState = GameHelper.Instance.RandomDice();
 
-        showeDice.Init(diceState);
+        //showeDice.Init(diceState);
 
-        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+
+        CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
+
     }
 
     public void CrapsButton()
@@ -65,10 +66,12 @@ public class GameTestHelper : MonoBehaviour
             diceState = GameHelper.Instance.RandomDice();
         }
 
-        showeDice.Init(diceState);
+        CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+        //showeDice.Init(diceState);
+
+        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
 
     }
 
@@ -81,10 +84,12 @@ public class GameTestHelper : MonoBehaviour
             diceState = GameHelper.Instance.RandomDice();
         }
 
-        showeDice.Init(diceState);
+        CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+        //showeDice.Init(diceState);
+
+        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
     }
 
     public void PointButton()
@@ -96,10 +101,12 @@ public class GameTestHelper : MonoBehaviour
             diceState = GameHelper.Instance.RandomDice();
         }
 
-        showeDice.Init(diceState);
+        CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-        CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+        //showeDice.Init(diceState);
+
+        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
     }
 
     public void LoadButton()
@@ -155,11 +162,19 @@ public class GameTestHelper : MonoBehaviour
                     diceState = GameHelper.Instance.RandomDice();
                 }
 
-                showeDice.Init(diceState);
-
                 diceInputField.text = "";
-                CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-                CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+                CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
+
+                //showeDice.Init(diceState);
+
+                //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+                //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+
+                //showeDice.Init(diceState);
+
+                
+                //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
+                //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
             }
         }
     }
@@ -169,14 +184,10 @@ public class GameTestHelper : MonoBehaviour
         GameHelper.player.ResetData();
     }
 
-    public void ShowPlayerCoin()
+    public void ResetDailyGiftButton()
     {
-        //coinsText.text = GameHelper.player.CoinToString();
-        coinsText.text = GameHelper.CoinToString(GameHelper.player.Coins);
+        PlayerPrefs.DeleteKey("LoginCount");
+        PlayerPrefs.DeleteKey("LastTime");
     }
 
-    public void ShowTutorialButton()
-    {
-       CanvasControl.Instance.gameTutorial.Show();
-    }
 }

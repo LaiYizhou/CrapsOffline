@@ -125,6 +125,7 @@
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\Scripts\AudioControl.cs" />
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
     <Compile Include="Assets\Scripts\CanvasControl.cs" />
     <Compile Include="Assets\Scripts\Chip.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Assets\Scripts\CrapsTableArea.cs" />
     <Compile Include="Assets\Scripts\CrapsTableAreaManager.cs" />
     <Compile Include="Assets\Scripts\DailyGiftItem.cs" />
+    <Compile Include="Assets\Scripts\DiceManager.cs" />
     <Compile Include="Assets\Scripts\DiceState.cs" />
     <Compile Include="Assets\Scripts\GameCrap.cs" />
     <Compile Include="Assets\Scripts\GameDailyGift.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Assets\Scripts\HistoryPanelManager.cs" />
     <Compile Include="Assets\Scripts\IAPManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\ThrowingDice.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\Animation.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\AnimationState.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\AnimationStateData.cs" />

@@ -22,23 +22,69 @@ public class GameHelper : MonoBehaviour
     public static long StartCoins = 1000000L;
 
     private List<long> chipValueList = new List<long>()
-    {   10L, 100L, 200L, 500L,
-        1000L, 2000L, 5000L, 10000L, 20000L, 25000L, 50000L, 100000L, 250000L, 500000L,
-        1000000L, 1250000L, 2000000L, 2500000L, 5000000L, 10000000L, 12500000L, 25000000L, 50000000L, 100000000L
+    {
+        10L,
+        100L,
+        200L,
+        500L,
+        1000L,
+        2000L,
+        5000L,
+        10000L,
+        20000L,
+        25000L,
+        50000L,
+        100000L,
+        250000L,
+        500000L,
+        1000000L,
+        1250000L,
+        2000000L,
+        2500000L,
+        5000000L,
+        10000000L,
+        12500000L,
+        25000000L,
+        50000000L,
+        100000000L
     };
 
     /// <summary>
     /// Key: Level (Start with 1)
     /// </summary>
     private Dictionary<int, CrapSceneInfo> crapSceneInfoDictionary = new Dictionary<int, CrapSceneInfo>()
+    {
         {
-            {1, new CrapSceneInfo(1, 100L, 100*100L, 100*500L, new List<EChip>(){EChip._100, EChip._1K, EChip._2K, EChip._5K, EChip._10K})},
-            {2, new CrapSceneInfo(2, 1000L, 1000*100L, 1000*500L, new List<EChip>(){EChip._1K, EChip._2K, EChip._5K, EChip._10K, EChip._50K})},
-            {3, new CrapSceneInfo(3, 10000L, 10000*100L, 10000*500L, new List<EChip>(){EChip._10K, EChip._20K, EChip._50K, EChip._100K, EChip._500K})},
-            {4, new CrapSceneInfo(4, 50000L, 50000*100L, 50000*500L, new List<EChip>(){EChip._50K, EChip._100K, EChip._250K, EChip._500K, EChip._2_5M})},
-            {5, new CrapSceneInfo(5, 250000L, 250000*100L, 250000*500L, new List<EChip>(){EChip._250K, EChip._500K, EChip._1_25M, EChip._2_5M, EChip._12_5M})},
-            {6, new CrapSceneInfo(6, 1000000L, 1000000*100L, 1000000*500L, new List<EChip>(){EChip._1M, EChip._2M, EChip._5M, EChip._10M, EChip._50M})},
-        };
+            1,
+            new CrapSceneInfo(1, 100L, 100 * 100L, 100 * 500L,
+                new List<EChip>() {EChip._100, EChip._1K, EChip._2K, EChip._5K, EChip._10K})
+        },
+        {
+            2,
+            new CrapSceneInfo(2, 1000L, 1000 * 100L, 1000 * 500L,
+                new List<EChip>() {EChip._1K, EChip._2K, EChip._5K, EChip._10K, EChip._50K})
+        },
+        {
+            3,
+            new CrapSceneInfo(3, 10000L, 10000 * 100L, 10000 * 500L,
+                new List<EChip>() {EChip._10K, EChip._20K, EChip._50K, EChip._100K, EChip._500K})
+        },
+        {
+            4,
+            new CrapSceneInfo(4, 50000L, 50000 * 100L, 50000 * 500L,
+                new List<EChip>() {EChip._50K, EChip._100K, EChip._250K, EChip._500K, EChip._2_5M})
+        },
+        {
+            5,
+            new CrapSceneInfo(5, 250000L, 250000 * 100L, 250000 * 500L,
+                new List<EChip>() {EChip._250K, EChip._500K, EChip._1_25M, EChip._2_5M, EChip._12_5M})
+        },
+        {
+            6,
+            new CrapSceneInfo(6, 1000000L, 1000000 * 100L, 1000000 * 500L,
+                new List<EChip>() {EChip._1M, EChip._2M, EChip._5M, EChip._10M, EChip._50M})
+        },
+    };
 
     /// <summary>
     /// Odds -- Returned Payment
@@ -48,79 +94,79 @@ public class GameHelper : MonoBehaviour
     /// </summary>
     private Dictionary<EArea, float> areaOddsDictionary = new Dictionary<EArea, float>()
     {
-        { EArea.PassLine, 1.0f},
-        { EArea.PassOdds, 0.0f},
+        {EArea.PassLine, 1.0f},
+        {EArea.PassOdds, 0.0f},
 
-        { EArea.BigSix, 1.0f},
-        { EArea.BigEight, 1.0f},
+        {EArea.BigSix, 1.0f},
+        {EArea.BigEight, 1.0f},
 
-        { EArea.DontPassH, 1.0f},
-        { EArea.DontPassOdds, 0.0f}, 
-        { EArea.DontPassV, 1.0f},
+        {EArea.DontPassH, 1.0f},
+        {EArea.DontPassOdds, 0.0f},
+        {EArea.DontPassV, 1.0f},
 
-        { EArea.Field, 0.0f},
+        {EArea.Field, 0.0f},
 
-        { EArea.Come, 1.0f},
-        { EArea.DontCome, 1.0f},
+        {EArea.Come, 1.0f},
+        {EArea.DontCome, 1.0f},
 
-        { EArea.Buy4, -2.0f},
-        { EArea.Buy5, -1.5f},
-        { EArea.Buy6, -1.2f},
-        { EArea.Buy8, -1.2f},
-        { EArea.Buy9, -1.5f},
-        { EArea.Buy10, -2.0f},
+        {EArea.Buy4, -2.0f},
+        {EArea.Buy5, -1.5f},
+        {EArea.Buy6, -1.2f},
+        {EArea.Buy8, -1.2f},
+        {EArea.Buy9, -1.5f},
+        {EArea.Buy10, -2.0f},
 
-        { EArea.Lay4, -1.0f/2.0f},
-        { EArea.Lay5, -2.0f/3.0f},
-        { EArea.Lay6, -5.0f/6.0f},
-        { EArea.Lay8, -5.0f/6.0f},
-        { EArea.Lay9, -2.0f/3.0f},
-        { EArea.Lay10, -1.0f/2.0f},
+        {EArea.Lay4, -1.0f / 2.0f},
+        {EArea.Lay5, -2.0f / 3.0f},
+        {EArea.Lay6, -5.0f / 6.0f},
+        {EArea.Lay8, -5.0f / 6.0f},
+        {EArea.Lay9, -2.0f / 3.0f},
+        {EArea.Lay10, -1.0f / 2.0f},
 
-        { EArea.PlaceLose4, 5.0f/11.0f},
-        { EArea.PlaceLose5, 5.0f/8.0f},
-        { EArea.PlaceLose6, 4.0f/5.0f},
-        { EArea.PlaceLose8, 4.0f/5.0f},
-        { EArea.PlaceLose9, 5.0f/8.0f},
-        { EArea.PlaceLose10, 5.0f/11.0f},
-
-
-        { EArea.DontComeOdds4, 1.0f/2.0f},
-        { EArea.DontComeOdds5, 2.0f/3.0f},
-        { EArea.DontComeOdds6, 5.0f/6.0f},
-        { EArea.DontComeOdds8, 5.0f/6.0f},
-        { EArea.DontComeOdds9, 2.0f/3.0f},
-        { EArea.DontComeOdds10, 1.0f/2.0f},
+        {EArea.PlaceLose4, 5.0f / 11.0f},
+        {EArea.PlaceLose5, 5.0f / 8.0f},
+        {EArea.PlaceLose6, 4.0f / 5.0f},
+        {EArea.PlaceLose8, 4.0f / 5.0f},
+        {EArea.PlaceLose9, 5.0f / 8.0f},
+        {EArea.PlaceLose10, 5.0f / 11.0f},
 
 
-        { EArea.ComeOdds4, 2.0f},
-        { EArea.ComeOdds5, 1.5f},
-        { EArea.ComeOdds6, 1.2f},
-        { EArea.ComeOdds8, 1.2f},
-        { EArea.ComeOdds9, 1.5f},
-        { EArea.ComeOdds10, 2.0f},
+        {EArea.DontComeOdds4, 1.0f / 2.0f},
+        {EArea.DontComeOdds5, 2.0f / 3.0f},
+        {EArea.DontComeOdds6, 5.0f / 6.0f},
+        {EArea.DontComeOdds8, 5.0f / 6.0f},
+        {EArea.DontComeOdds9, 2.0f / 3.0f},
+        {EArea.DontComeOdds10, 1.0f / 2.0f},
 
 
-        { EArea.PlaceWin4, 1.8f},
-        { EArea.PlaceWin5, 1.4f},
-        { EArea.PlaceWin6, 7.0f/6.0f},
-        { EArea.PlaceWin8, 7.0f/6.0f},
-        { EArea.PlaceWin9, 1.4f},
-        { EArea.PlaceWin10, 1.8f},
+        {EArea.ComeOdds4, 2.0f},
+        {EArea.ComeOdds5, 1.5f},
+        {EArea.ComeOdds6, 1.2f},
+        {EArea.ComeOdds8, 1.2f},
+        {EArea.ComeOdds9, 1.5f},
+        {EArea.ComeOdds10, 2.0f},
 
-        { EArea.AnySeven, 4.0f},
 
-        { EArea.Hard22, 7.0f},
-        { EArea.Hard55, 7.0f},
-        { EArea.Hard33, 9.0f},
-        { EArea.Hard44, 9.0f},
+        {EArea.PlaceWin4, 1.8f},
+        {EArea.PlaceWin5, 1.4f},
+        {EArea.PlaceWin6, 7.0f / 6.0f},
+        {EArea.PlaceWin8, 7.0f / 6.0f},
+        {EArea.PlaceWin9, 1.4f},
+        {EArea.PlaceWin10, 1.8f},
 
-        { EArea.Horn12, 15.0f},
-        { EArea.Horn56, 15.0f},
-        { EArea.Horn11, 30.0f},
-        { EArea.Horn66, 30.0f},
+        {EArea.AnySeven, 4.0f},
 
-        { EArea.AnyCraps, 7.0f},
+        {EArea.Hard22, 7.0f},
+        {EArea.Hard55, 7.0f},
+        {EArea.Hard33, 9.0f},
+        {EArea.Hard44, 9.0f},
+
+        {EArea.Horn12, 15.0f},
+        {EArea.Horn56, 15.0f},
+        {EArea.Horn11, 30.0f},
+        {EArea.Horn66, 30.0f},
+
+        {EArea.AnyCraps, 7.0f},
 
 
 
@@ -129,32 +175,32 @@ public class GameHelper : MonoBehaviour
     public static Player player;
 
     // Use this for initialization
-    void Start ()
-	{
-	    Instance = this;
+    void Start()
+    {
+        Instance = this;
 
-	    player = new Player();
+        player = new Player();
 
-	    UpdatePlayerCoin();
+        UpdatePlayerCoin();
 
-	    //Test();
+        //Test();
 
-	}
+    }
 
     void Test()
     {
         int[] a = new[] {2, -3, 1, -10, 4, 5};
 
 
-       
+
 
         int p = 0;
-        int r = a.Length-1;
+        int r = a.Length - 1;
 
         MergeSort(a, p, r);
 
-      
-        for(int i = 0; i<a.Length; i++)
+
+        for (int i = 0; i < a.Length; i++)
             Debug.Log(a[i]);
 
     }
@@ -162,10 +208,10 @@ public class GameHelper : MonoBehaviour
     void MergeSort(int[] a, int p, int r)
     {
         if (p >= r) return;
-            
+
         int q = (p + r) / 2;
         MergeSort(a, p, q);
-        MergeSort(a, q+1, r);
+        MergeSort(a, q + 1, r);
 
         Merge(a, p, q, r);
     }
@@ -214,9 +260,10 @@ public class GameHelper : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 
     public DiceState RandomDice()
     {
@@ -235,7 +282,7 @@ public class GameHelper : MonoBehaviour
 
             if (value > 0)
             {
-                return (long)((value + 1) * chip.Value);
+                return (long) ((value + 1) * chip.Value);
             }
             else if (value < 0)
             {
@@ -251,25 +298,28 @@ public class GameHelper : MonoBehaviour
                     else if (diceState.Sum == 2 || diceState.Sum == 12)
                         return 3L * chip.Value;
                 }
-                else if(eArea == EArea.PassOdds)
+                else if (eArea == EArea.PassOdds)
                 {
                     if (diceState.Sum == 4 || diceState.Sum == 10)
-                        return (long) ((2.0f/1.0f + 1) * chip.Value);
-                    else if(diceState.Sum == 5 || diceState.Sum == 9)
-                        return (long)((3.0f / 2.0f + 1) * chip.Value);
-                    else if(diceState.Sum == 6 || diceState.Sum == 8)
-                        return (long)((6.0f / 5.0f + 1) * chip.Value);
+                        return (long) ((2.0f / 1.0f + 1) * chip.Value);
+                    else if (diceState.Sum == 5 || diceState.Sum == 9)
+                        return (long) ((3.0f / 2.0f + 1) * chip.Value);
+                    else if (diceState.Sum == 6 || diceState.Sum == 8)
+                        return (long) ((6.0f / 5.0f + 1) * chip.Value);
                 }
                 else if (eArea == EArea.DontPassOdds)
                 {
-                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 4 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 10)
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 4 ||
+                        CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 10)
                         return (long) ((1.0f / 2.0f + 1) * chip.Value);
-                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 5 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 9)
+                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 5 ||
+                             CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 9)
                         return (long) ((2.0f / 3.0f + 1) * chip.Value);
-                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 6 || CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 8)
+                    else if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 6 ||
+                             CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 8)
                         return (long) ((5.0f / 6.0f + 1) * chip.Value);
                 }
-                
+
             }
 
         }
@@ -285,33 +335,71 @@ public class GameHelper : MonoBehaviour
             return null;
     }
 
-    private List<EArea> basicPassAreaList = new List<EArea>(){ EArea.PassLine, EArea.DontPassH, EArea.DontPassV };
+    private List<EArea> basicPassAreaList = new List<EArea>() {EArea.PassLine, EArea.DontPassH, EArea.DontPassV};
 
-    private List<EArea> basicComeAreaList = new List<EArea>(){EArea.Come, EArea.DontCome};
+    private List<EArea> basicComeAreaList = new List<EArea>() {EArea.Come, EArea.DontCome};
 
     private List<EArea> allComeOddsAreaList = new List<EArea>()
     {
-        EArea.ComeOdds4, EArea.ComeOdds5, EArea.ComeOdds6, EArea.ComeOdds8, EArea.ComeOdds9, EArea.ComeOdds10
+        EArea.ComeOdds4,
+        EArea.ComeOdds5,
+        EArea.ComeOdds6,
+        EArea.ComeOdds8,
+        EArea.ComeOdds9,
+        EArea.ComeOdds10
     };
 
     private List<EArea> allDontComeOddsAreaList = new List<EArea>()
     {
-        EArea.DontComeOdds4, EArea.DontComeOdds5, EArea.DontComeOdds6, EArea.DontComeOdds8, EArea.DontComeOdds9, EArea.DontComeOdds10
+        EArea.DontComeOdds4,
+        EArea.DontComeOdds5,
+        EArea.DontComeOdds6,
+        EArea.DontComeOdds8,
+        EArea.DontComeOdds9,
+        EArea.DontComeOdds10
     };
 
     private List<EArea> multiRollAreaList = new List<EArea>()
     {
-        EArea.Hard22, EArea.Hard33, EArea.Hard44, EArea.Hard55, EArea.BigSix, EArea.BigEight,
-        EArea.PlaceWin4, EArea.PlaceWin5, EArea.PlaceWin6, EArea.PlaceWin8, EArea.PlaceWin9, EArea.PlaceWin10,
-        EArea.PlaceLose4, EArea.PlaceLose5, EArea.PlaceLose6, EArea.PlaceLose8, EArea.PlaceLose9, EArea.PlaceLose10,
-        EArea.Buy4, EArea.Buy5, EArea.Buy6, EArea.Buy8, EArea.Buy9, EArea.Buy10,
-        EArea.Lay4, EArea.Lay5, EArea.Lay6, EArea.Lay8, EArea.Lay9, EArea.Lay10
+        EArea.Hard22,
+        EArea.Hard33,
+        EArea.Hard44,
+        EArea.Hard55,
+        EArea.BigSix,
+        EArea.BigEight,
+        EArea.PlaceWin4,
+        EArea.PlaceWin5,
+        EArea.PlaceWin6,
+        EArea.PlaceWin8,
+        EArea.PlaceWin9,
+        EArea.PlaceWin10,
+        EArea.PlaceLose4,
+        EArea.PlaceLose5,
+        EArea.PlaceLose6,
+        EArea.PlaceLose8,
+        EArea.PlaceLose9,
+        EArea.PlaceLose10,
+        EArea.Buy4,
+        EArea.Buy5,
+        EArea.Buy6,
+        EArea.Buy8,
+        EArea.Buy9,
+        EArea.Buy10,
+        EArea.Lay4,
+        EArea.Lay5,
+        EArea.Lay6,
+        EArea.Lay8,
+        EArea.Lay9,
+        EArea.Lay10
     };
 
     private List<EArea> singleRollAreaList = new List<EArea>()
     {
-        EArea.AnySeven, 
-        EArea.Horn11, EArea.Horn12, EArea.Horn56, EArea.Horn66,
+        EArea.AnySeven,
+        EArea.Horn11,
+        EArea.Horn12,
+        EArea.Horn56,
+        EArea.Horn66,
         EArea.AnyCraps,
         EArea.Field
     };
@@ -359,7 +447,8 @@ public class GameHelper : MonoBehaviour
                 if (currentChipsTableAreaList.Contains(EArea.PassLine))
                     resAreaList.Add(EArea.PassOdds);
 
-                if (currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
+                if (currentChipsTableAreaList.Contains(EArea.DontPassH) ||
+                    currentChipsTableAreaList.Contains(EArea.DontPassV))
                     resAreaList.Add(EArea.DontPassOdds);
 
                 return resAreaList;
@@ -374,12 +463,13 @@ public class GameHelper : MonoBehaviour
                 if (currentChipsTableAreaList.Contains(EArea.PassLine))
                     resAreaList.Add(EArea.PassOdds);
 
-                if (currentChipsTableAreaList.Contains(EArea.DontPassH) || currentChipsTableAreaList.Contains(EArea.DontPassV))
+                if (currentChipsTableAreaList.Contains(EArea.DontPassH) ||
+                    currentChipsTableAreaList.Contains(EArea.DontPassV))
                     resAreaList.Add(EArea.DontPassOdds);
 
                 foreach (EArea eArea in currentChipsTableAreaList)
                 {
-                    if(allComeOddsAreaList.Contains(eArea) || allDontComeOddsAreaList.Contains(eArea))
+                    if (allComeOddsAreaList.Contains(eArea) || allDontComeOddsAreaList.Contains(eArea))
                         resAreaList.Add(eArea);
                 }
 
@@ -425,9 +515,9 @@ public class GameHelper : MonoBehaviour
 
     public Sprite GetChipDarkSprite(EChip eChip)
     {
-        if ((int)eChip >= 0 && (int)eChip < (int)EChip.Count)
+        if ((int) eChip >= 0 && (int) eChip < (int) EChip.Count)
         {
-            return chipDarkSpriteList[(int)eChip];
+            return chipDarkSpriteList[(int) eChip];
         }
         else
         {
@@ -435,7 +525,7 @@ public class GameHelper : MonoBehaviour
         }
     }
 
-    public static string CoinToString(long coins)
+    public static string CoinLongToString(long coins)
     {
         string res = coins.ToString();
 
@@ -450,7 +540,7 @@ public class GameHelper : MonoBehaviour
         for (int i = 0; i < res.Length; i++)
         {
             sb.Append(res[i]);
-            if ((i + 1) % 3 == 0 && (i+1) != res.Length)
+            if ((i + 1) % 3 == 0 && (i + 1) != res.Length)
                 sb.Append(',');
         }
 
@@ -465,10 +555,25 @@ public class GameHelper : MonoBehaviour
         return res;
     }
 
+    public static long CoinStringToLong(string s)
+    {
+        long res = 0;
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s[i] >= '0' && s[i] <= '9')
+            {
+                sb.Append(s[i]);
+            }
+        }
+
+        res = long.Parse(sb.ToString());
+        return res;
+    }
+
     public void UpdatePlayerCoin()
     {
-        //hallCoinsText.text = player.CoinToString();
-        //hallCoinsText.text = GameHelper.CoinToString(player.Coins);
         CanvasControl.Instance.gameHall.UpdatePlayerCoin();
         CanvasControl.Instance.gameCrap.UpdatePlayerCoin();
     }
@@ -491,18 +596,18 @@ public class CrapSceneInfo
 {
     public int Level;
 
-    public long JoinMin;
+    public long JoinMinCoins;
 
     public long BetMax;
     public long TableMax;
 
     public List<EChip> CandiChipList;
 
-    public CrapSceneInfo(int level, long joinMin, long betMax, long tableMax, List<EChip> candiChipList)
+    public CrapSceneInfo(int level, long joinMinCoins, long betMax, long tableMax, List<EChip> candiChipList)
     {
         this.Level = level;
 
-        this.JoinMin = joinMin;
+        this.JoinMinCoins = joinMinCoins;
         this.BetMax = betMax;
         this.TableMax = tableMax;
 
