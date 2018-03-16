@@ -112,6 +112,8 @@ public class GameDailyGift : MonoBehaviour
 
     public void OnCloseButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         Hide();
     }
 

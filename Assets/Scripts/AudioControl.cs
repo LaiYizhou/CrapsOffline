@@ -57,19 +57,11 @@ public class AudioControl : MonoBehaviour
 
     public enum EAudioClip
     {
-        ButtonClick_SFX,
-        FlyBonusStar_SFX,
+        ButtonClick,
 
-        Shuffle_SFX,
-        Answer_SFX,
-        WrongWord_SFX,
+        GameSceneClick,
 
-        HintCoin_SFX,
-        Character_SFX,
-        LevelUp_SFX,
-        NextRound_SFX,
-
-        Disappear_SFX
+        DailyGiftSign,
     }
 
 	// Use this for initialization
@@ -77,7 +69,7 @@ public class AudioControl : MonoBehaviour
 	{
 	    Instance = this;
 	    
-	    //PlayBgMusic();
+	    PlayBgMusic();
 
 	}
 	
@@ -111,16 +103,13 @@ public class AudioControl : MonoBehaviour
     {
         if (IsMusicOn)
         {
-            //musicAudioSource.Play();
+            musicAudioSource.Play();
         }
         else
         {
-            //musicAudioSource.Stop();
+            musicAudioSource.Stop();
         }
-        //if(musicAudioSource.isPlaying)
-        //    musicAudioSource.Stop();
-        //else
-        //    musicAudioSource.Play();
+       
     }
 
 }

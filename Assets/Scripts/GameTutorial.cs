@@ -66,6 +66,8 @@ public class GameTutorial : MonoBehaviour
 
     private void OnCloseButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         currentIndex = 0;
         this.gameObject.SetActive(false);
     }

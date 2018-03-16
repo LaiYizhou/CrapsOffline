@@ -23,7 +23,6 @@ public class GameHall : MonoBehaviour
 
     public void UpdatePlayerCoin()
     {
-        //coinsText.text = GameHelper.CoinLongToString(GameHelper.player.Coins);
 
         long currentCoins = 0;
         long targetCoins = GameHelper.player.Coins;
@@ -65,21 +64,29 @@ public class GameHall : MonoBehaviour
 
     public void OnDailyGiftsButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameDailyGift.Show();
     }
 
     public void OnAddCoinButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameStore.Show();
     }
 
     public void OnSettingButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameSetting.Switch();
     }
 
     public void OnCrapPlayNowButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.GameSceneClick);
+
         int index = Random.Range(1, 7);
         while (GameHelper.player.Coins < GameHelper.Instance.GetCrapSceneInfo(index).JoinMinCoins)
         {
@@ -121,8 +128,15 @@ public class GameHall : MonoBehaviour
         }
     }
 
+    public void OnAdButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+    }
+
     public void LoadCrapScene(int levelId)
     {
+
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.GameSceneClick);
 
         if (levelId > 0 && levelId <= 6)
         {

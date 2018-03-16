@@ -95,6 +95,8 @@ public class DailyGiftItem : MonoBehaviour
 
     public void Mark()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.DailyGiftSign);
+
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(markImage.DOFillAmount(1.0f, 0.5f));

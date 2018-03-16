@@ -189,74 +189,62 @@ public class GameHelper : MonoBehaviour
 
     void Test()
     {
-        int[] a = new[] {2, -3, 1, -10, 4, 5};
 
+        List<int> list = new List<int>(){5,3,17,10,84,19,6,22, 9};
 
+        BuildMaxHeap(list);
 
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int temp = list[0];
+            list[0] = list[i];
+            list[i] = temp;
 
-        int p = 0;
-        int r = a.Length - 1;
+            Heapify(list, 0, i);
+        }
 
-        MergeSort(a, p, r);
-
-
-        for (int i = 0; i < a.Length; i++)
-            Debug.Log(a[i]);
+        for (int i = 0; i < list.Count; i++)
+            Debug.Log(list[i]);
 
     }
 
-    void MergeSort(int[] a, int p, int r)
+    private void Heapify(List<int> list, int i, int heapSize)
     {
-        if (p >= r) return;
+        int index = i;
+        int left = index * 2 + 1;
+        int right = index * 2 + 2;
 
-        int q = (p + r) / 2;
-        MergeSort(a, p, q);
-        MergeSort(a, q + 1, r);
-
-        Merge(a, p, q, r);
-    }
-
-    void Merge(int[] a, int p, int q, int r)
-    {
-        int n1 = q - p + 1;
-        int n2 = r - (q + 1) + 1;
-
-        int[] L = new int[n1 + 1];
-        int[] R = new int[n2 + 1];
-
-        int i = 0;
-        int j = 0;
-
-        for (i = 0; i < n1; i++)
+        int max = index;
+        
+        while (left< heapSize && right< heapSize)
         {
-            L[i] = a[p + i];
-        }
+            if (left < list.Count && list[left] > list[max])
+                max = left;
 
-        for (i = 0; i < n2; i++)
-        {
-            R[i] = a[q + 1 + i];
-        }
+            if (right < list.Count && list[right] > list[max])
+                max = right;
 
-        L[n1] = Int32.MaxValue;
-        R[n2] = Int32.MaxValue;
-
-        i = 0;
-        j = 0;
-
-        for (int k = p; k <= r; k++)
-        {
-            if (L[i] < R[j])
+            if (index != max)
             {
-                a[k] = L[i];
-                i++;
+                int temp = list[index];
+                list[index] = list[max];
+                list[max] = temp;
             }
             else
-            {
-                a[k] = R[j];
-                j++;
-            }
+                break;
+
+            index = max;
+            left = index * 2 + 1;
+            right = index * 2 + 2;
+
         }
 
+    }
+
+    private void BuildMaxHeap(List<int> list)
+    {
+        for (int i = (list.Count - 1) / 2; i >= 0; i--)
+            Heapify(list, i, list.Count);
     }
 
     // Update is called once per frame

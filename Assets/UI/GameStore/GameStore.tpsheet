@@ -5,19 +5,23 @@
 # http://www.codeandweb.com/texturepacker/unity
 #
 # Sprite sheet: GameStore.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:f0f7fc20d1b7839c38e3519181b55d46:eb51bb0cc3657aabae66e5f1c30d41e9:d7b96d0dd55c38e9d055dfca27f3746a$
+# $TexturePacker:SmartUpdate:468bf165a8e2842b9f4e9d6adea8e17c:d93ddd7de52b83d5304a611212f29116:d7b96d0dd55c38e9d055dfca27f3746a$
 #
 
-best-seller;2;57;184;46;0.5;0.5
-best;142;195;184;46;0.5;0.5
+best-seller;326;189;184;46;0.5;0.5
+best;312;45;184;46;0.5;0.5
 bg_blue;2;243;885;75;0.5;0.5
-bg_remove ADS;929;952;69;70;0.5;0.5
-bg_store;890;369;121;35;0.5;0.5
-bth_chips;929;873;56;56;0.5;0.5
-common_btn_close;929;819;52;52;0.5;0.5
+bg_remove ADS;929;704;69;70;0.5;0.5
+bg_store;889;237;121;35;0.5;0.5
+bth_chips;929;625;56;56;0.5;0.5
+common_btn_close;929;571;52;52;0.5;0.5
 common_popup_background_1;2;406;925;616;0.5;0.5
-store_button_buy;2;105;168;58;0.5;0.5
-store_free_icon;929;931;63;19;0.5;0.5
-store_item_background;983;794;39;77;0.5;0.5
+prompt_icon_2;164;93;160;142;0.5;0.5
+prompt_icon_3;2;93;160;142;0.5;0.5
+prompt_message_bg;929;776;75;246;0.5;0.5
+store_button_buy;142;33;168;58;0.5;0.5
+store_free_icon;929;683;63;19;0.5;0.5
+store_item_background;983;546;39;77;0.5;0.5
 store_item_background_on;2;320;886;84;0.5;0.5
-store_percent_bg_on;2;165;138;76;0.5;0.5
+store_percent_bg_on;2;15;138;76;0.5;0.5
+wait;890;274;122;130;0.5;0.5

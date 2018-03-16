@@ -15,6 +15,7 @@ public class GameSetting : MonoBehaviour
     [SerializeField] private Sprite soundOffSprite;
     [SerializeField] private Button soundButton;
 
+    [SerializeField] private GameObject payOutsGameObject;
 
     public void Show()
     {
@@ -25,20 +26,28 @@ public class GameSetting : MonoBehaviour
 
     }
 
+    public void OnPayOutCloseButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        payOutsGameObject.gameObject.SetActive(false);
+
+    }
+
     public void OnSoundButtonClicked()
     {
 
         AudioControl.Instance.IsSoundOn = !AudioControl.Instance.IsSoundOn;
         UpdateButton();
 
-        //if (AudioControl.Instance.IsSoundOn)
-            //AudioControl.Instance.PlaySoundOnSetting(AudioControl.EAudioClip.ButtonClick_SFX);
+        if (AudioControl.Instance.IsSoundOn)
+            AudioControl.Instance.PlaySoundOnSetting(AudioControl.EAudioClip.ButtonClick);
 
     }
 
     public void OnMusicButtonClicked()
     {
-        //AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick_SFX);
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
         AudioControl.Instance.IsMusicOn = !AudioControl.Instance.IsMusicOn;
         UpdateButton();
@@ -51,6 +60,22 @@ public class GameSetting : MonoBehaviour
             musicButton.GetComponent<Image>().sprite = AudioControl.Instance.IsMusicOn ? musicOnSprite : musicOffSprite;
             soundButton.GetComponent<Image>().sprite = AudioControl.Instance.IsSoundOn ? soundOnSprite : soundOffSprite;
         }
+    }
+
+    public void OnPayoutButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        Hide();
+        payOutsGameObject.gameObject.SetActive(true);
+    }
+
+    public void OnRestorePurchaseButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        Hide();
+        IAPManager.Instance.RestorePurchases();
     }
 
     public void Hide()
@@ -71,8 +96,6 @@ public class GameSetting : MonoBehaviour
         }
     }
 
-   
-    
 
     // Use this for initialization
 	void Start () {

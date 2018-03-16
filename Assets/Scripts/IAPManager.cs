@@ -109,7 +109,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
                 //GameHelper.Instance.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
 
-                //CanvasControl.Instance.gameShopping.ShowBuyFailed();
+                CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
             }
         }
         // Otherwise ...
@@ -120,7 +120,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log("BuyProductID FAIL. Not initialized.");
             //GameHelper.Instance.Log("BuyProductID FAIL. Not initialized.");
 
-            //CanvasControl.Instance.gameShopping.ShowBuyFailed();
+            CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
             InitializePurchasing();
         }
     }
@@ -195,7 +195,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(200000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("300");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(200000);
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -208,7 +208,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(450000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("720");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(450000);
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -221,7 +221,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(1000000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("1,320");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(1000000);
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -233,7 +233,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(3000000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("2,880");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(3000000);
 
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 7000;
@@ -246,7 +246,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(4000000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("6,240");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(4000000);
 
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 12000;
@@ -259,7 +259,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.ChangeCoins(12000000);
             //GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully("18,000");
+            CanvasControl.Instance.gameStore.ShowPurchasedTransform(12000000);
 
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.ToolRearrangeNumber += 15;
@@ -297,7 +297,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
 
-            //CanvasControl.Instance.gameShopping.ShowBuyFailed();
+            CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
         }
 
         // Return a flag indicating whether this product has completely been received, or if the application needs 

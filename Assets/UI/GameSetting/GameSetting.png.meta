@@ -11,6 +11,9 @@ TextureImporter:
     21300008: btn_restore
     21300010: btn_sound
     21300012: btn_sound_unchecked
+    21300014: craps_help_bg
+    21300016: craps_help_btnclose
+    21300018: title_payouts
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -63,8 +66,8 @@ TextureImporter:
       name: bg_setting_bottom
       rect:
         serializedVersion: 2
-        x: 2
-        y: 28
+        x: 908
+        y: 948
         width: 102
         height: 74
       alignment: 0
@@ -76,8 +79,8 @@ TextureImporter:
       name: btn_music
       rect:
         serializedVersion: 2
-        x: 106
-        y: 2
+        x: 869
+        y: 755
         width: 59
         height: 59
       alignment: 0
@@ -89,8 +92,8 @@ TextureImporter:
       name: btn_music_unchecked
       rect:
         serializedVersion: 2
-        x: 161
-        y: 124
+        x: 901
+        y: 816
         width: 66
         height: 64
       alignment: 0
@@ -102,8 +105,8 @@ TextureImporter:
       name: btn_payout
       rect:
         serializedVersion: 2
-        x: 2
-        y: 104
+        x: 742
+        y: 818
         width: 157
         height: 74
       alignment: 0
@@ -115,8 +118,8 @@ TextureImporter:
       name: btn_restore
       rect:
         serializedVersion: 2
-        x: 2
-        y: 180
+        x: 742
+        y: 894
         width: 157
         height: 74
       alignment: 0
@@ -128,8 +131,8 @@ TextureImporter:
       name: btn_sound
       rect:
         serializedVersion: 2
-        x: 161
-        y: 63
+        x: 808
+        y: 757
         width: 59
         height: 59
       alignment: 0
@@ -141,10 +144,49 @@ TextureImporter:
       name: btn_sound_unchecked
       rect:
         serializedVersion: 2
-        x: 161
-        y: 190
+        x: 901
+        y: 882
         width: 66
         height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_help_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 446
+        width: 738
+        height: 576
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: craps_help_btnclose
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 752
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: title_payouts
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 970
+        width: 164
+        height: 52
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
