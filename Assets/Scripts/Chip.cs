@@ -632,6 +632,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
                 if (this.Value <= GameHelper.player.Coins)
                 {
+
                     CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
 
                     Debug.Log("! ! ! Use Coins : " + this.Value);

@@ -36,6 +36,9 @@ public class ChipsManager : MonoBehaviour
 
     public void BuildTableChip(Vector3 pos, Chip chip, CrapsTableArea area)
     {
+
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.BetDownChip);
+
         GameObject goPrefab = Resources.Load("chip") as GameObject;
 
         GameObject go = Instantiate(goPrefab) as GameObject;
@@ -123,6 +126,9 @@ public class ChipsManager : MonoBehaviour
 
     public void Undo()
     {
+
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         int count = TableCurrentChipList.Count;
         if (count > 0)
         {
@@ -142,8 +148,16 @@ public class ChipsManager : MonoBehaviour
         }
     }
 
+    public void OnClearButtonClicked(bool isReturnCoin)
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        Clear(isReturnCoin);
+    }
+
     public void Clear(bool isReturnCoin)
     {
+
         for (int i = 0; i < TableCurrentChipList.Count; i++)
         {
             TableCurrentChipList[i].TakeBack();

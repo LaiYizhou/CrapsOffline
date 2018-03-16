@@ -19,6 +19,7 @@ public class DiceManager : MonoBehaviour
     private Vector2 dice2OriginalVector2;
 
     public bool IsInBox = true;
+    public bool IsOpenDiceCollider = false;
 
     // Use this for initialization
     void Start()
@@ -34,9 +35,207 @@ public class DiceManager : MonoBehaviour
         if (!dice1.IsThrow && !dice2.IsThrow)
         {
             Debug.Log("Reset TwoDices");
+
+            PlaySpokenAudios();
+
             StartCoroutine(DelayResetTwoDices());   
         }
 
+    }
+
+    private void PlaySpokenAudios()
+    {
+        if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 2)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._2_no_point_1);
+            }
+            else
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._2_1);
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 3)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._3_no_point_1);
+            }
+            else
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._3_1);
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 4)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsHard())
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._4_hard_1);
+            }
+            else
+            {
+                if (!CanvasControl.Instance.gameCrap.IsPointOn)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._4_no_point_1);
+                }
+                else
+                {
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 4)
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._4_winner_1);
+                    }
+                    else
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._4_1);
+                    }
+                }
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 5)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._5_no_point_1);
+            }
+            else
+            {
+                if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 5)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._5_winner_1);
+                }
+                else
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._5_1);
+                }
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 6)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsHard())
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._6_hard_1);
+            }
+            else
+            {
+                if (!CanvasControl.Instance.gameCrap.IsPointOn)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._6_no_point_1);
+                }
+                else
+                {
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 6)
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._6_winner_1);
+                    }
+                    else
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._6_1);
+                    }
+                }
+            }
+        }
+        else if(CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 7)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._7_no_point_1);
+            }
+            else
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._7_out_1);
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 8)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsHard())
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._8_hard_1);
+            }
+            else
+            {
+                if (!CanvasControl.Instance.gameCrap.IsPointOn)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._8_no_point_1);
+                }
+                else
+                {
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 8)
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._8_winner_1);
+                    }
+                    else
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._8_1);
+                    }
+                }
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 9)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._9_no_point_1);
+            }
+            else
+            {
+                if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 9)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._9_winner_1);
+                }
+                else
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._9_1);
+                }
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 10)
+        {
+            if (CanvasControl.Instance.gameCrap.CurrentDiceState.IsHard())
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._10_hard_1);
+            }
+            else
+            {
+                if (!CanvasControl.Instance.gameCrap.IsPointOn)
+                {
+                    AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._10_no_point_1);
+                }
+                else
+                {
+                    if (CanvasControl.Instance.gameCrap.CurrentCrapsPointValue == 10)
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._10_winner_1);
+                    }
+                    else
+                    {
+                        AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._10_1);
+                    }
+                }
+            }
+        }
+        else if (CanvasControl.Instance.gameCrap.CurrentDiceState.Sum == 11)
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._11_no_point_1);
+            }
+            else
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._11_1);
+            }
+        }
+        else
+        {
+            if (!CanvasControl.Instance.gameCrap.IsPointOn)
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._12_no_point_1);
+            }
+            else
+            {
+                AudioControl.Instance.PlaySpokenSound(AudioControl.ESpokenAudioClip._12_1);
+            }
+        }
     }
 
     IEnumerator DelayResetTwoDices()
@@ -56,6 +255,7 @@ public class DiceManager : MonoBehaviour
             dice2.gameObject.SetActive(false);
 
             IsInBox = true;
+            IsOpenDiceCollider = false;
 
             StartCoroutine(DelayUpdateButton());   
         });
@@ -99,6 +299,8 @@ public class DiceManager : MonoBehaviour
     public void ThrowTwoDices(DiceState diceState)
     {
         //DiceState diceState = GameHelper.Instance.RandomDice();
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.RollDice);
+
         IsInBox = false;
 
         rollButton.interactable = false;
@@ -115,6 +317,15 @@ public class DiceManager : MonoBehaviour
 
         dice2.gameObject.SetActive(true);
         dice2.Throw(GetRandomDirection(), GetRandomVelocity());
+
+        StartCoroutine(DelayOpenDiceCollider());
+    }
+
+    IEnumerator DelayOpenDiceCollider()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        IsOpenDiceCollider = true;
     }
 
     private Vector2 GetRandomDirection()

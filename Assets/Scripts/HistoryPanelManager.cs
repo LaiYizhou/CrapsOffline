@@ -35,6 +35,8 @@ public class HistoryPanelManager : MonoBehaviour
     private float duration = 0.2f;
     private void OnHistoryButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         isShowPanel = !isShowPanel;
         if (isShowPanel)
         {

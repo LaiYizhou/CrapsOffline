@@ -43,6 +43,7 @@ public class GameSetting : MonoBehaviour
         if (AudioControl.Instance.IsSoundOn)
             AudioControl.Instance.PlaySoundOnSetting(AudioControl.EAudioClip.ButtonClick);
 
+        Hide();
     }
 
     public void OnMusicButtonClicked()
@@ -51,6 +52,8 @@ public class GameSetting : MonoBehaviour
 
         AudioControl.Instance.IsMusicOn = !AudioControl.Instance.IsMusicOn;
         UpdateButton();
+
+        Hide();
     }
 
     private void UpdateButton()

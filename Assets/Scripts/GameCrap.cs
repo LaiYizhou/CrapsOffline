@@ -126,6 +126,8 @@ public class GameCrap : MonoBehaviour
             if (number > 0)
             {
                 gameStateText.text = "You won " + GameHelper.CoinLongToString(number);
+
+                AudioControl.Instance.PlaySound(AudioControl.EAudioClip.WinChip);
             }
             else if (number < 0)
             {
@@ -133,13 +135,14 @@ public class GameCrap : MonoBehaviour
             }
             else
             {
-                gameStateText.text = "[Test] " + GameHelper.CoinLongToString(number);
+                //gameStateText.text = "[Test] " + GameHelper.CoinLongToString(number);
             }
         }
     }
 
     public void OnBackButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
         CanvasControl.Instance.gameSetting.Hide();
         CanvasControl.Instance.gameHall.gameObject.SetActive(true);
@@ -149,27 +152,35 @@ public class GameCrap : MonoBehaviour
 
     public void OnAddCoinButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameStore.Show();
     }
 
     public void OnCornerAddCoinButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameStore.Show();
     }
 
     public void OnGuideButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameTutorial.Show();
     }
 
     public void OnSettinButtonClicked()
     {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
         CanvasControl.Instance.gameSetting.Switch();
     }
 
     public void OnAdButtonClicked()
     {
-
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
     }
 
     public void UpdatePlayerCoin()

@@ -102,7 +102,7 @@ public class ThrowingDice : MonoBehaviour
             }
             else if (tag == "Dice")
             {
-                if (antiFactor < 1.0f)
+                if (CanvasControl.Instance.gameCrap.diceManager.IsOpenDiceCollider)
                     this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
             }
 
@@ -111,13 +111,31 @@ public class ThrowingDice : MonoBehaviour
 
     }
 
+
+    private IEnumerator coroutine;
     private void ChecktoStop()
     {
+
+        coroutine = Correct();
+
+        StopCoroutine("Correct");
+        StartCoroutine("Correct");
+
         if (antiFactor < 0.1f)
         {
-
+            //StartCoroutine(Correct());
             DOTween.To(() => velocity, x => velocity = x, Vector2.one, 0.4f).OnComplete(() => { Stop(); });
+        }
+    }
 
+    IEnumerator Correct()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        if (antiFactor >= 0.1f)
+        {
+            Debug.Log(" ### Dice Exception And Correct it now");
+            Stop();
         }
     }
 
