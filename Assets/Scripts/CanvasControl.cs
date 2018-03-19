@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CanvasControl : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class CanvasControl : MonoBehaviour
     public GameStore gameStore;
     public GameDailyGift gameDailyGift;
 
+    [Header("AdButtons")]
+    [SerializeField] private Button gameHallAdButton;
+    [SerializeField] private Button gameCrapsAdButton;
+
     // Use this for initialization
     void Start ()
     {
@@ -23,6 +28,20 @@ public class CanvasControl : MonoBehaviour
         gameHall.gameObject.SetActive(true);
         gameDailyGift.gameObject.SetActive(true);
 
+    }
+
+    public void UpdateRewardedButton()
+    {
+        if (IronSourceControl.Instance.IsRewardedVideoReady)
+        {
+            gameHallAdButton.gameObject.SetActive(true);
+            gameCrapsAdButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            gameHallAdButton.gameObject.SetActive(false);
+            gameCrapsAdButton.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame

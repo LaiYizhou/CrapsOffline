@@ -125,6 +125,17 @@
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\IronSource\Scripts\AndroidAgent.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSource.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceConfig.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceError.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceEvents.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceIAgent.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceJSON.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourcePlacement.cs" />
+    <Compile Include="Assets\IronSource\Scripts\IronSourceSegment.cs" />
+    <Compile Include="Assets\IronSource\Scripts\UnsupportedPlatformAgent.cs" />
+    <Compile Include="Assets\IronSource\Scripts\iOSAgent.cs" />
     <Compile Include="Assets\Scripts\AudioControl.cs" />
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
     <Compile Include="Assets\Scripts\CanvasControl.cs" />
@@ -146,6 +157,7 @@
     <Compile Include="Assets\Scripts\HisDice.cs" />
     <Compile Include="Assets\Scripts\HistoryPanelManager.cs" />
     <Compile Include="Assets\Scripts\IAPManager.cs" />
+    <Compile Include="Assets\Scripts\IronSourceControl.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\ThrowingDice.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\Animation.cs" />
@@ -234,6 +246,7 @@
     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Plugins\Android\IronSource\AndroidManifest.xml" />
     <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
     <None Include="Assets\Spine\spine-unity\Editor\Resources\SpineAssetDatabaseMarker.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\CustomMaterials\SkeletonRendererCustomMaterials.txt" />

@@ -10,7 +10,6 @@ public class Player
     {
         get
         {
-            //return coins;
 
             if (PlayerPrefs.HasKey("Coins"))
             {
@@ -39,6 +38,22 @@ public class Player
             
         }
     }
+
+    private bool isPaid;
+    public bool IsPaid
+    {
+        get
+        {
+            return isPaid;
+        }
+
+        private set
+        {
+            isPaid = value;
+        }
+    }
+
+    
 
     public Player()
     {

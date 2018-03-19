@@ -510,7 +510,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         Debug.Log("! ! ! WIN Coins : " + winNumber);
         GameHelper.player.ChangeCoins(winNumber);
-        CanvasControl.Instance.gameCrap.OneRollResult += winNumber;
+        CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult += winNumber;
 
         GameTestHelper.Instance.Log(string.Format("   [Win]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "+"+winNumber, GameHelper.player.Coins));
        
@@ -527,7 +527,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         Debug.Log("! ! ! Lose Coins : " + this.Value);
         GameTestHelper.Instance.Log(string.Format("  [Lose]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "lose", GameHelper.player.Coins));
-        CanvasControl.Instance.gameCrap.OneRollResult -= this.Value;
+        CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult -= this.Value;
 
         LoseAndTakeAway();
 
@@ -583,7 +583,7 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         Debug.Log("! ! ! Return Coins : " + Value);
         
         GameHelper.player.ChangeCoins(Value);
-        CanvasControl.Instance.gameCrap.OneRollResult += this.Value;
+        CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult += this.Value;
         GameTestHelper.Instance.Log(string.Format("[Return]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, Value, GameHelper.player.Coins));
 
 

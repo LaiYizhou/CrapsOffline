@@ -277,7 +277,7 @@ public class DiceManager : MonoBehaviour
         DiceState diceState = GameHelper.Instance.RandomDice();
 
         CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);
-        CanvasControl.Instance.gameCrap.OneRollResult = 0;
+        CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult = 0;
 
         ThrowTwoDices(diceState);
     }

@@ -16,6 +16,9 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private List<Sprite> chipSpriteList;
     [SerializeField] private List<Sprite> chipDarkSpriteList;
 
+    public static bool IsShowRewardedCoins;
+    public static int RewardedCoin;
+
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
     public static Vector3 CrapsPointOriginalPos = new Vector3(277.0f, 130.0f, 0.0f);
@@ -183,6 +186,7 @@ public class GameHelper : MonoBehaviour
 
         UpdatePlayerCoin();
 
+        //Debug.Log("###" + Application.persistentDataPath);
         //Test();
 
     }

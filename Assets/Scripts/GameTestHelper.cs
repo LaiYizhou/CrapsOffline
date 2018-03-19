@@ -22,7 +22,7 @@ public class GameTestHelper : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
 	    Instance = this;
-	    GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
+	    //GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
 
     }
 

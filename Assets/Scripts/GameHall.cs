@@ -25,7 +25,12 @@ public class GameHall : MonoBehaviour
     {
 
         long currentCoins = 0;
-        long targetCoins = GameHelper.player.Coins;
+        long targetCoins = 0;
+
+        if (GameHelper.Instance == null || GameHelper.player == null)
+            targetCoins = GameHelper.StartCoins;
+        else
+            targetCoins = GameHelper.player.Coins;
 
         try
         {
@@ -96,16 +101,18 @@ public class GameHall : MonoBehaviour
         LoadCrapScene(index);
     }
 
-    public void ShowAddCoins(int number)
+    public void ShowAddCoins(int number, bool isShowRewardedCoins)
     {
-        StartCoroutine(DelayShowAddCoins(number));
+        StartCoroutine(DelayShowAddCoins(number, isShowRewardedCoins));
     }
 
-    IEnumerator DelayShowAddCoins(int number)
+    IEnumerator DelayShowAddCoins(int number, bool isShowRewardedCoins)
     {
         yield return new WaitForSeconds(0.3f);
 
-        //if (GameHelper.IsShowRewardedCoins)
+        bool flag = !isShowRewardedCoins || (GameHelper.IsShowRewardedCoins);
+
+        if (flag)
         {
             showAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
 
@@ -124,13 +131,16 @@ public class GameHall : MonoBehaviour
                 showAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
             });
 
-            //GameHelper.IsShowRewardedCoins = false;
+            if(isShowRewardedCoins)
+                GameHelper.IsShowRewardedCoins = false;
         }
     }
 
     public void OnAdButtonClicked()
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
     }
 
     public void LoadCrapScene(int levelId)

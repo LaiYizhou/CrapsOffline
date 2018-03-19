@@ -104,7 +104,7 @@ public class DailyGiftItem : MonoBehaviour
         sequence.AppendCallback(()=>
         {
             SetMark(true);
-            CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber);
+            CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber, false);
         });
     }
 

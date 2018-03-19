@@ -113,7 +113,7 @@ public class GameCrap : MonoBehaviour
     [SerializeField] private Button adButton;
     [SerializeField] private Text gameStateText;
 
-    public long OneRollResult;
+    public long OneRollWinAndLoseResult;
 
     public void SetGameStateText(long number, bool isOnBet)
     {
@@ -181,14 +181,20 @@ public class GameCrap : MonoBehaviour
     public void OnAdButtonClicked()
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
     }
 
     public void UpdatePlayerCoin()
     {
-        //coinsText.text = GameHelper.CoinLongToString(GameHelper.player.Coins);
 
         long currentCoins = 0;
-        long targetCoins = GameHelper.player.Coins;
+        long targetCoins = 0;
+
+        if (GameHelper.Instance == null || GameHelper.player == null)
+            targetCoins = GameHelper.StartCoins;
+        else
+            targetCoins = GameHelper.player.Coins;
 
         try
         {
@@ -366,6 +372,6 @@ public class GameCrap : MonoBehaviour
         Debug.Log("### CheckChips...");
 
         CanvasControl.Instance.gameCrap.chipsManager.CheckChips();
-        SetGameStateText(OneRollResult, false);
+        SetGameStateText(OneRollWinAndLoseResult, false);
     }
 }
