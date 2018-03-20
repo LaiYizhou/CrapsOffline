@@ -194,22 +194,61 @@ public class GameHelper : MonoBehaviour
     void Test()
     {
 
-        List<int> list = new List<int>(){5,3,17,10,84,19,6,22, 9};
+        List<int> list = new List<int>(){5,5,5,5};
 
-        BuildMaxHeap(list);
+        //BuildMaxHeap(list);
 
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int temp = list[0];
-            list[0] = list[i];
-            list[i] = temp;
+        //for (int i = list.Count - 1; i > 0; i--)
+        //{
+        //    int temp = list[0];
+        //    list[0] = list[i];
+        //    list[i] = temp;
 
-            Heapify(list, 0, i);
-        }
+        //    Heapify(list, 0, i);
+        //}
+
+        QuickSort(list, 0, list.Count-1);
 
         for (int i = 0; i < list.Count; i++)
             Debug.Log(list[i]);
 
+    }
+
+    void QuickSort(List<int> list, int start, int end)
+    {
+        if (start < end)
+        {
+            int k = Partition(list, start, end);
+            //Debug.Log("k = " + k);
+            QuickSort(list, start, k-1);
+            QuickSort(list, k+1, end);
+        }
+    }
+
+    int Partition(List<int> list, int start, int end)
+    {
+        int pivot = list[end];
+
+        int i = start - 1;
+
+        for (int j = start; j <= end-1; j++)
+        {
+            if (list[j] <= pivot)
+            {
+                i++;
+
+                int temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
+
+        }
+
+        int temp1 = list[i + 1];
+        list[i+1] = list[end];
+        list[end] = temp1;
+
+        return i + 1;
     }
 
     private void Heapify(List<int> list, int i, int heapSize)

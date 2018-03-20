@@ -84,7 +84,7 @@ public class GameDailyGift : MonoBehaviour
     private float hideDuration = 0.2f;
     public void Hide()
     {
-
+        
         coverImage.gameObject.SetActive(false);
 
         Sequence sequence = DOTween.Sequence();
@@ -98,12 +98,13 @@ public class GameDailyGift : MonoBehaviour
 
     public void Show()
     {
+        this.gameObject.SetActive(true);
         coverImage.gameObject.SetActive(true);
 
         Sequence sequence = DOTween.Sequence();
 
         sequence.Insert(0.0f, panel.DOScale(Vector3.one * 1.02f, hideDuration));
-        sequence.Insert(0.0f, panel.DOLocalMove(new Vector3(0.0f, -30.0f), hideDuration));
+        sequence.Insert(0.0f, panel.DOLocalMove(new Vector3(0.0f, 0.0f), hideDuration));
 
         sequence.Insert(hideDuration, panel.DOScale(Vector3.one, scaleDuration));
 
@@ -130,6 +131,8 @@ public class GameDailyGift : MonoBehaviour
             LastTime = DateTime.Now;
 
             Debug.Log("First Login : " + LoginCount);
+
+            //Show();
         }
         else
         {
@@ -148,6 +151,7 @@ public class GameDailyGift : MonoBehaviour
                     LastTime = DateTime.Now;
 
                     Debug.Log("Several Login : " + LoginCount);
+                    //Show();
 
                 }
                 else if (totalSecond >= SecondsPerDay * 2.0)
@@ -158,6 +162,7 @@ public class GameDailyGift : MonoBehaviour
                     LastTime = DateTime.Now;
 
                     Debug.Log("Reset Login : " + LoginCount);
+                    //Show();
 
                 }
                 else
@@ -166,6 +171,9 @@ public class GameDailyGift : MonoBehaviour
                         dailyGiftItemList[i].SetMark(true);
 
                     Debug.Log("Have Logined Today ！！！ " + LoginCount);
+                    this.gameObject.SetActive(false);
+                    Hide();
+                    
                 }
             }
 

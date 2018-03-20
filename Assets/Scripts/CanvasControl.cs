@@ -25,6 +25,7 @@ public class CanvasControl : MonoBehaviour
 
         Instance = this;
 
+        gameCrap.gameObject.SetActive(true);
         gameHall.gameObject.SetActive(true);
         gameDailyGift.gameObject.SetActive(true);
 
@@ -32,7 +33,7 @@ public class CanvasControl : MonoBehaviour
 
     public void UpdateRewardedButton()
     {
-        if (IronSourceControl.Instance.IsRewardedVideoReady)
+        if (IronSourceControl.Instance.IsRewardedVideoReady && !GameHelper.player.IsPaid)
         {
             gameHallAdButton.gameObject.SetActive(true);
             gameCrapsAdButton.gameObject.SetActive(true);

@@ -193,7 +193,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 1400;
             GameHelper.player.ChangeCoins(200000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(200000);
 
@@ -206,7 +206,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 1400;
             GameHelper.player.ChangeCoins(450000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(450000);
 
@@ -219,7 +219,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             //ScoreManager.score += 100;
             //CanvasControl.Instance.PlayerCoinNumber += 2500;
             GameHelper.player.ChangeCoins(1000000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(1000000);
 
@@ -231,7 +231,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             GameHelper.player.ChangeCoins(3000000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(3000000);
 
@@ -244,7 +244,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             GameHelper.player.ChangeCoins(4000000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(4000000);
 
@@ -257,7 +257,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
             //ScoreManager.score += 100;
             GameHelper.player.ChangeCoins(12000000);
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(12000000);
 
@@ -273,7 +273,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
 
-            //GameHelper.player.SetIsPaid(true);
+            GameHelper.player.SetIsPaid(true);
 
             //CanvasControl.Instance.gameShopping.ShowBuySuccessfully();
 
@@ -314,6 +314,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
 
         //CanvasControl.Instance.gameShopping.ShowBuyFailed();
+        CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
 
     }
 }

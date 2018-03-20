@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
 
 public class Player
 {
@@ -44,12 +42,26 @@ public class Player
     {
         get
         {
-            return isPaid;
+            if (PlayerPrefs.HasKey("IsPaid"))
+            {
+                return PlayerPrefs.GetInt("IsPaid") == 1;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private set
         {
             isPaid = value;
+            PlayerPrefs.SetInt("IsPaid", isPaid ? 1 : 0);
+            if (CanvasControl.Instance != null)
+            {
+                CanvasControl.Instance.UpdateRewardedButton();
+                CanvasControl.Instance.gameStore.UpdateAdItem(!isPaid);
+            }
+            
         }
     }
 
@@ -60,11 +72,22 @@ public class Player
         if (Coins == -1)
             ChangeCoins(1 + GameHelper.StartCoins);
 
+        IsPaid = IsPaid;
     }
 
     public void ResetData()
     {
         this.Coins = GameHelper.StartCoins;
+        IsPaid = false;
+
+        PlayerPrefs.DeleteKey("Coins");
+        PlayerPrefs.DeleteKey("IsPaid");
+
+    }
+
+    public void SetIsPaid(bool flag)
+    {
+        this.IsPaid = flag;
     }
 
     public void ChangeCoins(long addNumber)
