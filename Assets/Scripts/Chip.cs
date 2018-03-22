@@ -624,12 +624,22 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         if (onCrapsTableArea != null && onCrapsTableArea.State != EState.Dark)
         {
-            if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetEAreaChipsValue(OnArea) <= GameHelper.Instance
-                    .GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).BetMax
-                && Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() <= GameHelper.Instance
-                    .GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax)
-            {
+            
+            Vector3 localPos = CanvasControl.Instance.gameCrap.chipsManager.GetTableChipPos(this.transform.localPosition);
+            long betMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).BetMax;
+            long tabelMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax;
 
+            if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetEAreaChipsValue(OnArea) > betMax)
+            {
+                GameHelper.Instance.ShowTip(localPos, string.Format("Max Single Bet is {0}", GameHelper.CoinLongToString(betMax)));
+
+            }
+            else if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > tabelMax)
+            {
+                GameHelper.Instance.ShowTip(localPos, string.Format("Max Total Bet is {0}", GameHelper.CoinLongToString(tabelMax)));
+            }
+            else
+            {
                 if (this.Value <= GameHelper.player.Coins)
                 {
 
@@ -642,14 +652,10 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 }
                 else
                 {
-                    GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
+                    CanvasControl.Instance.gameStore.Show();
                 }
-                
             }
-            else
-            {
-                GameTestHelper.Instance.Tip("Reach the BetMax ! ! !");
-            }
+
             
         }
 

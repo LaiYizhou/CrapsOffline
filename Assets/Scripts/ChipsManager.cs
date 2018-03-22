@@ -87,10 +87,13 @@ public class ChipsManager : MonoBehaviour
     /// <returns></returns>
     public Vector3 GetTableChipPos(Vector3 pos)
     {
-
-        // No Usage
-        Vector3 res = this.transform.InverseTransformVector(candiChipsTranforTransform.TransformPoint(pos));
+        Vector3 res = this.transform.InverseTransformVector(GetDragChipWorldPos(pos));
         return new Vector3(res.x, res.y, 0.0f);
+    }
+
+    public Vector3 GetDragChipWorldPos(Vector3 pos)
+    {
+        return candiChipsTranforTransform.TransformPoint(pos);
     }
 
     public void CheckChips()

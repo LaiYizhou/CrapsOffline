@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class GameDailyGift : MonoBehaviour
 {
+
     [SerializeField] private Transform dailyGiftItemsParentTransform;
     [SerializeField] private List<DailyGiftItem> dailyGiftItemList = new List<DailyGiftItem>();
     private List<int> dailyGiftCoinsList = new List<int>()
     {
-        1000, 3000, 3000, 5000, 10000,
-        3000, 5000, 5000, 6000, 15000,
-        5000, 6000, 6000, 8000, 20000,
-        6000, 8000, 8000, 10000, 25000,
-        8000, 10000, 10000, 12000, 30000,
-        10000, 12000, 12000, 15000, 50000
+        1000, 3000, 5000, 8000, 12000,
+        3000, 5000, 7000, 10000, 14000,
+        5000, 7000, 9000, 12000, 16000,
+        6000, 8000, 10000, 13000, 17000,
+        8000, 10000, 12000, 15000, 20000,
+        10000, 12000, 14000, 17000, 25000
     };
 
     private DateTime lastTime;
@@ -51,7 +52,7 @@ public class GameDailyGift : MonoBehaviour
     {
         get
         {
-            return PlayerPrefs.HasKey("LoginCount") ? PlayerPrefs.GetInt("LoginCount") : 0;
+            return PlayerPrefs.HasKey("LoginCount") ? PlayerPrefs.GetInt("LoginCount") : 1;
         }
 
         set
@@ -61,17 +62,20 @@ public class GameDailyGift : MonoBehaviour
         }
     }
 
-   
-
     [SerializeField] private Image coverImage;
     [SerializeField] private Transform panel;
 
-	// Use this for initialization
-	void Start ()
+    [Space(5)]
+    [SerializeField] private RectTransform scrollRectTransform;
+    [SerializeField] private RectTransform viewPortRectTransform;
+
+    // Use this for initialization
+    void Start ()
 	{
 
 	    InitDailyGifts();
 	    GainDailyGifts();
+	    
 
 	}
 
@@ -118,7 +122,7 @@ public class GameDailyGift : MonoBehaviour
         Hide();
     }
 
-    private const int SecondsPerDay = 3600;
+    private const int SecondsPerDay = 60*60*24;
     private void GainDailyGifts()
     {
 
@@ -126,13 +130,8 @@ public class GameDailyGift : MonoBehaviour
 
         if (LastTime == DateTime.MinValue)
         {
-            LoginCount++;
-            GetDailyGift(LoginCount);
-            LastTime = DateTime.Now;
-
+            GetDailyGift(LoginCount, DateTime.Now);
             Debug.Log("First Login : " + LoginCount);
-
-            //Show();
         }
         else
         {
@@ -145,29 +144,18 @@ public class GameDailyGift : MonoBehaviour
             {
                 if (totalSecond >= SecondsPerDay * 1.0 && totalSecond < SecondsPerDay * 2.0)
                 {
-
-                    LoginCount++;
-                    GetDailyGift(LoginCount);
-                    LastTime = DateTime.Now;
-
+                    GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Several Login : " + LoginCount);
-                    //Show();
-
                 }
                 else if (totalSecond >= SecondsPerDay * 2.0)
                 {
-                    LoginCount = 0;
-                    LoginCount++;
-                    GetDailyGift(LoginCount);
-                    LastTime = DateTime.Now;
-
+                    LoginCount = 1;
+                    GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Reset Login : " + LoginCount);
-                    //Show();
-
                 }
                 else
                 {
-                    for (int i = 0; i < LoginCount; i++)
+                    for (int i = 0; i < (LoginCount - 1) % 30; i++)
                         dailyGiftItemList[i].SetMark(true);
 
                     Debug.Log("Have Logined Today ！！！ " + LoginCount);
@@ -205,23 +193,59 @@ public class GameDailyGift : MonoBehaviour
         }
     }
 
-    public void GetDailyGift(int loginCount)
+    public void GetDailyGift(int loginCount, DateTime getTime)
     {
+
         int index = (loginCount - 1) % 30;
-        
-        for(int i = 0; i<index; i++)
+        NevigateToCurrentDay(dailyGiftItemsParentTransform.GetChild(index).GetComponent<RectTransform>());
+
+        for (int i = 0; i<index; i++)
             dailyGiftItemList[i].SetMark(true);
 
         dailyGiftItemList[index].SetImageType(DailyGiftItem.EImageType.Today);
 
-        StartCoroutine(DelayMark(index));
+        StartCoroutine(DelayMark(index, getTime));
     }
 
-    IEnumerator DelayMark(int index)
+    IEnumerator DelayMark(int index, DateTime getTime)
     {
         yield return new WaitForSeconds(1.0f);
 
         dailyGiftItemList[index].Mark();
+        LastTime = getTime;
+        LoginCount++;
+    }
+
+    private void NevigateToCurrentDay(RectTransform target)
+    {
+        Vector3 currentItemLocalPos = scrollRectTransform.InverseTransformVector(GetWorldPos(target));
+        Vector3 targetLocalPos = scrollRectTransform.InverseTransformVector(GetWorldPos(viewPortRectTransform));
+
+        Vector3 diff = targetLocalPos - currentItemLocalPos;
+        diff.z = 0.0f;
+
+        var newNormalizedPosition = new Vector2(diff.x / (dailyGiftItemsParentTransform.GetComponent<RectTransform>().rect.width - viewPortRectTransform.rect.width),
+            diff.y / (dailyGiftItemsParentTransform.GetComponent<RectTransform>().rect.height - viewPortRectTransform.rect.height));
+
+        newNormalizedPosition = scrollRectTransform.GetComponent<ScrollRect>().normalizedPosition - newNormalizedPosition;
+
+        newNormalizedPosition.x = Mathf.Clamp01(newNormalizedPosition.x);
+        newNormalizedPosition.y = Mathf.Clamp01(newNormalizedPosition.y);
+
+        DOTween.To(() => scrollRectTransform.GetComponent<ScrollRect>().normalizedPosition, x => scrollRectTransform.GetComponent<ScrollRect>().normalizedPosition = x, newNormalizedPosition, 0.8f);
+
+    }
+
+    private Vector3 GetWorldPos(RectTransform target)
+    {
+        var pivotOffset = new Vector3(
+            (0.5f - target.pivot.x) * target.rect.size.x,
+            (0.5f - target.pivot.y) * target.rect.size.y,
+            0f);
+
+        var localPosition = target.localPosition + pivotOffset;
+
+        return target.parent.TransformPoint(localPosition);
     }
 
 }

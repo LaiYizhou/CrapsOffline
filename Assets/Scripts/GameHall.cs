@@ -9,7 +9,6 @@ public class GameHall : MonoBehaviour
 {
 
     [SerializeField] private Text coinsText;
-    [SerializeField] private Text showAddedCoinText;
 
     // Use this for initialization
     void Start () {
@@ -101,40 +100,7 @@ public class GameHall : MonoBehaviour
         LoadCrapScene(index);
     }
 
-    public void ShowAddCoins(int number, bool isShowRewardedCoins)
-    {
-        StartCoroutine(DelayShowAddCoins(number, isShowRewardedCoins));
-    }
-
-    IEnumerator DelayShowAddCoins(int number, bool isShowRewardedCoins)
-    {
-        yield return new WaitForSeconds(0.3f);
-
-        bool flag = !isShowRewardedCoins || (GameHelper.IsShowRewardedCoins);
-
-        if (flag)
-        {
-            showAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
-
-            Sequence sequence = DOTween.Sequence();
-
-            sequence.Append(showAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
-            showAddedCoinText.GetComponent<RectTransform>().DOScale(Vector3.one, 0.3f);
-
-            sequence.Insert(0.3f, showAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(340.0f, 1.0f));
-            sequence.Insert(0.5f, showAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
-
-            sequence.AppendCallback(() =>
-            {
-                GameHelper.player.ChangeCoins(number);
-                showAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
-                showAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
-            });
-
-            if(isShowRewardedCoins)
-                GameHelper.IsShowRewardedCoins = false;
-        }
-    }
+    
 
     public void OnAdButtonClicked()
     {
@@ -150,15 +116,15 @@ public class GameHall : MonoBehaviour
 
         if (levelId > 0 && levelId <= 6)
         {
-            if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
+            //if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
             {
                 CanvasControl.Instance.gameCrap.Init(levelId);
                 this.gameObject.SetActive(false);
             }
-            else
-            {
-                GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
-            }
+            //else
+            //{
+            //    GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
+            //}
    
         }
         

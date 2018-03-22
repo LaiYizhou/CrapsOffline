@@ -159,7 +159,9 @@
     <Compile Include="Assets\Scripts\IAPManager.cs" />
     <Compile Include="Assets\Scripts\IronSourceControl.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\ThrowingDice.cs" />
+    <Compile Include="Assets\Scripts\Tip.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\Animation.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\AnimationState.cs" />
     <Compile Include="Assets\Spine\spine-csharp\src\AnimationStateData.cs" />

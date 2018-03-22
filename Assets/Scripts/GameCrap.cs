@@ -119,7 +119,10 @@ public class GameCrap : MonoBehaviour
     {
         if (isOnBet)
         {
-            gameStateText.text = "You bet " + GameHelper.CoinLongToString(number);
+            if (number == 0)
+                gameStateText.text = "Place Bet";
+            else
+                gameStateText.text = "You bet " + GameHelper.CoinLongToString(number);
         }
         else
         {

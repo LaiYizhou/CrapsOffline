@@ -112,11 +112,11 @@ public class ThrowingDice : MonoBehaviour
     }
 
 
-    private IEnumerator coroutine;
+    //private IEnumerator coroutine;
     private void ChecktoStop()
     {
 
-        coroutine = Correct();
+        //coroutine = Correct();
 
         StopCoroutine("Correct");
         StartCoroutine("Correct");

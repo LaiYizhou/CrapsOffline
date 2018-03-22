@@ -13,8 +13,6 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private HisDice showeDice;
     [SerializeField] private Transform Logbg;
     [SerializeField] private Text logText;
-    [SerializeField] private CanvasGroup tipCanvasGroup;
-    [SerializeField] private Text tipText;
 
 	// Use this for initialization
 	IEnumerator Start ()
@@ -26,30 +24,10 @@ public class GameTestHelper : MonoBehaviour
 
     }
 
-    public void Tip(string s)
-    {
-        tipText.text = s;
-
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(tipCanvasGroup.DOFade(1.0f, 0.5f));
-
-        sequence.Append(tipCanvasGroup.DOFade(0.0f, 0.5f));
-
-    }
-
     // Update is called once per frame
 	void Update () {
 	
 	}
-
-    public void RandomDiceButton()
-    {
-        DiceState diceState = GameHelper.Instance.RandomDice();
-
-        CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
-
-    }
 
     public void CrapsButton()
     {
@@ -80,10 +58,6 @@ public class GameTestHelper : MonoBehaviour
 
         CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-        //showeDice.Init(diceState);
-
-        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
     }
 
     public void PointButton()
@@ -97,10 +71,6 @@ public class GameTestHelper : MonoBehaviour
 
         CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-        //showeDice.Init(diceState);
-
-        //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
     }
 
     public void ShowLogSwitch()
@@ -144,16 +114,7 @@ public class GameTestHelper : MonoBehaviour
                 diceInputField.text = "";
                 CanvasControl.Instance.gameCrap.diceManager.ThrowTwoDices(diceState);
 
-                //showeDice.Init(diceState);
-
-                //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-                //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
-
-                //showeDice.Init(diceState);
-
-                
-                //CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-                //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+            
             }
         }
     }

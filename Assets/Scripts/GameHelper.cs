@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -10,7 +12,9 @@ public class GameHelper : MonoBehaviour
 
     public static GameHelper Instance;
 
-    [SerializeField] private Text hallCoinsText;
+    [SerializeField] private Text hallShowAddedCoinText;
+    [SerializeField] private Text crapsShowAddedCoinText;
+    public Tip tip;
 
     [SerializeField] private List<Sprite> diceSpriteList;
     [SerializeField] private List<Sprite> chipSpriteList;
@@ -22,7 +26,7 @@ public class GameHelper : MonoBehaviour
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
     public static Vector3 CrapsPointOriginalPos = new Vector3(277.0f, 130.0f, 0.0f);
-    public static long StartCoins = 1000000L;
+    public static long StartCoins = 100000L;
 
     private List<long> chipValueList = new List<long>()
     {
@@ -182,6 +186,7 @@ public class GameHelper : MonoBehaviour
     {
         Instance = this;
 
+        IsShowRewardedCoins = false;
         player = new Player();
 
         UpdatePlayerCoin();
@@ -194,106 +199,18 @@ public class GameHelper : MonoBehaviour
     void Test()
     {
 
-        List<int> list = new List<int>(){5,5,5,5};
-
-        //BuildMaxHeap(list);
-
-        //for (int i = list.Count - 1; i > 0; i--)
-        //{
-        //    int temp = list[0];
-        //    list[0] = list[i];
-        //    list[i] = temp;
-
-        //    Heapify(list, 0, i);
-        //}
-
-        QuickSort(list, 0, list.Count-1);
-
-        for (int i = 0; i < list.Count; i++)
-            Debug.Log(list[i]);
-
-    }
-
-    void QuickSort(List<int> list, int start, int end)
-    {
-        if (start < end)
-        {
-            int k = Partition(list, start, end);
-            //Debug.Log("k = " + k);
-            QuickSort(list, start, k-1);
-            QuickSort(list, k+1, end);
-        }
-    }
-
-    int Partition(List<int> list, int start, int end)
-    {
-        int pivot = list[end];
-
-        int i = start - 1;
-
-        for (int j = start; j <= end-1; j++)
-        {
-            if (list[j] <= pivot)
-            {
-                i++;
-
-                int temp = list[i];
-                list[i] = list[j];
-                list[j] = temp;
-            }
-
-        }
-
-        int temp1 = list[i + 1];
-        list[i+1] = list[end];
-        list[end] = temp1;
-
-        return i + 1;
-    }
-
-    private void Heapify(List<int> list, int i, int heapSize)
-    {
-        int index = i;
-        int left = index * 2 + 1;
-        int right = index * 2 + 2;
-
-        int max = index;
-        
-        while (left< heapSize && right< heapSize)
-        {
-            if (left < list.Count && list[left] > list[max])
-                max = left;
-
-            if (right < list.Count && list[right] > list[max])
-                max = right;
-
-            if (index != max)
-            {
-                int temp = list[index];
-                list[index] = list[max];
-                list[max] = temp;
-            }
-            else
-                break;
-
-            index = max;
-            left = index * 2 + 1;
-            right = index * 2 + 2;
-
-        }
-
-    }
-
-    private void BuildMaxHeap(List<int> list)
-    {
-        for (int i = (list.Count - 1) / 2; i >= 0; i--)
-            Heapify(list, i, list.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void ShowTip(Vector3 pos, string s)
+    {
+        //Debug.Log("pos" + pos);
+        tip.ShowTip(pos, s);
     }
 
     public DiceState RandomDice()
@@ -601,6 +518,53 @@ public class GameHelper : MonoBehaviour
 
         res = long.Parse(sb.ToString());
         return res;
+    }
+
+    public void ShowAddCoins(int number, bool isShowRewardedCoins)
+    {
+        StartCoroutine(DelayShowAddCoins(number, isShowRewardedCoins));
+    }
+
+    IEnumerator DelayShowAddCoins(int number, bool isShowRewardedCoins)
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        bool flag = !isShowRewardedCoins || (GameHelper.IsShowRewardedCoins);
+
+        if (flag)
+        {
+            hallShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
+            crapsShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Insert(0.0f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
+            sequence.Insert(0.0f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
+
+            sequence.Insert(0.3f, hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(340.0f, 1.0f));
+            sequence.Insert(0.5f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
+            sequence.Insert(0.3f, crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(340.0f, 1.0f));
+            sequence.Insert(0.5f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
+
+            sequence.AppendCallback(() =>
+            {
+                GameHelper.player.ChangeCoins(number);
+
+                hallShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
+                hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
+                crapsShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
+                crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
+
+                if (isShowRewardedCoins)
+                    GameHelper.IsShowRewardedCoins = false;
+            });
+
+
+        }
+        else
+        {
+            Debug.Log("Flag is false ! ! !");
+        }
     }
 
     public void UpdatePlayerCoin()

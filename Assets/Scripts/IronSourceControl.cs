@@ -274,7 +274,8 @@ public class IronSourceControl : MonoBehaviour
     {
         Debug.Log("I got RewardedVideoAdClosedEvent");
         //CanvasControl.Instance.ShowRewardedCoins(GameHelper.RewardedCoin);
-        CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedCoin, true);
+        //CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedCoin, true);
+        GameHelper.Instance.ShowAddCoins(GameHelper.RewardedCoin, true);
     }
 
     void RewardedVideoAdStartedEvent()
@@ -304,7 +305,7 @@ public class IronSourceControl : MonoBehaviour
 
     void OnApplicationPause(bool isPaused)
     {
-        Debug.Log("OnApplicationPause = " + isPaused);
+        //Debug.Log("OnApplicationPause = " + isPaused);
         if (isPaused)
         {
             //if(IronSourceControl.Instance!=null)

@@ -48,7 +48,7 @@ public class DailyGiftItem : MonoBehaviour
     public void SetImageType(EImageType eImageType)
     {
         this.eImageType = eImageType;
-        switch (eImageType)
+        switch (this.eImageType)
         {
                 
             case EImageType.FiveDay:
@@ -104,7 +104,8 @@ public class DailyGiftItem : MonoBehaviour
         sequence.AppendCallback(()=>
         {
             SetMark(true);
-            CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber, false);
+            //CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber, false);
+            GameHelper.Instance.ShowAddCoins(this.coinNumber, false);
         });
     }
 
