@@ -24,7 +24,7 @@ public class GameHelper : MonoBehaviour
     public static int RewardedCoin;
 
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
-    public static Vector3 ChipOnDragScale = new Vector3(0.2f, 0.2f, 0.2f);
+    public static Vector3 ChipOnDragScale = new Vector3(0.3f, 0.3f, 0.3f);
     public static Vector3 CrapsPointOriginalPos = new Vector3(277.0f, 130.0f, 0.0f);
     public static long StartCoins = 100000L;
 
@@ -191,15 +191,9 @@ public class GameHelper : MonoBehaviour
 
         UpdatePlayerCoin();
 
-        //Debug.Log("###" + Application.persistentDataPath);
-        //Test();
-
+        //ScreenCapture.CaptureScreenshot("SomeLevel");
     }
-
-    void Test()
-    {
-
-    }
+    
 
     // Update is called once per frame
     void Update()

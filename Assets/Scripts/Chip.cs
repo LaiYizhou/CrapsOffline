@@ -512,7 +512,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         GameHelper.player.ChangeCoins(winNumber);
         CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult += winNumber;
 
-        GameTestHelper.Instance.Log(string.Format("   [Win]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "+"+winNumber, GameHelper.player.Coins));
+        //if(GameHelper.Instance != null)
+            //GameTestHelper.Instance.Log(string.Format("   [Win]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "+"+winNumber, GameHelper.player.Coins));
        
         CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
 
@@ -526,7 +527,10 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private bool Lose()
     {
         Debug.Log("! ! ! Lose Coins : " + this.Value);
-        GameTestHelper.Instance.Log(string.Format("  [Lose]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "lose", GameHelper.player.Coins));
+
+        //if (GameHelper.Instance != null)
+            //GameTestHelper.Instance.Log(string.Format("  [Lose]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, "lose", GameHelper.player.Coins));
+
         CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult -= this.Value;
 
         LoseAndTakeAway();
@@ -584,7 +588,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         
         GameHelper.player.ChangeCoins(Value);
         CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult += this.Value;
-        GameTestHelper.Instance.Log(string.Format("[Return]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, Value, GameHelper.player.Coins));
+
+        //if (GameHelper.Instance != null)
+            //GameTestHelper.Instance.Log(string.Format("[Return]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, Value, GameHelper.player.Coins));
 
 
         CanvasControl.Instance.gameCrap.RemoveChipArea(this.OnArea);
@@ -648,7 +654,9 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                     Debug.Log("! ! ! Use Coins : " + this.Value);
 
                     GameHelper.player.ChangeCoins(-1L * this.Value);
-                    GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, -1L * this.Value, GameHelper.player.Coins));
+
+                    //if (GameHelper.Instance != null)
+                        //GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, -1L * this.Value, GameHelper.player.Coins));
                 }
                 else
                 {
