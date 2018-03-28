@@ -144,6 +144,7 @@
     <Compile Include="Assets\Scripts\CrapsTableArea.cs" />
     <Compile Include="Assets\Scripts\CrapsTableAreaManager.cs" />
     <Compile Include="Assets\Scripts\DailyGiftItem.cs" />
+    <Compile Include="Assets\Scripts\DialogMessage.cs" />
     <Compile Include="Assets\Scripts\DiceManager.cs" />
     <Compile Include="Assets\Scripts\DiceState.cs" />
     <Compile Include="Assets\Scripts\GameCrap.cs" />

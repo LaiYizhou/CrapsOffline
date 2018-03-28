@@ -274,12 +274,21 @@ public class DiceManager : MonoBehaviour
 
     public void Roll()
     {
-        DiceState diceState = GameHelper.Instance.RandomDice();
+        if (CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > 0)
+        {
+            DiceState diceState = GameHelper.Instance.RandomDice();
 
-        CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);
-        CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult = 0;
+            CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);
+            CanvasControl.Instance.gameCrap.OneRollWinAndLoseResult = 0;
 
-        ThrowTwoDices(diceState);
+            ThrowTwoDices(diceState);
+        }
+        else
+        {
+            GameHelper.Instance.ShowDialogMessage("Please place a bet on the table.");
+        }
+
+        
     }
 
     public void Ready()

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9287e8b0077e60448a55b2c37a24c336
-timeCreated: 1520850268
+timeCreated: 1522232046
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -41,6 +41,7 @@ TextureImporter:
     21300068: bth_chips
     21300070: btn_help
     21300072: bth_AD
+    21300074: prompt_message_bg
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -93,8 +94,8 @@ TextureImporter:
       name: bg_bet_bottom
       rect:
         serializedVersion: 2
-        x: 252
-        y: 2
+        x: 60
+        y: 8
         width: 70
         height: 50
       alignment: 0
@@ -106,8 +107,8 @@ TextureImporter:
       name: bg_chips_bottom
       rect:
         serializedVersion: 2
-        x: 324
-        y: 2
+        x: 132
+        y: 8
         width: 45
         height: 50
       alignment: 0
@@ -120,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 417
+        y: 169
         width: 172
         height: 149
       alignment: 0
@@ -133,7 +134,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 308
+        y: 60
         width: 169
         height: 107
       alignment: 0
@@ -145,8 +146,8 @@ TextureImporter:
       name: bth_chips
       rect:
         serializedVersion: 2
-        x: 245
-        y: 895
+        x: 2
+        y: 2
         width: 56
         height: 56
       alignment: 0
@@ -158,8 +159,8 @@ TextureImporter:
       name: btn_help
       rect:
         serializedVersion: 2
-        x: 179
-        y: 821
+        x: 81
+        y: 612
         width: 64
         height: 64
       alignment: 0
@@ -171,8 +172,8 @@ TextureImporter:
       name: btn_return
       rect:
         serializedVersion: 2
-        x: 82
-        y: 17
+        x: 235
+        y: 3
         width: 71
         height: 71
       alignment: 0
@@ -184,8 +185,8 @@ TextureImporter:
       name: btn_setting
       rect:
         serializedVersion: 2
-        x: 179
-        y: 887
+        x: 81
+        y: 678
         width: 64
         height: 64
       alignment: 0
@@ -197,8 +198,8 @@ TextureImporter:
       name: btn_store
       rect:
         serializedVersion: 2
-        x: 252
-        y: 54
+        x: 308
+        y: 4
         width: 76
         height: 70
       alignment: 0
@@ -210,8 +211,8 @@ TextureImporter:
       name: button_add_normal
       rect:
         serializedVersion: 2
-        x: 260
-        y: 980
+        x: 179
+        y: 16
         width: 54
         height: 42
       alignment: 0
@@ -224,7 +225,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 81
-        y: 669
+        y: 882
         width: 95
         height: 69
       alignment: 0
@@ -236,8 +237,8 @@ TextureImporter:
       name: craps_btn_off
       rect:
         serializedVersion: 2
-        x: 81
-        y: 598
+        x: 191
+        y: 953
         width: 68
         height: 69
       alignment: 0
@@ -249,8 +250,8 @@ TextureImporter:
       name: craps_btn_on
       rect:
         serializedVersion: 2
-        x: 151
-        y: 599
+        x: 191
+        y: 883
         width: 68
         height: 68
       alignment: 0
@@ -262,8 +263,8 @@ TextureImporter:
       name: craps_btn_ready
       rect:
         serializedVersion: 2
-        x: 81
-        y: 811
+        x: 484
+        y: 14
         width: 96
         height: 69
       alignment: 0
@@ -275,8 +276,8 @@ TextureImporter:
       name: craps_btn_rebet
       rect:
         serializedVersion: 2
-        x: 81
-        y: 882
+        x: 386
+        y: 14
         width: 96
         height: 69
       alignment: 0
@@ -288,8 +289,8 @@ TextureImporter:
       name: craps_btn_roll
       rect:
         serializedVersion: 2
-        x: 81
-        y: 953
+        x: 256
+        y: 182
         width: 177
         height: 69
       alignment: 0
@@ -302,7 +303,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 81
-        y: 740
+        y: 953
         width: 95
         height: 69
       alignment: 0
@@ -314,8 +315,8 @@ TextureImporter:
       name: craps_dice1
       rect:
         serializedVersion: 2
-        x: 212
-        y: 126
+        x: 273
+        y: 927
         width: 95
         height: 95
       alignment: 0
@@ -327,8 +328,8 @@ TextureImporter:
       name: craps_dice2
       rect:
         serializedVersion: 2
-        x: 212
-        y: 223
+        x: 435
+        y: 927
         width: 95
         height: 95
       alignment: 0
@@ -340,8 +341,8 @@ TextureImporter:
       name: craps_dice3
       rect:
         serializedVersion: 2
-        x: 155
-        y: 17
+        x: 424
+        y: 85
         width: 95
         height: 95
       alignment: 0
@@ -353,8 +354,8 @@ TextureImporter:
       name: craps_dice4
       rect:
         serializedVersion: 2
-        x: 115
-        y: 114
+        x: 327
+        y: 85
         width: 95
         height: 95
       alignment: 0
@@ -366,8 +367,8 @@ TextureImporter:
       name: craps_dice5
       rect:
         serializedVersion: 2
-        x: 173
-        y: 320
+        x: 230
+        y: 76
         width: 95
         height: 95
       alignment: 0
@@ -379,8 +380,8 @@ TextureImporter:
       name: craps_dice6
       rect:
         serializedVersion: 2
-        x: 115
-        y: 211
+        x: 176
+        y: 253
         width: 95
         height: 95
       alignment: 0
@@ -392,8 +393,8 @@ TextureImporter:
       name: craps_guide_btnclose
       rect:
         serializedVersion: 2
-        x: 2
-        y: 10
+        x: 176
+        y: 173
         width: 78
         height: 78
       alignment: 0
@@ -405,8 +406,8 @@ TextureImporter:
       name: craps_guide_dot
       rect:
         serializedVersion: 2
-        x: 108
-        y: 571
+        x: 106
+        y: 323
         width: 25
         height: 25
       alignment: 0
@@ -418,8 +419,8 @@ TextureImporter:
       name: craps_guide_doton
       rect:
         serializedVersion: 2
-        x: 81
-        y: 571
+        x: 79
+        y: 323
         width: 25
         height: 25
       alignment: 0
@@ -431,8 +432,8 @@ TextureImporter:
       name: craps_guide_left_darkl
       rect:
         serializedVersion: 2
-        x: 2
-        y: 90
+        x: 79
+        y: 459
         width: 55
         height: 107
       alignment: 0
@@ -444,8 +445,8 @@ TextureImporter:
       name: craps_guide_left_normal
       rect:
         serializedVersion: 2
-        x: 2
-        y: 199
+        x: 173
+        y: 60
         width: 55
         height: 107
       alignment: 0
@@ -457,8 +458,8 @@ TextureImporter:
       name: craps_guide_right_dark
       rect:
         serializedVersion: 2
-        x: 59
-        y: 90
+        x: 135
+        y: 350
         width: 54
         height: 107
       alignment: 0
@@ -470,8 +471,8 @@ TextureImporter:
       name: craps_guide_right_normal
       rect:
         serializedVersion: 2
-        x: 59
-        y: 199
+        x: 79
+        y: 350
         width: 54
         height: 107
       alignment: 0
@@ -483,8 +484,8 @@ TextureImporter:
       name: craps_history_down
       rect:
         serializedVersion: 2
-        x: 178
-        y: 673
+        x: 81
+        y: 744
         width: 68
         height: 67
       alignment: 0
@@ -496,8 +497,8 @@ TextureImporter:
       name: craps_history_up
       rect:
         serializedVersion: 2
-        x: 178
-        y: 742
+        x: 81
+        y: 813
         width: 68
         height: 67
       alignment: 0
@@ -522,13 +523,26 @@ TextureImporter:
       name: craps_max_min
       rect:
         serializedVersion: 2
-        x: 245
-        y: 860
+        x: 582
+        y: 989
         width: 99
         height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: prompt_message_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 320
+        width: 75
+        height: 246
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 20, z: 20, w: 20}
       outline: []
       tessellationDetail: -1
     outline: []

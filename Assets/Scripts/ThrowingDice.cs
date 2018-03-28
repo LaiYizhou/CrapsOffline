@@ -59,6 +59,8 @@ public class ThrowingDice : MonoBehaviour
         antiFactor = 1.0f;
         velocity = dir * v;
 
+        //Debug.Log(ThrowingDiceType+" : "+dir.ToString()+"  "+v);
+
         IsThrow = true;
     }
 
@@ -101,7 +103,7 @@ public class ThrowingDice : MonoBehaviour
             else if (tag == "Dice")
             {
                 if (CanvasControl.Instance.gameCrap.diceManager.IsOpenDiceCollider)
-                    this.velocity = new Vector2(-velocity.x * f * f, -velocity.y * f * f);
+                    this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
             }
 
             ChecktoStop();
@@ -113,6 +115,8 @@ public class ThrowingDice : MonoBehaviour
     //private IEnumerator coroutine;
     private void ChecktoStop()
     {
+
+        //coroutine = Correct();
 
         StopCoroutine("Correct");
         StartCoroutine("Correct");

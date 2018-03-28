@@ -15,6 +15,7 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private Text hallShowAddedCoinText;
     [SerializeField] private Text crapsShowAddedCoinText;
     public Tip tip;
+    public DialogMessage dialogMessage;
 
     [SerializeField] private List<Sprite> diceSpriteList;
     [SerializeField] private List<Sprite> chipSpriteList;
@@ -23,7 +24,7 @@ public class GameHelper : MonoBehaviour
     public static bool IsShowRewardedCoins;
     public static int RewardedCoin;
 
-    public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 10.0f, 0.0f);
+    public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 14.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.3f, 0.3f, 0.3f);
     public static Vector3 CrapsPointOriginalPos = new Vector3(277.0f, 130.0f, 0.0f);
     public static long StartCoins = 100000L;
@@ -205,6 +206,11 @@ public class GameHelper : MonoBehaviour
     {
         //Debug.Log("pos" + pos);
         tip.ShowTip(pos, s);
+    }
+
+    public void ShowDialogMessage(string s)
+    {
+        dialogMessage.ShowDialogMessage(s);
     }
 
     public DiceState RandomDice()
