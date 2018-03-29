@@ -270,6 +270,7 @@ public class DiceManager : MonoBehaviour
 
         //rollButton.gameObject.SetActive(false);
         rollButton.interactable = true;
+        CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = true;
     }
 
     public void Roll()
@@ -291,28 +292,28 @@ public class DiceManager : MonoBehaviour
         
     }
 
-    public void Ready()
-    {
-        readyButton.gameObject.SetActive(false);
-        rebetButton.gameObject.SetActive(false);
+    //public void Ready()
+    //{
+    //    readyButton.gameObject.SetActive(false);
+    //    rebetButton.gameObject.SetActive(false);
 
-        rollButton.gameObject.SetActive(true);
-        rollButton.interactable = true;
-    }
+    //    rollButton.gameObject.SetActive(true);
+    //    rollButton.interactable = true;
+    //}
 
-    public void Rebet()
-    {
+    //public void Rebet()
+    //{
 
-    }
+    //}
 
     public void ThrowTwoDices(DiceState diceState)
     {
-        //DiceState diceState = GameHelper.Instance.RandomDice();
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.RollDice);
 
         IsInBox = false;
 
         rollButton.interactable = false;
+        CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = false;
 
         hisDice.Init(diceState);
 

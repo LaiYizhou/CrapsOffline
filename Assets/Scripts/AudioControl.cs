@@ -139,6 +139,12 @@ public class AudioControl : MonoBehaviour
             musicAudioSource.Play();
     }
 
+    public void StopBgMusic()
+    {
+        if(musicAudioSource.isPlaying)
+            musicAudioSource.Stop();
+    }
+
     public void PlaySpokenSound(ESpokenAudioClip clip)
     {
         if (IsSoundOn)

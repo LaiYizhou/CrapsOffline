@@ -8,25 +8,28 @@ public class ButtonEffect : MonoBehaviour
 {
 
     [SerializeField]
-    private Button button;
+    private Image image;
     [Range(1.05f, 1.15f)]
     public float scale = 1.09f;
 
     // Use this for initialization
 	void Start ()
 	{
+	    if (image == null)
+	    {
+	        image = this.GetComponent<Image>();
+	    }
 
-	    button = this.GetComponent<Button>();
-        button.onClick.AddListener(OnClicked);
-	}
+	    this.GetComponent<Button>().onClick.AddListener(OnClicked);
+    }
 
     private void OnClicked()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(button.GetComponent<RectTransform>().DOScale(new Vector3(scale, scale, scale), 0.2f));
+        sequence.Append(image.GetComponent<RectTransform>().DOScale(new Vector3(scale, scale, scale), 0.2f));
         sequence.AppendCallback(() =>
         {
-            button.GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
+            image.GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
         });
 
 

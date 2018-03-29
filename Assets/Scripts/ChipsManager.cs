@@ -13,6 +13,7 @@ public class ChipsManager : MonoBehaviour
     [Header("BetMax And TableMax")]
     [SerializeField] private List<long> eAreaChipsValueList;
 
+    public bool IsChipsCanDrag = true;
 
     public void BuildCandiChips(CrapSceneInfo crapSceneInfo)
     {
@@ -177,6 +178,18 @@ public class ChipsManager : MonoBehaviour
         }
 
         TableCurrentChipList.Clear();
+    }
+
+    public void ClearAllChip()
+    {
+        for (int i = 0; i < TableAllChipList.Count; i++)
+        {
+            eAreaChipsValueList[(int)TableAllChipList[i].OnArea] -= TableAllChipList[i].Value;
+            TableAllChipList[i].TakeBack();
+           
+        }
+
+        TableAllChipList.Clear();
     }
 
     public void ClearTableCurrentChipList()

@@ -611,65 +611,65 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        CanvasControl.Instance.gameCrap.crapsTableAreaManager.ShowAllUIs();
+        if(CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag)
+            CanvasControl.Instance.gameCrap.crapsTableAreaManager.ShowAllUIs();
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
 
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, Camera.main, out newPosition);
+        if (CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag)
+        {
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, Camera.main, out newPosition);
 
-        transform.position = newPosition + GameHelper.ChipOnDragPosOffset;
-        transform.localScale = GameHelper.ChipOnDragScale;
+            transform.position = newPosition + GameHelper.ChipOnDragPosOffset;
+            transform.localScale = GameHelper.ChipOnDragScale;
+        }
 
-       
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
-        if (onCrapsTableArea != null && onCrapsTableArea.State != EState.Dark)
+        if (CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag)
         {
-            
-            Vector3 localPos = CanvasControl.Instance.gameCrap.chipsManager.GetTableChipPos(this.transform.localPosition);
-            long betMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).BetMax;
-            long tabelMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax;
 
-            if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetEAreaChipsValue(OnArea) > betMax)
+            if (onCrapsTableArea != null && onCrapsTableArea.State != EState.Dark)
             {
-                GameHelper.Instance.ShowTip(localPos, string.Format("Max Single Bet is {0}", GameHelper.CoinLongToString(betMax)));
 
-            }
-            else if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > tabelMax)
-            {
-                GameHelper.Instance.ShowTip(localPos, string.Format("Max Total Bet is {0}", GameHelper.CoinLongToString(tabelMax)));
-            }
-            else
-            {
-                if (this.Value <= GameHelper.player.Coins)
+                Vector3 localPos = CanvasControl.Instance.gameCrap.chipsManager.GetTableChipPos(this.transform.localPosition);
+                long betMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).BetMax;
+                long tabelMax = GameHelper.Instance.GetCrapSceneInfo(CanvasControl.Instance.gameCrap.LevelId).TableMax;
+
+                if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetEAreaChipsValue(OnArea) > betMax)
                 {
+                    GameHelper.Instance.ShowTip(localPos, string.Format("Max Single Bet is {0}", GameHelper.CoinLongToString(betMax)));
 
-                    CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
-
-                    Debug.Log("! ! ! Use Coins : " + this.Value);
-
-                    GameHelper.player.ChangeCoins(-1L * this.Value);
-
-                    //if (GameHelper.Instance != null)
-                        //GameTestHelper.Instance.Log(string.Format("   [Use]  {0}  ;  {1}  ;  {2}   |   {3} = {4}", this.ChipType, this.Value, this.OnArea, -1L * this.Value, GameHelper.player.Coins));
+                }
+                else if (Value + CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > tabelMax)
+                {
+                    GameHelper.Instance.ShowTip(localPos, string.Format("Max Total Bet is {0}", GameHelper.CoinLongToString(tabelMax)));
                 }
                 else
                 {
-                    CanvasControl.Instance.gameStore.Show();
+                    if (this.Value <= GameHelper.player.Coins)
+                    {
+                        CanvasControl.Instance.gameCrap.chipsManager.BuildTableChip(this.transform.localPosition, this, onCrapsTableArea);
+                        Debug.Log("! ! ! Use Coins : " + this.Value);
+                        GameHelper.player.ChangeCoins(-1L * this.Value);
+                    }
+                    else
+                    {
+                        CanvasControl.Instance.gameStore.Show();
+                    }
                 }
             }
 
-            
-        }
+            transform.localPosition = OriginalPos;
+            transform.localScale = Vector3.one;
+            CanvasControl.Instance.gameCrap.crapsTableAreaManager.ResetAllUIs();
 
-        transform.localPosition = OriginalPos;
-        transform.localScale = Vector3.one;
-        CanvasControl.Instance.gameCrap.crapsTableAreaManager.ResetAllUIs();
+        }
+        
     }
 
     public void TakeBack()

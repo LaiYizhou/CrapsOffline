@@ -9,11 +9,27 @@ public class GameHall : MonoBehaviour
 {
 
     [SerializeField] private Text coinsText;
+    private int lastGameHallId;
+    public int LastGameHallId
+    {
+        get
+        {
+            return PlayerPrefs.HasKey("LastGameHallId") ? PlayerPrefs.GetInt("LastGameHallId") : -1;
+        }
+
+        set
+        {
+            lastGameHallId = value;
+            PlayerPrefs.SetInt("LastGameHallId", lastGameHallId);
+        }
+    }
 
     // Use this for initialization
     void Start () {
-	
-	}
+
+        //PlayerPrefs.DeleteKey("LastGameHallId");
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -91,13 +107,22 @@ public class GameHall : MonoBehaviour
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.GameSceneClick);
 
-        int index = Random.Range(1, 7);
-        while (GameHelper.player.Coins < GameHelper.Instance.GetCrapSceneInfo(index).JoinMinCoins)
+        if (LastGameHallId == -1)
         {
-            index = Random.Range(1, 7);
+            int index = Random.Range(1, 7);
+            while (GameHelper.player.Coins < GameHelper.Instance.GetCrapSceneInfo(index).JoinMinCoins)
+            {
+                index = Random.Range(1, 7);
+            }
+
+            LoadCrapScene(index);
+        }
+        else
+        {
+            LoadCrapScene(LastGameHallId);
         }
 
-        LoadCrapScene(index);
+        
     }
 
     
@@ -119,12 +144,9 @@ public class GameHall : MonoBehaviour
             //if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
             {
                 CanvasControl.Instance.gameCrap.Init(levelId);
+                LastGameHallId = levelId;
                 this.gameObject.SetActive(false);
             }
-            //else
-            //{
-            //    GameTestHelper.Instance.Tip("Not enough Coins ! ! !");
-            //}
    
         }
         

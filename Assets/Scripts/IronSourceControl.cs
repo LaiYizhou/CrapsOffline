@@ -258,6 +258,7 @@ public class IronSourceControl : MonoBehaviour
     void RewardedVideoAdOpenedEvent()
     {
         Debug.Log("I got RewardedVideoAdOpenedEvent");
+        AudioControl.Instance.StopBgMusic();
     }
 
     void RewardedVideoAdRewardedEvent(IronSourcePlacement ssp)
@@ -266,6 +267,7 @@ public class IronSourceControl : MonoBehaviour
         //userTotalCredits = userTotalCredits + ssp.getRewardAmount();
         //GameHelper.player.ChangeCoins(ssp.getRewardAmount());
         GameHelper.IsShowRewardedCoins = true;
+        AudioControl.Instance.StopBgMusic();
         GameHelper.RewardedCoin = ssp.getRewardAmount();
         //AmountText.GetComponent<UnityEngine.UI.Text>().text = "" + userTotalCredits;
     }
@@ -276,6 +278,7 @@ public class IronSourceControl : MonoBehaviour
         //CanvasControl.Instance.ShowRewardedCoins(GameHelper.RewardedCoin);
         //CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedCoin, true);
         GameHelper.Instance.ShowAddCoins(GameHelper.RewardedCoin, true);
+        AudioControl.Instance.PlayBgMusic();
     }
 
     void RewardedVideoAdStartedEvent()

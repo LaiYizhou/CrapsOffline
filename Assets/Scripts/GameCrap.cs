@@ -243,6 +243,9 @@ public class GameCrap : MonoBehaviour
         CurrentAllChipsTableAreaList.Clear();
 
         chipsManager.Clear(false);
+        chipsManager.ClearAllChip();
+
+        SetGameStateText(0, true);
 
     }
 
