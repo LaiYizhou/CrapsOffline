@@ -170,7 +170,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\MissingPushNotificationEntitlementRemover.cs" />
     <Compile Include="Assets\IronSource\Editor\IAdapterSettings.cs" />
     <Compile Include="Assets\IronSource\Editor\IronSourceBuildPostprocessor.cs" />
     <Compile Include="Assets\IronSource\Editor\VungleSettings.cs" />

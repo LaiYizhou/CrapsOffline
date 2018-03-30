@@ -197,6 +197,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(200000);
 
+            AppsFlyerManager.Instance.TrackIAP("4.99", "1");
+
             //IronSourceControl.Instance.DestroyBanner();
         }
         else if(String.Equals(args.purchasedProduct.definition.id, "Craps_9_99", StringComparison.Ordinal))
@@ -209,6 +211,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(450000);
+
+            AppsFlyerManager.Instance.TrackIAP("9.99", "1");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -223,6 +227,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(1000000);
 
+            AppsFlyerManager.Instance.TrackIAP("19.99", "1");
             //IronSourceControl.Instance.DestroyBanner();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
@@ -234,6 +239,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
             GameHelper.player.SetIsPaid(true);
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(3000000);
+
+            AppsFlyerManager.Instance.TrackIAP("39.99", "1");
 
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 7000;
@@ -248,6 +255,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(4000000);
 
+            AppsFlyerManager.Instance.TrackIAP("49.99", "1");
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 12000;
         }
@@ -261,11 +269,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(12000000);
 
-            //IronSourceControl.Instance.DestroyBanner();
-            //CanvasControl.Instance.ToolRearrangeNumber += 15;
-            //CanvasControl.Instance.ToolRevealNumber += 9;
-            //CanvasControl.Instance.ToolRemoveNumber += 3;
-            //CanvasControl.Instance.ToolSkipNumber += 2;
+            AppsFlyerManager.Instance.TrackIAP("99.99", "1");
 
         }
         // Or ... a non-consumable product has been purchased by this user.
@@ -275,16 +279,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             GameHelper.player.SetIsPaid(true);
 
-            //CanvasControl.Instance.gameShopping.ShowBuySuccessfully();
+            AppsFlyerManager.Instance.TrackIAP("1.99", "1");
 
-            //IronSourceControl.Instance.DestroyBanner();
-
-            //CanvasControl.Instance._gameLevel.IsHasBought = true;
-            //CanvasControl.Instance._gameLevel.CoinLevel1Number = 0;
-            //CanvasControl.Instance._gameLevel.CoinLevel2Number = 0;
-            //CanvasControl.Instance._gameLevel.CoinLevel3Number = 0;
-
-            //CanvasControl.Instance._gameLevel.SetCoinLevelsState();
+          
         }
         // Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, "Pictoword_3_99", StringComparison.Ordinal))

@@ -136,6 +136,7 @@
     <Compile Include="Assets\IronSource\Scripts\IronSourceSegment.cs" />
     <Compile Include="Assets\IronSource\Scripts\UnsupportedPlatformAgent.cs" />
     <Compile Include="Assets\IronSource\Scripts\iOSAgent.cs" />
+    <Compile Include="Assets\Scripts\AppsFlyerManager.cs" />
     <Compile Include="Assets\Scripts\AudioControl.cs" />
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
     <Compile Include="Assets\Scripts\CanvasControl.cs" />

@@ -117,6 +117,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\AFInAppEvents.cs" />
+    <Compile Include="Assets\Plugins\AppsFlyer.cs" />
+    <Compile Include="Assets\Plugins\AppsFlyerTrackerCallbacks.cs" />
     <Compile Include="Assets\Plugins\UnityChannel\XiaomiSupport\AppStoreSettings.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\ComboBox.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\Demo\DemoInventory.cs" />
