@@ -59,8 +59,6 @@ public class ThrowingDice : MonoBehaviour
         antiFactor = 1.0f;
         velocity = dir * v;
 
-        //Debug.Log(ThrowingDiceType+" : "+dir.ToString()+"  "+v);
-
         IsThrow = true;
     }
 
@@ -116,14 +114,11 @@ public class ThrowingDice : MonoBehaviour
     private void ChecktoStop()
     {
 
-        //coroutine = Correct();
-
         StopCoroutine("Correct");
         StartCoroutine("Correct");
 
         if (antiFactor < 0.1f)
         {
-            //StartCoroutine(Correct());
             DOTween.To(() => velocity, x => velocity = x, Vector2.one, 0.4f).OnComplete(() => { Stop(); });
         }
     }

@@ -65,7 +65,7 @@ public class GameCrap : MonoBehaviour
         set
         {
             currentDiceState = value;
-            StartCoroutine(DelayCheck());
+            StartCoroutine("DelayCheck");
             
         }
     }
@@ -149,6 +149,8 @@ public class GameCrap : MonoBehaviour
 
         CanvasControl.Instance.gameSetting.Hide();
         CanvasControl.Instance.gameHall.gameObject.SetActive(true);
+
+        StopCoroutine("DelayCheck");
 
         ResetData();
     }
@@ -254,10 +256,16 @@ public class GameCrap : MonoBehaviour
 
         ResetData();
 
+        isPointOn = false;
+        crapsPointImage.GetComponent<RectTransform>().anchoredPosition = GameHelper.CrapsPointOriginalPos;
+        crapsPointImage.sprite = crapsPointOffSprite;
+        CurrentCrapsPointValue = 0;
+
         CrapSceneInfo crapSceneInfo = GameHelper.Instance.GetCrapSceneInfo(levelId);
 
         this.levelId = crapSceneInfo.Level;
         chipsManager.BuildCandiChips(crapSceneInfo);
+        diceManager.ResetData();
     }
 
 

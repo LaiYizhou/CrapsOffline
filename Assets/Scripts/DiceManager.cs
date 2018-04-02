@@ -9,6 +9,8 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private Button readyButton;
     [SerializeField] private Button rebetButton;
     [SerializeField] private Button rollButton;
+    [SerializeField] private Button undoButton;
+    [SerializeField] private Button clearButton;
 
     [SerializeField] private HisDice hisDice;
 
@@ -36,7 +38,9 @@ public class DiceManager : MonoBehaviour
         {
             Debug.Log("Reset TwoDices");
 
-            PlaySpokenAudios();
+            //temp code
+            if(!CanvasControl.Instance.gameHall.gameObject.activeInHierarchy)
+                PlaySpokenAudios();
 
             StartCoroutine(DelayResetTwoDices());   
         }
@@ -261,6 +265,29 @@ public class DiceManager : MonoBehaviour
         });
     }
 
+    public void ResetData()
+    {
+        StopCoroutine("DelayUpdateButton");
+
+        dice1.GetComponent<RectTransform>().anchoredPosition = dice1OriginalVector2;
+        dice2.GetComponent<RectTransform>().anchoredPosition = dice2OriginalVector2;
+
+        hisDice.gameObject.SetActive(true);
+        hisDice.Reset();
+
+        dice1.gameObject.SetActive(false);
+        dice2.gameObject.SetActive(false);
+
+        IsInBox = true;
+        IsOpenDiceCollider = false;
+
+        rollButton.interactable = true;
+        undoButton.interactable = true;
+        clearButton.interactable = true;
+        CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = true;
+
+    }
+
     IEnumerator DelayUpdateButton()
     {
         yield return new WaitForSeconds(0.6f);
@@ -268,8 +295,9 @@ public class DiceManager : MonoBehaviour
         //readyButton.gameObject.SetActive(true);
         //rebetButton.gameObject.SetActive(true);
 
-        //rollButton.gameObject.SetActive(false);
         rollButton.interactable = true;
+        undoButton.interactable = true;
+        clearButton.interactable = true;
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = true;
     }
 
@@ -313,6 +341,8 @@ public class DiceManager : MonoBehaviour
         IsInBox = false;
 
         rollButton.interactable = false;
+        undoButton.interactable = false;
+        clearButton.interactable = false;
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = false;
 
         hisDice.Init(diceState);
