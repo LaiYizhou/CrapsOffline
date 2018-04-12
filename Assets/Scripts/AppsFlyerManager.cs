@@ -84,6 +84,18 @@ public class AppsFlyerManager : MonoBehaviour {
         purchaseEvent.Add("af_quantity", count);
         AppsFlyer.trackRichEvent("af_purchase", purchaseEvent);
 
+        //AFInAppEvents.LEVEL_ACHIEVED
+
+    }
+
+    public void TrackAd(string getCoin, string count)
+    {
+        Dictionary<string, string> adEvent = new Dictionary<string, string>();
+        adEvent.Add("af_revenue", "0");
+        adEvent.Add("af_quantity", count);
+        AppsFlyer.trackRichEvent("af_param_1", adEvent);
+
+        //AppsFlyer.trackEvent(AFInAppEvents.LOGIN);
     }
 
     //On Android ou can call the conversion data directly from your CS file, or from the default AppsFlyerTrackerCallbacks

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
@@ -185,6 +186,17 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
+        Debug.Log("transactionID : " + args.purchasedProduct.transactionID);
+
+        bool isCheat = IsCheat(args.purchasedProduct.transactionID);
+        bool isSandBox = IsSandBox(args.purchasedProduct.transactionID);
+
+        if (isCheat)
+        {
+            Debug.Log(string.Format("ProcessPurchase: InValid. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+            return PurchaseProcessingResult.Complete;
+        }
+
         // A consumable product has been purchased by this user.
         if (String.Equals(args.purchasedProduct.definition.id, "Craps_4_99", StringComparison.Ordinal))
         {
@@ -197,7 +209,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(200000);
 
-            AppsFlyerManager.Instance.TrackIAP("4.99", "1");
+            if(!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("4.99", "1");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -212,7 +225,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(450000);
 
-            AppsFlyerManager.Instance.TrackIAP("9.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("9.99", "1");
 
             //IronSourceControl.Instance.DestroyBanner();
         }
@@ -227,7 +241,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(1000000);
 
-            AppsFlyerManager.Instance.TrackIAP("19.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("19.99", "1");
             //IronSourceControl.Instance.DestroyBanner();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
@@ -240,7 +255,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(3000000);
 
-            AppsFlyerManager.Instance.TrackIAP("39.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("39.99", "1");
 
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 7000;
@@ -255,7 +271,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(4000000);
 
-            AppsFlyerManager.Instance.TrackIAP("49.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("49.99", "1");
             //IronSourceControl.Instance.DestroyBanner();
             //CanvasControl.Instance.PlayerCoinNumber += 12000;
         }
@@ -269,7 +286,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             CanvasControl.Instance.gameStore.ShowPurchasedTransform(12000000);
 
-            AppsFlyerManager.Instance.TrackIAP("99.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("99.99", "1");
 
         }
         // Or ... a non-consumable product has been purchased by this user.
@@ -279,7 +297,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
             GameHelper.player.SetIsPaid(true);
 
-            AppsFlyerManager.Instance.TrackIAP("1.99", "1");
+            if (!isSandBox)
+                AppsFlyerManager.Instance.TrackIAP("1.99", "1");
 
           
         }
@@ -314,4 +333,17 @@ public class IAPManager : MonoBehaviour, IStoreListener
         CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
 
     }
+
+    private bool IsCheat(string transactionID)
+    {
+        Regex r = new Regex(@"^\d+$");
+        return !r.IsMatch(transactionID);
+    }
+
+    private bool IsSandBox(string transactionID)
+    {
+        Regex r = new Regex(@"^1000000");
+        return r.IsMatch(transactionID);
+    }
+
 }
