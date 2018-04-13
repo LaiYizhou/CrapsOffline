@@ -64,10 +64,13 @@ public class GameDailyGift : MonoBehaviour
 
     [SerializeField] private Image coverImage;
     [SerializeField] private Transform panel;
+    [SerializeField] private Transform originalPosTransform;
 
     [Space(5)]
     [SerializeField] private RectTransform scrollRectTransform;
     [SerializeField] private RectTransform viewPortRectTransform;
+
+
 
     // Use this for initialization
     void Start ()
@@ -86,6 +89,7 @@ public class GameDailyGift : MonoBehaviour
 
     private float scaleDuration = 0.2f;
     private float hideDuration = 0.2f;
+    
     public void Hide()
     {
         
@@ -96,7 +100,8 @@ public class GameDailyGift : MonoBehaviour
         sequence.Append(panel.DOScale(Vector3.one * 1.02f, scaleDuration));
 
         sequence.Insert(scaleDuration, panel.DOScale(Vector3.one * 0.0f, hideDuration));
-        sequence.Insert(scaleDuration, panel.DOLocalMove(new Vector3(-480.0f, 284.0f, 0.0f), hideDuration));
+        //Debug.Log(originalPosTransform.localPosition);
+        sequence.Insert(scaleDuration, panel.DOLocalMove(originalPosTransform.localPosition, hideDuration));
 
     }
 
