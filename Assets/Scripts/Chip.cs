@@ -659,7 +659,8 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                     }
                     else
                     {
-                        CanvasControl.Instance.gameStore.Show();
+                        //CanvasControl.Instance.gameStore.Show();
+                        CanvasControl.Instance.gamePromotion.Show(GamePromotion.EPromotionType.LoginSale);
                     }
                 }
             }

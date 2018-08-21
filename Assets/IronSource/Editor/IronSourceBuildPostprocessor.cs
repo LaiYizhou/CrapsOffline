@@ -1,4 +1,4 @@
-#if UNITY_IPHONE 
+
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -79,4 +79,4 @@ namespace IronSource.Editor
 	}
 }
 
-#endif
+

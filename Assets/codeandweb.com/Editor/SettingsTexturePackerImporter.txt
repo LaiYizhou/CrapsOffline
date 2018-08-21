@@ -3,28 +3,55 @@ importPivots: 1
 tpsheetFileNames:
 - Assets/ResourcesSlots/wolf/Texture/bg.tpsheet
 - Assets/Textures/Activity/Quest/Quest.tpsheet
-- Assets/UI/GameCrap/Chips.tpsheet
+- Assets/UI/Common/common_popup_background.tpsheet
+- Assets/UI/GameCrap/CrapsGuide/craps_guide01.tpsheet
+- Assets/UI/GameCrap/CrapsGuide/craps_guide02.tpsheet
+- Assets/UI/GameCrap/CrapsGuide/craps_guide03.tpsheet
+- Assets/UI/GameCrap/CrapsGuide/craps_guide04.tpsheet
+- Assets/UI/GameCrap/CrapsGuide/craps_guide05.tpsheet
 - Assets/UI/GameCrap/CrapsTableAreas.tpsheet
-- Assets/UI/GameCrap/Dice1.tpsheet
-- Assets/UI/GameCrap/Dice2.tpsheet
+- Assets/UI/GameCrap/DarkChips.tpsheet
+- Assets/UI/GameCrap/Dice.tpsheet
 - Assets/UI/GameCrap/GameCrap.tpsheet
+- Assets/UI/GameCrap/NormalChips.tpsheet
+- Assets/UI/GameCrap/Other.tpsheet
 - Assets/UI/GameDailyGift/GameDailyGift.tpsheet
 - Assets/UI/GameHall/GameHall.tpsheet
+- Assets/UI/GameHourlyGift/HourlyGift.tpsheet
+- Assets/UI/GameSetting/craps_help_bg.tpsheet
 - Assets/UI/GameSetting/GameSetting.tpsheet
 - Assets/UI/GameStore/GameStore.tpsheet
 textureFileNames:
 - Assets/ResourcesSlots/wolf/Texture/bg.png
 - Assets/Textures/Activity/Quest/Quest.png
-- Assets/UI/GameCrap/Chips.png
+- Assets/UI/Common/common_popup_background.png
+- Assets/UI/GameCrap/CrapsGuide/craps_guide01.png
+- Assets/UI/GameCrap/CrapsGuide/craps_guide02.png
+- Assets/UI/GameCrap/CrapsGuide/craps_guide03.png
+- Assets/UI/GameCrap/CrapsGuide/craps_guide04.png
+- Assets/UI/GameCrap/CrapsGuide/craps_guide05.png
 - Assets/UI/GameCrap/CrapsTableAreas.png
-- Assets/UI/GameCrap/Dice1.png
-- Assets/UI/GameCrap/Dice2.png
+- Assets/UI/GameCrap/DarkChips.png
+- Assets/UI/GameCrap/Dice.png
 - Assets/UI/GameCrap/GameCrap.png
+- Assets/UI/GameCrap/NormalChips.png
+- Assets/UI/GameCrap/Other.png
 - Assets/UI/GameDailyGift/GameDailyGift.png
 - Assets/UI/GameHall/GameHall.png
+- Assets/UI/GameHourlyGift/HourlyGift.png
+- Assets/UI/GameSetting/craps_help_bg.png
 - Assets/UI/GameSetting/GameSetting.png
 - Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
 - 
 - 
 - 

@@ -263,6 +263,12 @@ public class UnsupportedPlatformAgent : IronSourceIAgent
 	public void setSegment(IronSourceSegment segment){
 		Debug.Log ("Unsupported Platform");
 	}
+
+	public void setConsent(bool consent)
+	{
+		Debug.Log ("Unsupported Platform");
+	}
+
 		
 	#endregion
 }

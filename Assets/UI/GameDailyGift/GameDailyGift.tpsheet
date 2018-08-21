@@ -4,17 +4,16 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# Sprite sheet: GameDailyGift.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:f4b05ebc93c837ff36bbeddb0fc84791:7cff7ce946f09986c8affcba263de6cc:75e88d6a51e54c8e92041cb8c3db133a$
+# Sprite sheet: GameDailyGift.png (512 x 512)
+# $TexturePacker:SmartUpdate:3acd79708a79aaaa28fa592bc7bf8e86:9d2e5f1b5d87932b03cfe0b012e2c07b:75e88d6a51e54c8e92041cb8c3db133a$
 #
 
-common_btn_close;929;915;52;52;0.5;0.5
-common_popup_background_1;2;406;925;616;0.5;0.5
-hall_coins_icon;330;132;129;110;0.5;0.5
-hall_dailyBonus_bg;330;244;141;160;0.5;0.5
-hall_dailyBonus_title;330;92;245;38;0.5;0.5
-hall_five_day_back;166;12;162;195;0.5;0.5
-hall_have_sign;929;969;70;53;0.5;0.5
-hall_have_sign_shade;166;209;162;195;0.5;0.5
-hall_sign_day_back;2;12;162;195;0.5;0.5
-hall_today_back;2;209;162;195;0.5;0.5
+common_btn_close;413;403;52;52;0.5;0.5
+hall_coins_icon;166;6;129;110;0.5;0.5
+hall_dailyBonus_bg;330;153;141;160;0.5;0.5
+hall_dailyBonus_title;2;472;245;38;0.5;0.5
+hall_five_day_back;166;118;162;195;0.5;0.5
+hall_have_sign;413;457;70;53;0.5;0.5
+hall_have_sign_shade;2;78;162;195;0.5;0.5
+hall_sign_day_back;2;275;162;195;0.5;0.5
+hall_today_back;249;315;162;195;0.5;0.5

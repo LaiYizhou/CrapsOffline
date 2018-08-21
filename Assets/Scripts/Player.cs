@@ -59,6 +59,7 @@ public class Player
             if (CanvasControl.Instance != null)
             {
                 CanvasControl.Instance.UpdateRewardedButton();
+                CanvasControl.Instance.UpdateInterstitial();
                 CanvasControl.Instance.gameStore.UpdateAdItem(!isPaid);
             }
             

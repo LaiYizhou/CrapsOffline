@@ -16,6 +16,7 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private Text crapsShowAddedCoinText;
     public Tip tip;
     public DialogMessage dialogMessage;
+    public PurchaseMessage purchaseMessage;
 
     [SerializeField] private List<Sprite> diceSpriteList;
     [SerializeField] private List<Sprite> chipSpriteList;
@@ -23,6 +24,21 @@ public class GameHelper : MonoBehaviour
 
     public static bool IsShowRewardedCoins;
     public static int RewardedCoin;
+
+    public static int CloseStore_RewardedVideo_P = 50;
+    public static int CloseStore_Promotion_P = 50;
+
+    public static int BackToHall_RewardedVideo_P = 30;
+    public static int BackToHall_Interstitial_P = 30;
+    public static int BackToHall_Promotion_P = 30;
+
+    public static int ScreenToGame_Interstitial_P = 50;
+
+    public static int CloseInsterstitial_RemoveAdPromotion_P = 50;
+
+    public static int GainDailyGifts_LoginSalePromotion_P = 50;
+
+    public static int GainHourlyGifts_Interstitial_P = 50;
 
     public static Vector3 ChipOnDragPosOffset = new Vector3(0.0f, 14.0f, 0.0f);
     public static Vector3 ChipOnDragScale = new Vector3(0.3f, 0.3f, 0.3f);

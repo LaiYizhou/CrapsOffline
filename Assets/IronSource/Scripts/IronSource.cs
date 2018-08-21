@@ -8,7 +8,7 @@ public class IronSource : IronSourceIAgent
 	private IronSourceIAgent _platformAgent ;
 	private static IronSource _instance;
 	
-	private const string UNITY_PLUGIN_VERSION = "6.7.7";
+	private const string UNITY_PLUGIN_VERSION = "6.7.10";
 	public const string GENDER_MALE = "male";
 	public const string GENDER_FEMALE = "female";
 	public const string GENDER_UNKNOWN = "unknown";
@@ -286,6 +286,11 @@ public class IronSource : IronSourceIAgent
 	public void setSegment(IronSourceSegment segment)
 	{
 		_platformAgent.setSegment (segment);
+	}
+
+	public void setConsent(bool consent)
+	{
+		_platformAgent.setConsent(consent);
 	}
 	
 	#endregion

@@ -11,6 +11,14 @@
 
 #import "ISBannerView.h"
 
+typedef NS_ENUM(NSUInteger, ISBannerSize) {
+    IS_AD_SIZE_BANNER = 1,
+    IS_AD_SIZE_LARGE_BANNER = 2,
+    IS_AD_SIZE_RECTANGLE_BANNER = 3,
+    IS_AD_SIZE_TABLET_BANNER __deprecated_enum_msg("Use IS_AD_SIZE_LARGE_BANNER") = 4,
+    IS_AD_SIZE_SMART = 5
+};
+
 @protocol ISBannerDelegate <NSObject>
 
 @required

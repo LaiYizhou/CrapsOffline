@@ -105,6 +105,8 @@ public interface IronSourceIAgent
 	bool isBannerPlacementCapped(string placementName);
 
 	void setSegment(IronSourceSegment segment);
+
+	void setConsent(bool consent);
 }
 
 public static class IronSourceAdUnits

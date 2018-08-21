@@ -36,12 +36,12 @@ namespace UnityEngine.Purchasing
         {
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
-            IAPButton.IAPButtonStoreManager.Instance.AddListener(this);
+            CodelessIAPStoreListener.Instance.AddListener(this);
         }
 
         void OnDisable()
         {
-            IAPButton.IAPButtonStoreManager.Instance.RemoveListener(this);
+            CodelessIAPStoreListener.Instance.RemoveListener(this);
         }
 
         /**

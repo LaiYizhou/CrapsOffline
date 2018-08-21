@@ -1,0 +1,11 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: craps_guide03.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:3f5d2d8f2e2ff4f3fcf984186458cc85:b61278ad374192beef553b9a86d650bd:773a3be5533348f9a3a6d32613ca9574$
+#
+
+craps_guide3;2;382;960;640;0.5;0.5

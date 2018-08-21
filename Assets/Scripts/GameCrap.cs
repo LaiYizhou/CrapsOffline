@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using DG.Tweening;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum EGameStage
 {
@@ -38,6 +39,23 @@ public class GameCrap : MonoBehaviour
     {
         get { return isComePointOn; }
     }
+
+    [SerializeField]
+    private int returnToHallCount;
+    public int ReturnToHallCount
+    {
+        get
+        {
+            return PlayerPrefs.HasKey("ReturnToHallCount") ? PlayerPrefs.GetInt("ReturnToHallCount") : 0;
+        }
+
+        set
+        {
+            returnToHallCount = value;
+            PlayerPrefs.SetInt("ReturnToHallCount", returnToHallCount);
+        }
+    }
+
 
     public EGameStage CurrentGameStage
     {
@@ -153,6 +171,65 @@ public class GameCrap : MonoBehaviour
         StopCoroutine("DelayCheck");
 
         ResetData();
+
+
+        ReturnToHallCount++;
+        if (ReturnToHallCount > 1)
+        {
+            int p = Random.Range(0, 100);
+
+            //Debug.L("P = " + p);
+
+            if (p < GameHelper.BackToHall_Promotion_P + GameHelper.BackToHall_RewardedVideo_P +
+                GameHelper.BackToHall_Interstitial_P)
+            {
+                while (true)
+                {
+                    if (p < GameHelper.BackToHall_Promotion_P + GameHelper.BackToHall_Interstitial_P)
+                    {
+                        if (p < GameHelper.BackToHall_Promotion_P)
+                        {
+                            Debug.Log("Show gamePromotion");
+                            CanvasControl.Instance.gamePromotion.Show(GamePromotion.EPromotionType.BackToHall);
+                            break;
+                        }
+                        else
+                        {
+                            if (IronSourceControl.Instance.IsInterstitialReady)
+                            {
+                                Debug.Log("Show Interstitial");
+                                IronSourceControl.Instance.ShowInterstitial();
+                                break;
+                            }
+                            else
+                            {
+                                p -= GameHelper.BackToHall_Interstitial_P;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (IronSourceControl.Instance.IsRewardedVideoReady)
+                        {
+                            Debug.Log("Show gameRewardedVideo");
+                            CanvasControl.Instance.gameRewardedVideo.Show();
+                            break;
+                        }
+                        else
+                        {
+                            p -= GameHelper.BackToHall_RewardedVideo_P;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //do nothing
+            }
+        }
+
+
+
     }
 
     public void OnAddCoinButtonClicked()

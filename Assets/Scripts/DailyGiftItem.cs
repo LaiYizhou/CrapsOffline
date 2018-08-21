@@ -39,12 +39,6 @@ public class DailyGiftItem : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SetImageType(EImageType eImageType)
     {
         this.eImageType = eImageType;
@@ -104,7 +98,6 @@ public class DailyGiftItem : MonoBehaviour
         sequence.AppendCallback(()=>
         {
             SetMark(true);
-            //CanvasControl.Instance.gameHall.ShowAddCoins(this.coinNumber, false);
             GameHelper.Instance.ShowAddCoins(this.coinNumber, false);
         });
     }

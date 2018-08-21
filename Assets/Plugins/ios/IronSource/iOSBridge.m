@@ -123,6 +123,10 @@ char *const IRONSOURCE_EVENTS = "IronSourceEvents";
     [IronSource setAdaptersDebug:enabled];
 }
 
+- (void)setConsent:(BOOL)consent {
+    [IronSource setConsent:consent];
+}
+
 #pragma mark Init SDK
 
 - (void)setUserId:(NSString *)userId {
@@ -745,6 +749,10 @@ extern "C" {
     
     void CFSetUserId(char *userId){
         return [[iOSBridge start] setUserId:GetStringParam(userId)];
+    }
+    
+    void CFSetConsent (bool consent) {
+        [[iOSBridge start] setConsent:consent];
     }
     
 #pragma mark Init SDK

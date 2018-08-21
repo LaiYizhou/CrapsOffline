@@ -29,6 +29,20 @@ public class IronSourceControl : MonoBehaviour
         }
     }
 
+    private bool isInterstitialReady;
+    public bool IsInterstitialReady
+    {
+        get { return isInterstitialReady; }
+        set
+        {
+            isInterstitialReady = value;
+            if (CanvasControl.Instance != null)
+                CanvasControl.Instance.UpdateInterstitial();
+
+        }
+        
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -56,7 +70,8 @@ public class IronSourceControl : MonoBehaviour
 	    IronSource.Agent.setUserId("uniqueUserId");
 	    IronSource.Agent.init(appKey);
         //IronSource.Agent.init (appKey, IronSourceAdUnits.REWARDED_VIDEO, IronSourceAdUnits.INTERSTITIAL, IronSourceAdUnits.BANNER);
-        IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO);
+        IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO, IronSourceAdUnits.INTERSTITIAL);
+        //IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO);
 
 
         IronSourceEvents.onBannerAdLoadedEvent += BannerAdLoadedEvent;
@@ -85,6 +100,9 @@ public class IronSourceControl : MonoBehaviour
         IronSourceEvents.onRewardedVideoAdClickedEvent += RewardedVideoAdClickedEvent;
 
         //GameHelper.Instance.gameStart.Progress = Random.Range(0.4f, 0.6f);
+
+
+        //LoadInterstitial();
 
     }
 
@@ -122,7 +140,7 @@ public class IronSourceControl : MonoBehaviour
 
 
 
-    public void ShowInterstitial(float p)
+    public void ShowInterstitial(float p = 1.0f)
     {
 
         //if (GameHelper.Instance.IsInterstitialSwitchOn)
@@ -202,17 +220,21 @@ public class IronSourceControl : MonoBehaviour
     void InterstitialAdReadyEvent()
     {
         Debug.Log("I got InterstitialAdReadyEvent");
+        IsInterstitialReady = true;
         //ShowText.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.blue;
     }
 
     void InterstitialAdLoadFailedEvent(IronSourceError error)
     {
         Debug.Log("I got InterstitialAdLoadFailedEvent, code: " + error.getCode() + ", description : " + error.getDescription());
+        LoadInterstitial();
     }
 
     void InterstitialAdShowSucceededEvent()
     {
         Debug.Log("I got InterstitialAdShowSucceededEvent");
+        IsInterstitialReady = false;
+        AudioControl.Instance.StopBgMusic();
         //ShowText.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.red;
     }
 
@@ -235,6 +257,16 @@ public class IronSourceControl : MonoBehaviour
     void InterstitialAdClosedEvent()
     {
         Debug.Log("I got InterstitialAdClosedEvent");
+
+        AudioControl.Instance.PlayBgMusic();
+
+        int index = Random.Range(0, 100);
+        if (index < GameHelper.CloseInsterstitial_RemoveAdPromotion_P)
+        {
+            CanvasControl.Instance.gamePromotion.Show(GamePromotion.EPromotionType.RemoveAd);
+        }
+
+        LoadInterstitial();
     }
 
 

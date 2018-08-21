@@ -1,4 +1,4 @@
-#if UNITY_IPHONE 
+
 using UnityEditor;
 
 namespace IronSource.Editor
@@ -9,4 +9,4 @@ namespace IronSource.Editor
 		void updateProjectPlist(BuildTarget buildTarget, string plistPath);
 	}
 }
-#endif
+

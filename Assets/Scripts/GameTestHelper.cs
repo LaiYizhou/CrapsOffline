@@ -130,4 +130,25 @@ public class GameTestHelper : MonoBehaviour
         PlayerPrefs.DeleteKey("LastTime");
     }
 
+    public void ResetHourlyGiftButton()
+    {
+        PlayerPrefs.DeleteKey("LastGetHourlyGiftTime");
+    }
+
+    public void LoadInterstitialButton()
+    {
+        IronSourceControl.Instance.LoadInterstitial();
+    }
+
+    public void PlayIntertitialButton()
+    {
+        IronSourceControl.Instance.ShowInterstitial();
+    }
+
+    public void ResetAllButton()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
+
 }

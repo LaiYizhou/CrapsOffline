@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class GameDailyGift : MonoBehaviour
 {
@@ -62,6 +63,22 @@ public class GameDailyGift : MonoBehaviour
         }
     }
 
+    [SerializeField] private int gainDailyGiftCount;
+    public int GainDailyGiftCount
+    {
+        get
+        {
+            return PlayerPrefs.HasKey("GainDailyGiftCount") ? PlayerPrefs.GetInt("GainDailyGiftCount") : 0;
+        }
+
+        set
+        {
+            gainDailyGiftCount = value;
+            PlayerPrefs.SetInt("GainDailyGiftCount", gainDailyGiftCount);
+        }
+    }
+
+
     [SerializeField] private Image coverImage;
     [SerializeField] private Transform panel;
     [SerializeField] private Transform originalPosTransform;
@@ -70,7 +87,10 @@ public class GameDailyGift : MonoBehaviour
     [SerializeField] private RectTransform scrollRectTransform;
     [SerializeField] private RectTransform viewPortRectTransform;
 
-
+    /// <summary>
+    /// has been rewareded in current open
+    /// </summary>
+    private bool isCurrentDailyGift;
 
     // Use this for initialization
     void Start ()
@@ -100,8 +120,26 @@ public class GameDailyGift : MonoBehaviour
         sequence.Append(panel.DOScale(Vector3.one * 1.02f, scaleDuration));
 
         sequence.Insert(scaleDuration, panel.DOScale(Vector3.one * 0.0f, hideDuration));
-        //Debug.Log(originalPosTransform.localPosition);
+
         sequence.Insert(scaleDuration, panel.DOLocalMove(originalPosTransform.localPosition, hideDuration));
+
+        sequence.AppendCallback(() =>
+        {
+            this.gameObject.SetActive(false);
+
+            Debug.Log("GainDailyGiftCount = " + GainDailyGiftCount + " ; isCurrentDailyGift = " + isCurrentDailyGift);
+
+            if (GainDailyGiftCount > 1 && isCurrentDailyGift)
+            {
+                int p = UnityEngine.Random.Range(0, 100);
+                if (p < GameHelper.GainDailyGifts_LoginSalePromotion_P)
+                {
+                    CanvasControl.Instance.gamePromotion.Show(GamePromotion.EPromotionType.LoginSale);
+                }
+
+            }
+
+        });
 
     }
 
@@ -109,6 +147,7 @@ public class GameDailyGift : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         coverImage.gameObject.SetActive(true);
+        isCurrentDailyGift = false;
 
         Sequence sequence = DOTween.Sequence();
 
@@ -117,7 +156,9 @@ public class GameDailyGift : MonoBehaviour
 
         sequence.Insert(hideDuration, panel.DOScale(Vector3.one, scaleDuration));
 
-        
+        int index = (LoginCount - 1) % 30;
+        NevigateToCurrentDay(dailyGiftItemsParentTransform.GetChild(index).GetComponent<RectTransform>());
+
     }
 
     public void OnCloseButtonClicked()
@@ -127,7 +168,12 @@ public class GameDailyGift : MonoBehaviour
         Hide();
     }
 
-    private const int SecondsPerDay = 60*60*24;
+    /// <summary>
+    /// second
+    /// 60 * 60 * 24 seconds in a day
+    /// 60 * 15 seconds in 15 minutes
+    /// </summary>
+    private const int dailyGiftInterval = 60 * 15;
     private void GainDailyGifts()
     {
 
@@ -147,12 +193,12 @@ public class GameDailyGift : MonoBehaviour
 
             if (totalSecond > 0)
             {
-                if (totalSecond >= SecondsPerDay * 1.0 && totalSecond < SecondsPerDay * 2.0)
+                if (totalSecond >= dailyGiftInterval * 1.0 && totalSecond < dailyGiftInterval * 2.0)
                 {
                     GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Several Login : " + LoginCount);
                 }
-                else if (totalSecond >= SecondsPerDay * 2.0)
+                else if (totalSecond >= dailyGiftInterval * 2.0)
                 {
                     LoginCount = 1;
                     GetDailyGift(LoginCount, DateTime.Now);
@@ -187,7 +233,7 @@ public class GameDailyGift : MonoBehaviour
                     dailyGiftItem.SetText(i+1, dailyGiftCoinsList[i]);
                     dailyGiftItem.SetMark(false);
 
-                    if((i+1)%5 == 0)
+                    if((i + 1) % 5 == 0)
                         dailyGiftItem.SetImageType(DailyGiftItem.EImageType.FiveDay);
 
                     dailyGiftItemList.Add(dailyGiftItem);
@@ -217,8 +263,10 @@ public class GameDailyGift : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         dailyGiftItemList[index].Mark();
+        isCurrentDailyGift = true;
         LastTime = getTime;
         LoginCount++;
+        GainDailyGiftCount++;
     }
 
     private void NevigateToCurrentDay(RectTransform target)

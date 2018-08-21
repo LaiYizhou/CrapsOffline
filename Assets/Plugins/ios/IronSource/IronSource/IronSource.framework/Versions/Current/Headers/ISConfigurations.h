@@ -37,6 +37,8 @@
 @property (nonatomic, strong)   NSNumber            *serr;
 @property (nonatomic, strong)   NSString            *categorizeType;
 @property (nonatomic, strong)   NSDictionary        *rvServerParams;
+@property (nonatomic, assign)   NSInteger           consent;
+
 
 /*!
  @deprecated This method has been deprecated and will be removed in a future version

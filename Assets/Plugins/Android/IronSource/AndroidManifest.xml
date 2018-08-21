@@ -91,26 +91,7 @@
         <activity
             android:name="com.ironsource.adapters.hyprmx.MediationHMXActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard|smallestScreenSize|uiMode|fontScale|screenLayout|locale"></activity>
-        <activity
-        android:name="com.hyprmx.android.sdk.activity.HyprMXOfferViewerActivity"
-        android:hardwareAccelerated="true"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:label="HyprMX SDK"
-        android:launchMode="singleTop"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-        <activity
-        android:name="com.hyprmx.android.sdk.activity.HyprMXRequiredInformationActivity"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-        <activity
-        android:name="com.hyprmx.android.sdk.activity.HyprMXNoOffersActivity"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-        <activity
-        android:name="com.hyprmx.android.sdk.videoplayer.HyprMXVideoPlayerActivity"
-        android:hardwareAccelerated="true"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
         
         <!-- Facebook -->
         <activity android:name="com.facebook.ads.InterstitialAdActivity"

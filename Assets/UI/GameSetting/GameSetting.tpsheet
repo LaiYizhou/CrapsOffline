@@ -4,17 +4,16 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# Sprite sheet: GameSetting.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:1d04690ced7c375273860497af8f0b4b:3228cb984bf39272962afd33243cf5f9:2bd8a61020ade898102eafeab05261ca$
+# Sprite sheet: GameSetting.png (512 x 512)
+# $TexturePacker:SmartUpdate:d8c115c8f44e2d9e935ae4fa134f364f:b777cb836c179c5f2d3b604589defbfc:2bd8a61020ade898102eafeab05261ca$
 #
 
-bg_setting_bottom;908;948;102;74;0.5;0.5
-btn_music;869;755;59;59;0.5;0.5
-btn_music_unchecked;901;816;66;64;0.5;0.5
-btn_payout;742;818;157;74;0.5;0.5
-btn_restore;742;894;157;74;0.5;0.5
-btn_sound;808;757;59;59;0.5;0.5
-btn_sound_unchecked;901;882;66;64;0.5;0.5
-craps_help_bg;2;446;738;576;0.5;0.5
-craps_help_btnclose;742;752;64;64;0.5;0.5
-title_payouts;742;970;164;52;0.5;0.5
+bg_setting_bottom;327;436;102;74;0.5;0.5
+btn_music;63;321;59;59;0.5;0.5
+btn_music_unchecked;431;380;66;64;0.5;0.5
+btn_payout;2;382;157;74;0.5;0.5
+btn_restore;168;436;157;74;0.5;0.5
+btn_sound;2;321;59;59;0.5;0.5
+btn_sound_unchecked;431;446;66;64;0.5;0.5
+craps_help_btnclose;161;370;64;64;0.5;0.5
+title_payouts;2;458;164;52;0.5;0.5

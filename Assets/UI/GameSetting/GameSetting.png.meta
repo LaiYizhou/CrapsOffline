@@ -14,12 +14,12 @@ TextureImporter:
     21300014: craps_help_bg
     21300016: craps_help_btnclose
     21300018: title_payouts
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -31,10 +31,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
@@ -45,9 +43,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -55,10 +51,47 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: 13
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -66,8 +99,8 @@ TextureImporter:
       name: bg_setting_bottom
       rect:
         serializedVersion: 2
-        x: 908
-        y: 948
+        x: 327
+        y: 436
         width: 102
         height: 74
       alignment: 0
@@ -79,8 +112,8 @@ TextureImporter:
       name: btn_music
       rect:
         serializedVersion: 2
-        x: 869
-        y: 755
+        x: 63
+        y: 321
         width: 59
         height: 59
       alignment: 0
@@ -92,8 +125,8 @@ TextureImporter:
       name: btn_music_unchecked
       rect:
         serializedVersion: 2
-        x: 901
-        y: 816
+        x: 431
+        y: 380
         width: 66
         height: 64
       alignment: 0
@@ -105,8 +138,8 @@ TextureImporter:
       name: btn_payout
       rect:
         serializedVersion: 2
-        x: 742
-        y: 818
+        x: 2
+        y: 382
         width: 157
         height: 74
       alignment: 0
@@ -118,8 +151,8 @@ TextureImporter:
       name: btn_restore
       rect:
         serializedVersion: 2
-        x: 742
-        y: 894
+        x: 168
+        y: 436
         width: 157
         height: 74
       alignment: 0
@@ -131,8 +164,8 @@ TextureImporter:
       name: btn_sound
       rect:
         serializedVersion: 2
-        x: 808
-        y: 757
+        x: 2
+        y: 321
         width: 59
         height: 59
       alignment: 0
@@ -144,23 +177,10 @@ TextureImporter:
       name: btn_sound_unchecked
       rect:
         serializedVersion: 2
-        x: 901
-        y: 882
+        x: 431
+        y: 446
         width: 66
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: craps_help_bg
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 446
-        width: 738
-        height: 576
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,8 +190,8 @@ TextureImporter:
       name: craps_help_btnclose
       rect:
         serializedVersion: 2
-        x: 742
-        y: 752
+        x: 161
+        y: 370
         width: 64
         height: 64
       alignment: 0
@@ -183,8 +203,8 @@ TextureImporter:
       name: title_payouts
       rect:
         serializedVersion: 2
-        x: 742
-        y: 970
+        x: 2
+        y: 458
         width: 164
         height: 52
       alignment: 0

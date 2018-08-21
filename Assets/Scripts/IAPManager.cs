@@ -7,6 +7,43 @@ using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+public enum EMarketProduct
+{
+    StoreSale,
+    LoginSale,
+    CloseShopSale,
+    BackToHallSale,
+    RemoveAdSale
+}
+
+public class MarketProduct
+{
+    public MarketProduct(string id, ProductType type, string appleAppStoreName, long originalChipAmount, long chipAmount, double price, EMarketProduct eMarketProduct)
+    {
+        Id = id;
+        Type = type;
+        AppleAppStoreName = appleAppStoreName;
+        OriginalChipAmount = originalChipAmount;
+        ChipAmount = chipAmount;
+        Price = price;
+        EMarketProduct = eMarketProduct;
+    }
+
+    public string Id { get; private set; }
+
+    public EMarketProduct EMarketProduct { get; private set; }
+
+    public ProductType Type { get; private set; }
+    public string AppleAppStoreName { get; private set; }
+    public long OriginalChipAmount { get; private set; }
+
+    public long ChipAmount { get; private set; }
+
+    public double Price { get; private set; }
+
+
+}
+
 public class IAPManager : MonoBehaviour, IStoreListener
 {
 
@@ -14,6 +51,40 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     private static IStoreController m_StoreController;
     private static IExtensionProvider m_StoreExtensionProvider;
+
+    private List<MarketProduct> marketProductList = new List<MarketProduct>()
+    {
+        new MarketProduct("Remove_Ads_1_99", ProductType.NonConsumable, "Remove_Ads_1_99", -1, 0, 1.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_4_99", ProductType.Consumable, "Craps_4_99", -1, 200000, 4.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_9_99", ProductType.Consumable, "Craps_9_99", -1, 450000, 9.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_19_99", ProductType.Consumable, "Craps_19_99", -1, 1000000, 19.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_39_99", ProductType.Consumable, "Craps_39_99", -1, 3000000, 39.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_49_99", ProductType.Consumable, "Craps_49_99", -1, 4000000, 49.99, EMarketProduct.StoreSale),
+        new MarketProduct("Craps_99_99", ProductType.Consumable, "Craps_99_99", -1, 12000000, 99.99, EMarketProduct.StoreSale),
+
+        new MarketProduct("Craps_login_sale_4_99", ProductType.Consumable, "Craps_login_sale_4_99", 200000, 600000, 4.99, EMarketProduct.LoginSale),
+        new MarketProduct("Craps_login_sale_9_99", ProductType.Consumable, "Craps_login_sale_9_99", 450000, 1350000, 9.99, EMarketProduct.LoginSale),
+        new MarketProduct("Craps_login_sale_19_99", ProductType.Consumable, "Craps_login_sale_19_99", 1000000, 3000000, 19.99, EMarketProduct.LoginSale),
+
+        new MarketProduct("Craps_closeshop__4_99", ProductType.Consumable, "Craps_closeshop__4_99", 200000, 400000, 4.99, EMarketProduct.CloseShopSale),
+        new MarketProduct("Craps_closeshop_9_99", ProductType.Consumable, "Craps_closeshop_9_99", 450000, 900000, 9.99, EMarketProduct.CloseShopSale),
+        new MarketProduct("Craps_closeshop_19_99", ProductType.Consumable, "Craps_closeshop_19_99", 1000000, 2000000, 19.99, EMarketProduct.CloseShopSale),
+        new MarketProduct("Craps_closeshop_49_99", ProductType.Consumable, "Craps_closeshop_49_99", 4000000, 8000000, 49.99, EMarketProduct.CloseShopSale),
+        new MarketProduct("Craps_closeshop_99_99", ProductType.Consumable, "Craps_closeshop_99_99", 12000000, 24000000, 99.99, EMarketProduct.CloseShopSale),
+
+        new MarketProduct("Craps_returnlobby_4_99", ProductType.Consumable, "Craps_returnlobby_4_99", 200000, 400000, 4.99, EMarketProduct.BackToHallSale),
+        new MarketProduct("Craps_returnlobby_9_99", ProductType.Consumable, "Craps_returnlobby_9_99", 450000, 900000, 9.99, EMarketProduct.BackToHallSale),
+        new MarketProduct("Craps_returnlobby_19_99", ProductType.Consumable, "Craps_returnlobby_19_99", 1000000, 2000000, 19.99, EMarketProduct.BackToHallSale),
+        new MarketProduct("Craps_returnlobby_49_99", ProductType.Consumable, "Craps_returnlobby_49_99", 4000000, 8000000, 49.99, EMarketProduct.BackToHallSale),
+        new MarketProduct("Craps_returnlobby_99_99", ProductType.Consumable, "Craps_returnlobby_99_99", 12000000, 24000000, 99.99, EMarketProduct.BackToHallSale),
+
+        new MarketProduct("Craps_removeads_sale_4_99", ProductType.Consumable, "Craps_removeads_sale_4_99", 200000, 400000, 4.99, EMarketProduct.RemoveAdSale),
+        new MarketProduct("Craps_removeads_sale_9_99", ProductType.Consumable, "Craps_removeads_sale_9_99", 450000, 900000, 9.99, EMarketProduct.RemoveAdSale),
+
+    };
+
+    private Dictionary<string, MarketProduct> marketProductDictionary;
+    private Dictionary<EMarketProduct, List<MarketProduct>> marketProductEDictionary;
 
     // Use this for initialization
     void Start ()
@@ -38,43 +109,45 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-    #if UNITY_ANDROID
-            builder.AddProduct("Remove_Ads_1_99", ProductType.Subscription, new IDs(){
-                { "remove_ads_1_99_android", GooglePlay.Name}
+
+        // Store Product
+        //#if UNITY_ANDROID
+        //        builder.AddProduct("Remove_Ads_1_99", ProductType.Subscription, new IDs(){
+        //            { "remove_ads_1_99_android", GooglePlay.Name}
+        //        });
+        //#elif UNITY_IOS
+        //        builder.AddProduct("Remove_Ads_1_99", ProductType.NonConsumable, new IDs(){
+        //            { "Remove_Ads_1_99", AppleAppStore.Name },
+        //        });
+        //#endif
+
+        marketProductDictionary = new Dictionary<string, MarketProduct>();
+        marketProductEDictionary = new Dictionary<EMarketProduct, List<MarketProduct>>();
+
+        for (int i = 0; i < marketProductList.Count; i++)
+        {
+            MarketProduct marketProduct = marketProductList[i];
+
+            marketProductDictionary.Add(marketProduct.Id, marketProduct);
+
+            if (marketProductEDictionary.ContainsKey(marketProduct.EMarketProduct))
+            {
+                marketProductEDictionary[marketProduct.EMarketProduct].Add(marketProduct);
+            }
+            else
+            {
+                List<MarketProduct> list = new List<MarketProduct>();
+                list.Add(marketProduct);
+                marketProductEDictionary.Add(marketProduct.EMarketProduct, list);
+            }
+
+            builder.AddProduct(marketProduct.Id, marketProduct.Type, new IDs(){
+                { marketProduct.AppleAppStoreName, AppleAppStore.Name },
             });
-    #elif UNITY_IOS
-            builder.AddProduct("Remove_Ads_1_99", ProductType.NonConsumable, new IDs(){
-                { "Remove_Ads_1_99", AppleAppStore.Name },
-            });
-    #endif
-
-        builder.AddProduct("Craps_4_99", ProductType.Consumable, new IDs(){
-            { "Craps_4_99", AppleAppStore.Name }
-        });
-
-        builder.AddProduct("Craps_9_99", ProductType.Consumable, new IDs(){
-            { "Craps_9_99", AppleAppStore.Name }
-        });
-
-        builder.AddProduct("Craps_19_99", ProductType.Consumable, new IDs(){
-            { "Craps_19_99", AppleAppStore.Name }
-        });
-
-        builder.AddProduct("Craps_39_99", ProductType.Consumable, new IDs(){
-            { "Craps_39_99", AppleAppStore.Name }
-        });
-
-        builder.AddProduct("Craps_49_99", ProductType.Consumable, new IDs(){
-            { "Craps_49_99", AppleAppStore.Name }
-        });
-
-        builder.AddProduct("Craps_99_99", ProductType.Consumable, new IDs(){
-            { "Craps_99_99", AppleAppStore.Name }
-        });
+        }
 
         UnityPurchasing.Initialize(this, builder);
-
-        //GameHelper.Instance.gameStart.Progress += Random.Range(0.15f, 0.2f);
+        
     }
 
     
@@ -83,6 +156,32 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         // Only say we are initialized if both the Purchasing references are set.
         return m_StoreController != null && m_StoreExtensionProvider != null;
+    }
+
+    public MarketProduct GetMarketProduct(EMarketProduct eMarketProduct)
+    {
+        if (marketProductEDictionary.ContainsKey(eMarketProduct) && marketProductEDictionary[eMarketProduct]!=null)
+        {
+            int count = marketProductEDictionary[eMarketProduct].Count;
+            int index = Random.Range(0, count);
+            return marketProductEDictionary[eMarketProduct][index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public MarketProduct GetMarketProduct(string id)
+    {
+        if (marketProductDictionary != null && marketProductDictionary.ContainsKey(id))
+        {
+            return marketProductDictionary[id];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public void BuyProductID(string productId)
@@ -110,7 +209,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
                 //GameHelper.Instance.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
 
-                CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
+                GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
             }
         }
         // Otherwise ...
@@ -121,7 +220,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log("BuyProductID FAIL. Not initialized.");
             //GameHelper.Instance.Log("BuyProductID FAIL. Not initialized.");
 
-            CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
+            GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
             InitializePurchasing();
         }
     }
@@ -188,6 +287,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         Debug.Log("transactionID : " + args.purchasedProduct.transactionID);
 
+        bool isPurchaseSuccessful = false;
         bool isCheat = IsCheat(args.purchasedProduct.transactionID);
         bool isSandBox = IsSandBox(args.purchasedProduct.transactionID);
 
@@ -197,129 +297,170 @@ public class IAPManager : MonoBehaviour, IStoreListener
             return PurchaseProcessingResult.Complete;
         }
 
-        // A consumable product has been purchased by this user.
-        if (String.Equals(args.purchasedProduct.definition.id, "Craps_4_99", StringComparison.Ordinal))
+        foreach (var pair in marketProductDictionary)
         {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            //CanvasControl.Instance.PlayerCoinNumber += 1400;
-            GameHelper.player.ChangeCoins(200000);
-            GameHelper.player.SetIsPaid(true);
+            if (String.Equals(args.purchasedProduct.definition.id, pair.Key, StringComparison.Ordinal))
+            {
 
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(200000);
+                MarketProduct marketProduct = pair.Value;
+                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                isPurchaseSuccessful = true;
 
-            if(!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("4.99", "1");
+                if (marketProduct.Type == ProductType.NonConsumable)
+                {
+                    GameHelper.player.SetIsPaid(true);
+                }
+                else
+                {
+                    GameHelper.player.ChangeCoins(marketProduct.ChipAmount);
+                    GameHelper.player.SetIsPaid(true);
 
-            //IronSourceControl.Instance.DestroyBanner();
+                    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
+                }
+
+
+                if (!isSandBox)
+                    AppsFlyerManager.Instance.TrackIAP(marketProduct.Price.ToString(), "1");
+
+                break;
+            }
         }
-        else if(String.Equals(args.purchasedProduct.definition.id, "Craps_9_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            //CanvasControl.Instance.PlayerCoinNumber += 1400;
-            GameHelper.player.ChangeCoins(450000);
-            GameHelper.player.SetIsPaid(true);
 
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(450000);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("9.99", "1");
-
-            //IronSourceControl.Instance.DestroyBanner();
-        }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_19_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            //CanvasControl.Instance.PlayerCoinNumber += 2500;
-            GameHelper.player.ChangeCoins(1000000);
-            GameHelper.player.SetIsPaid(true);
-
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(1000000);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("19.99", "1");
-            //IronSourceControl.Instance.DestroyBanner();
-        }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(3000000);
-            GameHelper.player.SetIsPaid(true);
-
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(3000000);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("39.99", "1");
-
-            //IronSourceControl.Instance.DestroyBanner();
-            //CanvasControl.Instance.PlayerCoinNumber += 7000;
-        }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_49_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(4000000);
-            GameHelper.player.SetIsPaid(true);
-
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(4000000);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("49.99", "1");
-            //IronSourceControl.Instance.DestroyBanner();
-            //CanvasControl.Instance.PlayerCoinNumber += 12000;
-        }
-        else if (String.Equals(args.purchasedProduct.definition.id, "Craps_99_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-            //ScoreManager.score += 100;
-            GameHelper.player.ChangeCoins(12000000);
-            GameHelper.player.SetIsPaid(true);
-
-            CanvasControl.Instance.gameStore.ShowPurchasedTransform(12000000);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("99.99", "1");
-
-        }
-        // Or ... a non-consumable product has been purchased by this user.
-        else if (String.Equals(args.purchasedProduct.definition.id, "Remove_Ads_1_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-
-            GameHelper.player.SetIsPaid(true);
-
-            if (!isSandBox)
-                AppsFlyerManager.Instance.TrackIAP("1.99", "1");
-
-          
-        }
-        // Or ... a subscription product has been purchased by this user.
-        else if (String.Equals(args.purchasedProduct.definition.id, "Pictoword_3_99", StringComparison.Ordinal))
-        {
-            Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-            // TODO: The subscription item has been successfully purchased, grant this to the player.
-        }
-        // Or ... an unknown product has been purchased by this user. Fill in additional products here....
-        else
+        if (!isPurchaseSuccessful)
         {
             Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
 
-            CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
+            GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
         }
+
+        return PurchaseProcessingResult.Complete;
+
+        //// A consumable product has been purchased by this user.
+        //if (String.Equals(args.purchasedProduct.definition.id, "Craps_4_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    //CanvasControl.Instance.PlayerCoinNumber += 1400;
+        //    GameHelper.player.ChangeCoins(200000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(200000);
+
+        //    if(!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("4.99", "1");
+
+        //    //IronSourceControl.Instance.DestroyBanner();
+        //}
+        //else if(String.Equals(args.purchasedProduct.definition.id, "Craps_9_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    //CanvasControl.Instance.PlayerCoinNumber += 1400;
+        //    GameHelper.player.ChangeCoins(450000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(450000);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("9.99", "1");
+
+        //    //IronSourceControl.Instance.DestroyBanner();
+        //}
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_19_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    //CanvasControl.Instance.PlayerCoinNumber += 2500;
+        //    GameHelper.player.ChangeCoins(1000000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(1000000);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("19.99", "1");
+        //    //IronSourceControl.Instance.DestroyBanner();
+        //}
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    GameHelper.player.ChangeCoins(3000000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(3000000);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("39.99", "1");
+
+        //    //IronSourceControl.Instance.DestroyBanner();
+        //    //CanvasControl.Instance.PlayerCoinNumber += 7000;
+        //}
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_49_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    GameHelper.player.ChangeCoins(4000000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(4000000);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("49.99", "1");
+        //    //IronSourceControl.Instance.DestroyBanner();
+        //    //CanvasControl.Instance.PlayerCoinNumber += 12000;
+        //}
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_99_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    GameHelper.player.ChangeCoins(12000000);
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(12000000);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("99.99", "1");
+
+        //}
+        //// Or ... a non-consumable product has been purchased by this user.
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Remove_Ads_1_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+
+        //    GameHelper.player.SetIsPaid(true);
+
+        //    if (!isSandBox)
+        //        AppsFlyerManager.Instance.TrackIAP("1.99", "1");
+
+
+        //}
+        //// Or ... a subscription product has been purchased by this user.
+        //else if (String.Equals(args.purchasedProduct.definition.id, "Pictoword_3_99", StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // TODO: The subscription item has been successfully purchased, grant this to the player.
+        //}
+        //// Or ... an unknown product has been purchased by this user. Fill in additional products here....
+        //else
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+
+        //    GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
+        //}
 
         // Return a flag indicating whether this product has completely been received, or if the application needs 
         // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
         // saving purchased products to the cloud, and when that save is delayed. 
-        return PurchaseProcessingResult.Complete;
+        //return PurchaseProcessingResult.Complete;
+
+
+
     }
 
 
@@ -330,7 +471,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
 
         //CanvasControl.Instance.gameShopping.ShowBuyFailed();
-        CanvasControl.Instance.gameStore.ShowPurchasedFailTransform();
+        GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
 
     }
 

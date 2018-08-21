@@ -32,13 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 #define IS_OFFERWALL @"offerwall"
 #define IS_BANNER @"banner"
 
-typedef NS_ENUM(NSUInteger, ISBannerSize) {
-    IS_AD_SIZE_BANNER = 0,
-    IS_AD_SIZE_LARGE_BANNER = 1,
-    IS_AD_SIZE_RECTANGLE_BANNER = 2,
-    IS_AD_SIZE_TABLET_BANNER __deprecated_enum_msg("Use IS_AD_SIZE_LARGE_BANNER") = 3,
-    IS_AD_SIZE_SMART = 4
-};
 
 @interface IronSource : NSObject
 
@@ -460,6 +453,8 @@ typedef NS_ENUM(NSUInteger, ISBannerSize) {
  @param delegate The 'ISLogDelegate' for IronSource to send callbacks to.
  */
 + (void)setLogDelegate:(id<ISLogDelegate>)delegate;
+
++ (void)setConsent:(BOOL)consent;
 
 @end
 

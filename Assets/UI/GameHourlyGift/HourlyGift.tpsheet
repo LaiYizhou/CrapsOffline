@@ -1,0 +1,12 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: HourlyGift.png (512 x 512)
+# $TexturePacker:SmartUpdate:9238878ca84b493c78740ae0b3b4baa8:63b4436dff5b20cf26ee3173427aaa08:617e2a7318b69aa999440e9fdcda3b57$
+#
+
+btn_houlybonusready;2;380;256;64;0.5;0.5
+btn_houlybonusreadyin;2;446;256;64;0.5;0.5

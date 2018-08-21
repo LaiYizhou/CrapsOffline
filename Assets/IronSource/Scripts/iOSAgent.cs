@@ -1,4 +1,4 @@
-﻿#if UNITY_IPHONE || UNITY_IOS
+#if UNITY_IPHONE || UNITY_IOS
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -155,6 +155,9 @@ public class iOSAgent : IronSourceIAgent
 	[DllImport("__Internal")]
 	private static extern void CFSetSegment(string json);
 
+	[DllImport("__Internal")]
+	private static extern void CFSetConsent(bool consent);
+
 
 	public iOSAgent ()
 	{	
@@ -210,7 +213,7 @@ public class iOSAgent : IronSourceIAgent
 
 	public void setAdaptersDebug(bool enabled)
 	{
-		CFSetAdaptersDebug (enabled);
+	 		CFSetAdaptersDebug (enabled);
 	}
 
 	//******************* SDK Init *******************//
@@ -409,6 +412,11 @@ public class iOSAgent : IronSourceIAgent
 		Dictionary <string,string> dict = segment.getSegmentAsDict ();
 		string json = IronSourceJSON.Json.Serialize (dict);
 		CFSetSegment (json);
+	}
+
+	public void setConsent(bool consent)
+	{
+		CFSetConsent(consent);
 	}
 
 	#endregion

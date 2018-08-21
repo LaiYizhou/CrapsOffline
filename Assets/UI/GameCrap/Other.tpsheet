@@ -1,0 +1,13 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Other.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:739c68434bee315a6758523148d165aa:ae2d2696e86789cab9c14d6739586c63:e91169bfb1b2e9f25d244c8152f77dde$
+#
+
+craps_historybg;2;74;77;454;0.5;0.5
+craps_table;2;530;762;492;0.5;0.5
+prompt_message_bg;766;776;75;246;0.5;0.5

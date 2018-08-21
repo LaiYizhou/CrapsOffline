@@ -283,6 +283,11 @@ public class AndroidAgent : IronSourceIAgent
 		getBridge ().Call ("setSegment", json);
 	}
 
+	public void setConsent(bool consent)
+	{
+		getBridge().Call("setConsent",consent);
+	}
+
 #endregion
 }
 
