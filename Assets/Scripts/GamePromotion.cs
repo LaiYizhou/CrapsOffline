@@ -107,7 +107,12 @@ public class GamePromotion : MonoBehaviour
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
         GameHelper.Instance.purchaseMessage.ResetAllTransforms();
+        ResetGamePromotion();
+    }
 
+    public void ResetGamePromotion()
+    {
+        
         promotionPanelList.ForEach((p) => { p.gameObject.SetActive(false); });
         this.gameObject.SetActive(false);
     }

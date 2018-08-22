@@ -20,6 +20,7 @@ public class GameHourlyGift : MonoBehaviour
     [SerializeField] private Sprite readySprite;
     [SerializeField] private Sprite notReadySprite;
     [SerializeField] private Text hourlyGiftTimeText;
+    [SerializeField] private ParticleSystem particleSystem;
 
     private DateTime lastGetHourlyGiftTime;
     public DateTime LastGetHourlyGiftTime
@@ -62,7 +63,6 @@ public class GameHourlyGift : MonoBehaviour
 
         InitHourlyGift();
 
-
     }
 	
 	// Update is called once per frame
@@ -70,28 +70,20 @@ public class GameHourlyGift : MonoBehaviour
 		
 	}
 
-    private void InitHourlyGift()
+    public void InitHourlyGift()
     {
         TimeSpan ts = DateTime.Now - NextGetHourlyGiftTime;
         double totalSecond = ts.TotalSeconds;
 
         if (totalSecond > 0)
         {
-            hourlyGiftTimeText.gameObject.SetActive(false);
-            hourlyGiftButton.interactable = true;
-            hourlyGiftButton.GetComponent<Image>().sprite = readySprite;
+            SetButtonActive();
         }
         else
         {
-
-            hourlyGiftButton.interactable = false;
-            hourlyGiftButton.GetComponent<Image>().sprite = notReadySprite;
-
+            SetButtonInActive();
             StartCoroutine(HourlyGiftTimeDown());
-
         }
-
-
     }
 
 
@@ -99,8 +91,7 @@ public class GameHourlyGift : MonoBehaviour
     private void OnHourlyGiftButtonClicked()
     {
 
-        hourlyGiftButton.interactable = false;
-        hourlyGiftButton.GetComponent<Image>().sprite = notReadySprite;
+        SetButtonInActive();
 
         LastGetHourlyGiftTime = DateTime.Now;
         ShowHourlyGiftTimeText(HourlyGiftInterval);
@@ -134,10 +125,8 @@ public class GameHourlyGift : MonoBehaviour
 
         if (totalSecond > 0)
         {
-            hourlyGiftTimeText.gameObject.SetActive(false);
-            hourlyGiftButton.interactable = true;
-            hourlyGiftButton.GetComponent<Image>().sprite = readySprite;
-            yield break;
+            SetButtonActive();
+             yield break;
         }
         else
         {
@@ -162,6 +151,29 @@ public class GameHourlyGift : MonoBehaviour
         hourlyGiftTimeText.text = string.Format("{0}:{1}",
             temp.Minutes < 10 ? string.Format("0{0}", temp.Minutes.ToString()) : temp.Minutes.ToString(),
             temp.Seconds < 10 ? string.Format("0{0}", temp.Seconds.ToString()) : temp.Seconds.ToString());
+    }
+
+    private void SetButtonActive()
+    {
+        particleSystem.gameObject.SetActive(true);
+
+        hourlyGiftTimeText.gameObject.SetActive(false);
+        hourlyGiftButton.interactable = true;
+        hourlyGiftButton.GetComponent<Image>().sprite = readySprite;
+
+        hourlyGiftButton.GetComponent<ButtonScaleEffect>().SetIsScaleEffect(true);
+
+    }
+
+    private void SetButtonInActive()
+    {
+
+        particleSystem.gameObject.SetActive(false);
+
+        hourlyGiftButton.interactable = false;
+        hourlyGiftButton.GetComponent<Image>().sprite = notReadySprite;
+
+        hourlyGiftButton.GetComponent<ButtonScaleEffect>().SetIsScaleEffect(false);
     }
 
 }

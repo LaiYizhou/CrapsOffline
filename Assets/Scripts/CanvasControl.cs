@@ -45,16 +45,16 @@ public class CanvasControl : MonoBehaviour
 
     public void UpdateInterstitial()
     {
-        if (IronSourceControl.Instance.IsInterstitialReady && !GameHelper.player.IsPaid)
-        {
-            playButton.gameObject.SetActive(true);
-            loadButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            playButton.gameObject.SetActive(false);
-            loadButton.gameObject.SetActive(true);
-        }
+        //if (IronSourceControl.Instance.IsInterstitialReady && !GameHelper.player.IsPaid)
+        //{
+        //    playButton.gameObject.SetActive(true);
+        //    loadButton.gameObject.SetActive(false);
+        //}
+        //else
+        //{
+        //    playButton.gameObject.SetActive(false);
+        //    loadButton.gameObject.SetActive(true);
+        //}
     }
 
     public void UpdateRewardedButton()

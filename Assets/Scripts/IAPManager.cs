@@ -201,6 +201,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 // ... buy the product. Expect a response either through ProcessPurchase or OnPurchaseFailed 
                 // asynchronously.
                 m_StoreController.InitiatePurchase(product);
+
+#if UNITY_EDITOR
+                StartCoroutine(FakeProcessPurchase(marketProductDictionary[product.definition.id]));
+#endif
+
             }
             // Otherwise ...
             else
@@ -283,8 +288,50 @@ public class IAPManager : MonoBehaviour, IStoreListener
     }
 
 
+    private IEnumerator FakeProcessPurchase(MarketProduct marketProduct)
+    {
+        yield return new WaitForSeconds(0.8f);
+
+        bool isPurchaseSuccessful = false;
+
+        foreach (var pair in marketProductDictionary)
+        {
+            if (String.Equals(marketProduct.Id, pair.Key, StringComparison.Ordinal))
+            {
+
+                Debug.Log(string.Format("FakeProcessPurchase: PASS. Product: '{0}'", marketProduct.Id));
+
+                isPurchaseSuccessful = true;
+                GameHelper.player.SetIsPaid(true);
+
+                if (marketProduct.Type == ProductType.NonConsumable)
+                {
+                    GameHelper.Instance.purchaseMessage.ResetAllTransforms();
+                }
+                else
+                {
+                    GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+
+                    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
+                }
+
+                break;
+            }
+        }
+
+        if (!isPurchaseSuccessful)
+        {
+            Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", marketProduct.Id));
+
+            GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
+        }
+
+
+    }
+
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
+
         Debug.Log("transactionID : " + args.purchasedProduct.transactionID);
 
         bool isPurchaseSuccessful = false;
@@ -304,16 +351,18 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
                 MarketProduct marketProduct = pair.Value;
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+
                 isPurchaseSuccessful = true;
+                GameHelper.player.SetIsPaid(true);
 
                 if (marketProduct.Type == ProductType.NonConsumable)
                 {
-                    GameHelper.player.SetIsPaid(true);
+                    GameHelper.Instance.purchaseMessage.ResetAllTransforms();
                 }
                 else
                 {
-                    GameHelper.player.ChangeCoins(marketProduct.ChipAmount);
-                    GameHelper.player.SetIsPaid(true);
+                    //GameHelper.player.ChangeCoins(marketProduct.ChipAmount);
+                    GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
 
                     GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
                 }

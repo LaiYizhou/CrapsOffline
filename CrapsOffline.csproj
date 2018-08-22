@@ -158,6 +158,7 @@
     <Compile Include="Assets\Scripts\AppsFlyerManager.cs" />
     <Compile Include="Assets\Scripts\AudioControl.cs" />
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
+    <Compile Include="Assets\Scripts\ButtonScaleEffect.cs" />
     <Compile Include="Assets\Scripts\CanvasControl.cs" />
     <Compile Include="Assets\Scripts\Chip.cs" />
     <Compile Include="Assets\Scripts\ChipsManager.cs" />

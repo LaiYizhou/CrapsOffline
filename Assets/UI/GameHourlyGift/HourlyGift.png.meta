@@ -70,7 +70,7 @@ TextureImporter:
     overridden: 0
   - buildTarget: iPhone
     maxTextureSize: 2048
-    textureFormat: 13
+    textureFormat: 54
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -92,9 +92,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 380
-        width: 256
-        height: 64
+        y: 126
+        width: 216
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -105,9 +105,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 446
-        width: 256
-        height: 64
+        y: 191
+        width: 216
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

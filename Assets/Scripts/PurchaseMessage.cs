@@ -24,8 +24,10 @@ public class PurchaseMessage : MonoBehaviour
     public void ShowPurchasedTransform(long number)
     {
 
-        purchasingTransform.gameObject.SetActive(false);
+        CanvasControl.Instance.gameStore.ResetGameStore();
+        CanvasControl.Instance.gamePromotion.ResetGamePromotion();
 
+        purchasingTransform.gameObject.SetActive(false);
         purchasedFailTransform.gameObject.SetActive(false);
 
         purchaseCoinsText.text = GameHelper.CoinLongToString(number);

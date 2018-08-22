@@ -55,6 +55,6 @@ public class AppsFlyerTrackerCallbacks : MonoBehaviour {
 	}
 
 	void printCallback(string str) {
-		callbacks.text += str + "\n";
+		//callbacks.text += str + "\n";
 	}
 }

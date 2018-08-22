@@ -21,7 +21,7 @@ public class ButtonEffect : MonoBehaviour
 	    }
 
 	    this.GetComponent<Button>().onClick.AddListener(OnClicked);
-    }
+	}
 
     private void OnClicked()
     {

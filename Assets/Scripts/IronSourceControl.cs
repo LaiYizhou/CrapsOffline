@@ -290,6 +290,8 @@ public class IronSourceControl : MonoBehaviour
     void RewardedVideoAdOpenedEvent()
     {
         Debug.Log("I got RewardedVideoAdOpenedEvent");
+
+        CanvasControl.Instance.gameRewardedVideo.gameObject.SetActive(false);
         AudioControl.Instance.StopBgMusic();
     }
 

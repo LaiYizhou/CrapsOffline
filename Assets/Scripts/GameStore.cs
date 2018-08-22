@@ -9,8 +9,7 @@ public class GameStore : MonoBehaviour
     [SerializeField] private Button closeButton;
     [SerializeField] private Transform panel;
 
-    [Space(10)]
-    [SerializeField] private Transform adItemTransform;
+    [Space(10)] [SerializeField] private Transform adItemTransform;
 
     public void Show()
     {
@@ -49,8 +48,7 @@ public class GameStore : MonoBehaviour
 
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
-        this.gameObject.SetActive(false);
-        panel.gameObject.SetActive(true);
+        ResetGameStore();
         GameHelper.Instance.purchaseMessage.ResetAllTransforms();
 
         int p = Random.Range(0, 100);
@@ -63,10 +61,17 @@ public class GameStore : MonoBehaviour
             CanvasControl.Instance.gamePromotion.Show(GamePromotion.EPromotionType.CloseStore);
         }
 
-        
+
     }
 
-	// Use this for initialization
+    public void ResetGameStore()
+    {
+        this.gameObject.SetActive(false);
+        panel.gameObject.SetActive(true);
+       
+    }
+
+// Use this for initialization
 	void Start ()
     {
         closeButton.onClick.AddListener(OnCloseButtonClicked);

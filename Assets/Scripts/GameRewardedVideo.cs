@@ -14,7 +14,7 @@ public class GameRewardedVideo : MonoBehaviour {
     public void Show()
     {
 
-        //if (!GameHelper.player.IsPaid && IronSourceControl.Instance.IsRewardedVideoReady)
+        if (!GameHelper.player.IsPaid && IronSourceControl.Instance.IsRewardedVideoReady)
         {
             panel.transform.localScale = Vector3.zero;
 
@@ -50,6 +50,8 @@ public class GameRewardedVideo : MonoBehaviour {
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
-       IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
+        //this.gameObject.SetActive(false);
+
+        IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
     }
 }

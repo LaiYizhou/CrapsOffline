@@ -171,14 +171,12 @@ public class GameCrap : MonoBehaviour
         StopCoroutine("DelayCheck");
 
         ResetData();
-
+        CanvasControl.Instance.gameHourlyGift.InitHourlyGift();
 
         ReturnToHallCount++;
         if (ReturnToHallCount > 1)
         {
             int p = Random.Range(0, 100);
-
-            //Debug.L("P = " + p);
 
             if (p < GameHelper.BackToHall_Promotion_P + GameHelper.BackToHall_RewardedVideo_P +
                 GameHelper.BackToHall_Interstitial_P)

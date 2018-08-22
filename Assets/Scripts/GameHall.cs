@@ -30,11 +30,6 @@ public class GameHall : MonoBehaviour
         //PlayerPrefs.DeleteKey("LastGameHallId");
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void UpdatePlayerCoin()
     {

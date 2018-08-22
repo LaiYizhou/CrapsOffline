@@ -536,12 +536,17 @@ public class GameHelper : MonoBehaviour
         return res;
     }
 
-    public void ShowAddCoins(int number, bool isShowRewardedCoins)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="isShowRewardedCoins">usually set it false, unless it's reletive to RewarededVideo</param>
+    public void ShowAddCoins(long number, bool isShowRewardedCoins)
     {
         StartCoroutine(DelayShowAddCoins(number, isShowRewardedCoins));
     }
 
-    IEnumerator DelayShowAddCoins(int number, bool isShowRewardedCoins)
+    IEnumerator DelayShowAddCoins(long number, bool isShowRewardedCoins)
     {
         yield return new WaitForSeconds(0.3f);
 

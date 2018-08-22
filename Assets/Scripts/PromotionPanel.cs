@@ -10,8 +10,6 @@ public class PromotionPanel : MonoBehaviour {
     [SerializeField] private Text priceText;
 
     private MarketProduct marketProduct;
-
-
     public void Init(MarketProduct marketProduct)
     {
         this.marketProduct = marketProduct;
@@ -34,15 +32,6 @@ public class PromotionPanel : MonoBehaviour {
 
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void OnClaimButtonClicked()
     {
@@ -57,7 +46,7 @@ public class PromotionPanel : MonoBehaviour {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
         GameHelper.Instance.purchaseMessage.ShowWaitImage();
-        IAPManager.Instance.BuyProductID(this.marketProduct.Id);
+        IAPManager.Instance.BuyProductID(id);
     }
 
 }
