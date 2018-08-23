@@ -71,7 +71,7 @@ public class HistoryPanelManager : MonoBehaviour
         
         GameObject go = Instantiate(goPrefab) as GameObject;
         go.transform.SetParent(historyPanel);
-        go.transform.localScale = Vector3.one;
+        go.transform.localScale = Vector3.zero;
         go.transform.localPosition = Vector3.zero;
         go.transform.SetAsFirstSibling();
 

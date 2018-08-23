@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class HisDice : MonoBehaviour
@@ -14,6 +15,8 @@ public class HisDice : MonoBehaviour
     {
         image1.sprite = GameHelper.Instance.GetDiceSprite(diceState.Number1);
         image2.sprite = GameHelper.Instance.GetDiceSprite(diceState.Number2);
+
+        this.GetComponent<RectTransform>().DOScale(Vector3.one, 0.6f);
     }
 
     public void Reset()

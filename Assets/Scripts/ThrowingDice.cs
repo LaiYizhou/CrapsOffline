@@ -13,7 +13,7 @@ public class ThrowingDice : MonoBehaviour
         Dice2
     }
 
-    public EThrowingDice ThrowingDiceType;
+    [SerializeField] private EThrowingDice ThrowingDiceType;
 
     [SerializeField] private Image throwingImage;
     [SerializeField] private Image showImage;
@@ -56,6 +56,13 @@ public class ThrowingDice : MonoBehaviour
 
     public void Throw(Vector2 dir, float v)
     {
+
+        //temp code
+        if (this.ThrowingDiceType == EThrowingDice.Dice1)
+        {
+            StartCoroutine("DelayAddDiceState");
+        }
+
         antiFactor = 1.0f;
         velocity = dir * v;
 
@@ -113,7 +120,7 @@ public class ThrowingDice : MonoBehaviour
     //private IEnumerator coroutine;
     private void ChecktoStop()
     {
-
+      
         StopCoroutine("Correct");
         StartCoroutine("Correct");
 
@@ -136,8 +143,11 @@ public class ThrowingDice : MonoBehaviour
 
     private void Stop()
     {
+        StopCoroutine("Correct");
+
         if (this.ThrowingDiceType == EThrowingDice.Dice1)
         {
+           
             showImage.sprite =
                 GameHelper.Instance.GetDiceSprite(CanvasControl.Instance.gameCrap.CurrentDiceState.Number1);
         }
@@ -150,6 +160,17 @@ public class ThrowingDice : MonoBehaviour
         IsThrow = false;
     }
 
+    IEnumerator DelayAddDiceState()
+    {
 
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        yield return new WaitUntil(() =>
+            ! CanvasControl.Instance.gameCrap.diceManager.Dice1.isThrow
+            && ! CanvasControl.Instance.gameCrap.diceManager.Dice2.isThrow);
+        
+        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(CanvasControl.Instance.gameCrap.diceManager.CurrentDiceState);
+
+    }
 
 }

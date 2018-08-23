@@ -9369,7 +9369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &487974596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10042,7 +10042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &506387753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16934,7 +16934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -17319,7 +17319,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 68.5, y: -51.6}
-  m_SizeDelta: {x: 208.8421, y: 100}
+  m_SizeDelta: {x: 205.83784, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972705199
 MonoBehaviour:
@@ -19012,6 +19012,7 @@ MonoBehaviour:
   notReadySprite: {fileID: 21300002, guid: a18174fc8e2272846815e0f50156e18a, type: 3}
   hourlyGiftTimeText: {fileID: 1745070630}
   particleSystem: {fileID: 2065843633}
+  gainHourlyGiftCount: 0
 --- !u!1 &1062680029
 GameObject:
   m_ObjectHideFlags: 0
@@ -23448,7 +23449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -24767,7 +24768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -29573,7 +29574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -35262,7 +35263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -35916,7 +35917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1
@@ -39755,7 +39756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 0}
   isScaleEffect: 1
-  scaleFac: 1.05
+  scaleFac: 1.13
   scaleTime: 0.6
   scaleCount: -1
   loopType: 1

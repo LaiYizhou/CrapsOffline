@@ -13,8 +13,10 @@ public class GameHourlyGift : MonoBehaviour
 
     /// <summary>
     /// second
+    /// 60 * 60 seconds in an hour
+    /// 60 * 5 seconds in 5 minutes
     /// </summary>
-    private const int HourlyGiftInterval = 60 * 5;
+    private const int HourlyGiftInterval = 60 * 60;
 
     [SerializeField] private Button hourlyGiftButton;
     [SerializeField] private Sprite readySprite;
@@ -49,6 +51,22 @@ public class GameHourlyGift : MonoBehaviour
         }
     }
 
+
+    [SerializeField]
+    private int gainHourlyGiftCount;
+    public int GainHourlyGiftCount
+    {
+        get
+        {
+            return PlayerPrefs.HasKey("GainHourlyGiftCount") ? PlayerPrefs.GetInt("GainHourlyGiftCount") : 0;
+        }
+
+        set
+        {
+            gainHourlyGiftCount = value;
+            PlayerPrefs.SetInt("GainHourlyGiftCount", gainHourlyGiftCount);
+        }
+    }
 
     public DateTime NextGetHourlyGiftTime
     {
@@ -91,6 +109,8 @@ public class GameHourlyGift : MonoBehaviour
     private void OnHourlyGiftButtonClicked()
     {
 
+        GainHourlyGiftCount++;
+
         SetButtonInActive();
 
         LastGetHourlyGiftTime = DateTime.Now;
@@ -101,13 +121,16 @@ public class GameHourlyGift : MonoBehaviour
 
         GameHelper.Instance.ShowAddCoins(HourlyGiftCoin, false);
 
-        int index = Random.Range(0, 100);
-        if (index > 50)
-        {
-            StartCoroutine(DelayShowInterstitial());
-        }
 
-        
+        if (GainHourlyGiftCount > 1)
+        {
+            int index = Random.Range(0, 100);
+            if (index > 50)
+            {
+                StartCoroutine(DelayShowInterstitial());
+            }
+
+        }
 
     }
 

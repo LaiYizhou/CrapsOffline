@@ -15,7 +15,22 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private HisDice hisDice;
 
     [SerializeField] private ThrowingDice dice1;
+    public ThrowingDice Dice1
+    {
+        get { return dice1; }
+    }
+
     [SerializeField] private ThrowingDice dice2;
+    public ThrowingDice Dice2
+    {
+        get { return dice2; }
+    }
+
+    private DiceState currentDiceState = null;
+    public DiceState CurrentDiceState
+    {
+        get { return currentDiceState; }
+    }
 
     private Vector2 dice1OriginalVector2;
     private Vector2 dice2OriginalVector2;
@@ -41,6 +56,7 @@ public class DiceManager : MonoBehaviour
             //temp code
             if(!CanvasControl.Instance.gameHall.gameObject.activeInHierarchy)
                 PlaySpokenAudios();
+
 
             StartCoroutine(DelayResetTwoDices());   
         }
@@ -246,6 +262,8 @@ public class DiceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
 
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(currentDiceState);
+
         Sequence sequence = DOTween.Sequence();
 
         sequence.Insert(0.0f, dice1.GetComponent<RectTransform>().DOLocalMove(dice1OriginalVector2, duration));
@@ -336,6 +354,9 @@ public class DiceManager : MonoBehaviour
 
     public void ThrowTwoDices(DiceState diceState)
     {
+
+        currentDiceState = diceState;
+
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.RollDice);
 
         IsInBox = false;
@@ -348,7 +369,7 @@ public class DiceManager : MonoBehaviour
         hisDice.Init(diceState);
 
         CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
+        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
 
         hisDice.gameObject.SetActive(false);
 
@@ -381,8 +402,4 @@ public class DiceManager : MonoBehaviour
     }
 
     
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -173,7 +173,7 @@ public class GameDailyGift : MonoBehaviour
     /// 60 * 60 * 24 seconds in a day
     /// 60 * 15 seconds in 15 minutes
     /// </summary>
-    private const int dailyGiftInterval = 60 * 15;
+    private const int dailyGiftInterval = 60 * 60 * 24;
     private void GainDailyGifts()
     {
 
@@ -197,12 +197,16 @@ public class GameDailyGift : MonoBehaviour
                 {
                     GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Several Login : " + LoginCount);
+
+                    GameHelper.Instance.RewardedVideoCount = 0;
                 }
                 else if (totalSecond >= dailyGiftInterval * 2.0)
                 {
                     LoginCount = 1;
                     GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Reset Login : " + LoginCount);
+
+                    GameHelper.Instance.RewardedVideoCount = 0;
                 }
                 else
                 {

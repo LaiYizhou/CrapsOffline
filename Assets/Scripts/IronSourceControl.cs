@@ -300,21 +300,24 @@ public class IronSourceControl : MonoBehaviour
         Debug.Log("I got RewardedVideoAdRewardedEvent, amount = " + ssp.getRewardAmount() + " name = " + ssp.getRewardName());
         //userTotalCredits = userTotalCredits + ssp.getRewardAmount();
         //GameHelper.player.ChangeCoins(ssp.getRewardAmount());
-        GameHelper.IsShowRewardedCoins = true;
+        GameHelper.IsShowRewardedVideoCoins = true;
         AudioControl.Instance.StopBgMusic();
-        GameHelper.RewardedCoin = ssp.getRewardAmount();
+        GameHelper.RewardedVideoCoin = ssp.getRewardAmount();
         //AmountText.GetComponent<UnityEngine.UI.Text>().text = "" + userTotalCredits;
     }
 
     void RewardedVideoAdClosedEvent()
     {
         Debug.Log("I got RewardedVideoAdClosedEvent");
-        //CanvasControl.Instance.ShowRewardedCoins(GameHelper.RewardedCoin);
-        //CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedCoin, true);
+        //CanvasControl.Instance.ShowRewardedCoins(GameHelper.RewardedVideoCoin);
+        //CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
 
-        GameHelper.Instance.ShowAddCoins(GameHelper.RewardedCoin, true);
+        GameHelper.Instance.RewardedVideoCount++;
+        Debug.Log("### GameHelper.Instance.RewardedVideoCount = " + GameHelper.Instance.RewardedVideoCount);
 
-        AppsFlyerManager.Instance.TrackAd(GameHelper.RewardedCoin.ToString(), "1");
+        GameHelper.Instance.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
+
+        AppsFlyerManager.Instance.TrackAd(GameHelper.RewardedVideoCoin.ToString(), "1");
 
         AudioControl.Instance.PlayBgMusic();
     }
@@ -349,13 +352,13 @@ public class IronSourceControl : MonoBehaviour
         //Debug.Log("OnApplicationPause = " + isPaused);
         if (isPaused)
         {
-            //if(IronSourceControl.Instance!=null)
-            //    IronSourceControl.Instance.LoadInterstitial();
+            if (IronSourceControl.Instance != null)
+                IronSourceControl.Instance.LoadInterstitial();
         }
         else
         {
-            //if (IronSourceControl.Instance != null)
-            //    IronSourceControl.Instance.ShowInterstitial(1.0f);
+            if (IronSourceControl.Instance != null)
+                IronSourceControl.Instance.ShowInterstitial(0.5f);
         }
         
     }

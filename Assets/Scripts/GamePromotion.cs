@@ -91,16 +91,6 @@ public class GamePromotion : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void OnCloseButtonClicked()
     {
 
@@ -112,8 +102,18 @@ public class GamePromotion : MonoBehaviour
 
     public void ResetGamePromotion()
     {
-        
-        promotionPanelList.ForEach((p) => { p.gameObject.SetActive(false); });
+
+        StartCoroutine(ResetPanelList());
+    }
+
+
+    private IEnumerator ResetPanelList()
+    {
+        for(int i = 0; i<promotionPanelList.Count; i++)
+            promotionPanelList[i].gameObject.SetActive(false);
+
+        yield return new WaitForEndOfFrame();
+
         this.gameObject.SetActive(false);
     }
 

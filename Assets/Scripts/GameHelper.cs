@@ -22,8 +22,20 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private List<Sprite> chipSpriteList;
     [SerializeField] private List<Sprite> chipDarkSpriteList;
 
-    public static bool IsShowRewardedCoins;
-    public static int RewardedCoin;
+    private int rewardedVideoCount;
+    public int RewardedVideoCount
+    {
+        get { return PlayerPrefs.HasKey("RewardedVideoCount") ? PlayerPrefs.GetInt("RewardedVideoCount") : 0; }
+
+        set
+        {
+            rewardedVideoCount = value;
+            PlayerPrefs.SetInt("RewardedVideoCount", rewardedVideoCount);
+        }
+    }
+
+    public static bool IsShowRewardedVideoCoins;
+    public static int RewardedVideoCoin = 2000;
 
     public static int CloseStore_RewardedVideo_P = 50;
     public static int CloseStore_Promotion_P = 50;
@@ -203,7 +215,7 @@ public class GameHelper : MonoBehaviour
     {
         Instance = this;
 
-        IsShowRewardedCoins = false;
+        IsShowRewardedVideoCoins = false;
         player = new Player();
 
         UpdatePlayerCoin();
@@ -550,7 +562,7 @@ public class GameHelper : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
-        bool flag = !isShowRewardedCoins || (GameHelper.IsShowRewardedCoins);
+        bool flag = !isShowRewardedCoins || (GameHelper.IsShowRewardedVideoCoins);
 
         if (flag)
         {
@@ -577,7 +589,7 @@ public class GameHelper : MonoBehaviour
                 crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
 
                 if (isShowRewardedCoins)
-                    GameHelper.IsShowRewardedCoins = false;
+                    GameHelper.IsShowRewardedVideoCoins = false;
             });
 
 
