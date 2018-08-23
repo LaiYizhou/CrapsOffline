@@ -350,16 +350,16 @@ public class IronSourceControl : MonoBehaviour
     void OnApplicationPause(bool isPaused)
     {
         //Debug.Log("OnApplicationPause = " + isPaused);
-        if (isPaused)
-        {
-            if (IronSourceControl.Instance != null)
-                IronSourceControl.Instance.LoadInterstitial();
-        }
-        else
-        {
-            if (IronSourceControl.Instance != null)
-                IronSourceControl.Instance.ShowInterstitial(0.5f);
-        }
+        //if (isPaused)
+        //{
+        //    if (IronSourceControl.Instance != null)
+        //        IronSourceControl.Instance.LoadInterstitial();
+        //}
+        //else
+        //{
+        //    if (IronSourceControl.Instance != null)
+        //        IronSourceControl.Instance.ShowInterstitial(0.5f);
+        //}
         
     }
 }
