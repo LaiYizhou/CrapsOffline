@@ -22,7 +22,7 @@ public class GameHourlyGift : MonoBehaviour
     [SerializeField] private Sprite readySprite;
     [SerializeField] private Sprite notReadySprite;
     [SerializeField] private Text hourlyGiftTimeText;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem hourlyGiftButtonParticleSystem;
 
     private DateTime lastGetHourlyGiftTime;
     public DateTime LastGetHourlyGiftTime
@@ -178,7 +178,7 @@ public class GameHourlyGift : MonoBehaviour
 
     private void SetButtonActive()
     {
-        particleSystem.gameObject.SetActive(true);
+        hourlyGiftButtonParticleSystem.gameObject.SetActive(true);
 
         hourlyGiftTimeText.gameObject.SetActive(false);
         hourlyGiftButton.interactable = true;
@@ -191,7 +191,7 @@ public class GameHourlyGift : MonoBehaviour
     private void SetButtonInActive()
     {
 
-        particleSystem.gameObject.SetActive(false);
+        hourlyGiftButtonParticleSystem.gameObject.SetActive(false);
 
         hourlyGiftButton.interactable = false;
         hourlyGiftButton.GetComponent<Image>().sprite = notReadySprite;

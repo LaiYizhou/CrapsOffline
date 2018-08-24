@@ -101,7 +101,7 @@ public class GameCrap : MonoBehaviour
     }
 
     [SerializeField]
-    private List<int> crpasComePointsList = new List<int>();
+    private List<int> crapsComePointsList = new List<int>();
 
     // Current all Chips on the TableArea
     public List<EArea> CurrentAllChipsTableAreaList = new List<EArea>();
@@ -316,7 +316,7 @@ public class GameCrap : MonoBehaviour
         isComePointOn = false;
         SetPointOff();
 
-        crpasComePointsList.Clear();
+        crapsComePointsList.Clear();
         CurrentAllChipsTableAreaList.Clear();
 
         chipsManager.Clear(false);
@@ -356,25 +356,15 @@ public class GameCrap : MonoBehaviour
         ResetPoint();
     }
 
-    // Use this for initialization
-    void Start ()
-    {
-
-    }
-
-    // Update is called once per frame
-	void Update () {
-    
-	}
 
     public void UpdateComePoints(int point)
     {
-        if (crpasComePointsList.Contains(point))
-            crpasComePointsList.Remove(point);
+        if (crapsComePointsList.Contains(point))
+            crapsComePointsList.Remove(point);
         else
-            crpasComePointsList.Add(point);
+            crapsComePointsList.Add(point);
 
-        if (crapPointPosList.Count == 0 || crapPointPosList == null)
+        if (crapsComePointsList.Count == 0 || crapsComePointsList == null)
             isComePointOn = false;
         else
             isComePointOn = true;
@@ -424,8 +414,11 @@ public class GameCrap : MonoBehaviour
             || CurrentAllChipsTableAreaList.Contains(EArea.DontComeOdds9)
             || CurrentAllChipsTableAreaList.Contains(EArea.DontComeOdds10)
         )
-
+        {
             UpdateComePoints(CurrentDiceState.Sum);
+        }
+
+        
 
     }
 

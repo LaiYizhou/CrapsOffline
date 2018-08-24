@@ -15,6 +15,7 @@ public class DialogMessage : MonoBehaviour
 
     public void ShowDialogMessage(string s)
     {
+        text.text = s;
         panel.gameObject.SetActive(true);
         StartCoroutine("DelayReset");
     }

@@ -9,6 +9,7 @@ TagManager:
   - BottomBorder
   - LeftBorder
   - Dice
+  - SafeAreaBorder
   layers:
   - Default
   - TransparentFX

@@ -47,6 +47,7 @@ public class ThrowingDice : MonoBehaviour
     [SerializeField] private float antiFactor;
 
     private float f = 0.45f;
+    private bool isInSafeArea = false;
 
     // Use this for initialization
     void Start () {
@@ -60,30 +61,36 @@ public class ThrowingDice : MonoBehaviour
         //temp code
         if (this.ThrowingDiceType == EThrowingDice.Dice1)
         {
-            StartCoroutine("DelayAddDiceState");
+            StartCoroutine("DelayHistoryPanelAddDiceState");
         }
 
         antiFactor = 1.0f;
         velocity = dir * v;
 
         IsThrow = true;
+        isInSafeArea = false;
     }
 
     // Update is called once per frame
 	void Update () {
 
         if (IsThrow)
-	    {
-	        Vector2 tempPos = new Vector2(this.GetComponent<RectTransform>().anchoredPosition.x + velocity.x * Time.deltaTime, this.GetComponent<RectTransform>().anchoredPosition.y + velocity.y * Time.deltaTime);
+        {
+            Vector2 tempPos =
+                new Vector2(
+                    this.GetComponent<RectTransform>().anchoredPosition.x + velocity.x * Time.deltaTime,
+                    this.GetComponent<RectTransform>().anchoredPosition.y + velocity.y * Time.deltaTime
+                    );
 	        this.GetComponent<RectTransform>().anchoredPosition = tempPos;
 	    }
     }
 
-    
-
+    /// <summary>
+    /// ! ! ! There are so many BoxCollider2D in Game Scene, because sometimes the OnTriggerEnter2D() is not be triggered
+    /// </summary>
+    /// <param name="coll"></param>
     void OnTriggerEnter2D(Collider2D coll)
     {
-        //Debug.Log("Dice | OnTriggerEnter2D : " + coll.tag);
 
         if (IsThrow)
         {
@@ -94,28 +101,56 @@ public class ThrowingDice : MonoBehaviour
                 this.velocity = new Vector2(velocity.x * f, -velocity.y * f);
                 antiFactor = antiFactor * f;
             }
-            else if (tag == "RightBorder")
+
+            if (tag == "RightBorder")
             {
                 this.velocity = new Vector2(-velocity.x * f, velocity.y * f);
                 antiFactor = antiFactor * f;
             }
-            else if (tag == "LeftBorder")
+
+            if (tag == "LeftBorder")
             {
                 if (antiFactor < 1.0f)
                     this.velocity = new Vector2(-velocity.x * f, velocity.y * f);
                 antiFactor = antiFactor * f;
             }
-            else if (tag == "Dice")
+
+
+            if (isInSafeArea)
             {
-                if (CanvasControl.Instance.gameCrap.diceManager.IsOpenDiceCollider)
-                    this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
+                if (tag == "Dice")
+                {
+                    if (CanvasControl.Instance.gameCrap.diceManager.IsOpenDiceCollider)
+                    {
+                        this.velocity = new Vector2(-velocity.x * f, -velocity.y * f);
+                    }
+
+                }
             }
 
+            
             ChecktoStop();
         }
 
     }
 
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        if (coll.tag == "SafeAreaBorder")
+        {
+            if (!isInSafeArea)
+                isInSafeArea = true;
+        }
+
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "SafeAreaBorder")
+        {
+           isInSafeArea = false;
+        }
+    }
 
     //private IEnumerator coroutine;
     private void ChecktoStop()
@@ -146,8 +181,7 @@ public class ThrowingDice : MonoBehaviour
         StopCoroutine("Correct");
 
         if (this.ThrowingDiceType == EThrowingDice.Dice1)
-        {
-           
+        { 
             showImage.sprite =
                 GameHelper.Instance.GetDiceSprite(CanvasControl.Instance.gameCrap.CurrentDiceState.Number1);
         }
@@ -160,7 +194,7 @@ public class ThrowingDice : MonoBehaviour
         IsThrow = false;
     }
 
-    IEnumerator DelayAddDiceState()
+    IEnumerator DelayHistoryPanelAddDiceState()
     {
 
         yield return new WaitForSecondsRealtime(0.3f);
@@ -169,7 +203,7 @@ public class ThrowingDice : MonoBehaviour
             ! CanvasControl.Instance.gameCrap.diceManager.Dice1.isThrow
             && ! CanvasControl.Instance.gameCrap.diceManager.Dice2.isThrow);
         
-        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(CanvasControl.Instance.gameCrap.diceManager.CurrentDiceState);
+        CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(CanvasControl.Instance.gameCrap.CurrentDiceState);
 
     }
 

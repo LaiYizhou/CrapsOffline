@@ -26,12 +26,6 @@ public class DiceManager : MonoBehaviour
         get { return dice2; }
     }
 
-    private DiceState currentDiceState = null;
-    public DiceState CurrentDiceState
-    {
-        get { return currentDiceState; }
-    }
-
     private Vector2 dice1OriginalVector2;
     private Vector2 dice2OriginalVector2;
 
@@ -262,8 +256,6 @@ public class DiceManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
 
-        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(currentDiceState);
-
         Sequence sequence = DOTween.Sequence();
 
         sequence.Insert(0.0f, dice1.GetComponent<RectTransform>().DOLocalMove(dice1OriginalVector2, duration));
@@ -323,6 +315,11 @@ public class DiceManager : MonoBehaviour
     {
         if (CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > 0)
         {
+            if (!CanvasControl.Instance.gameAchievement.IsRoundStart)
+            {
+                CanvasControl.Instance.gameAchievement.IsRoundStart = true;
+            }
+
             DiceState diceState = GameHelper.Instance.RandomDice();
 
             CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);
@@ -355,8 +352,6 @@ public class DiceManager : MonoBehaviour
     public void ThrowTwoDices(DiceState diceState)
     {
 
-        currentDiceState = diceState;
-
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.RollDice);
 
         IsInBox = false;
@@ -367,11 +362,9 @@ public class DiceManager : MonoBehaviour
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = false;
 
         hisDice.Init(diceState);
+        hisDice.gameObject.SetActive(false);
 
         CanvasControl.Instance.gameCrap.CurrentDiceState = diceState;
-        //CanvasControl.Instance.gameCrap.historyPanelManager.AddDiceState(diceState);
-
-        hisDice.gameObject.SetActive(false);
 
         dice1.gameObject.SetActive(true);
         dice1.Throw(GetRandomDirection(), GetRandomVelocity());

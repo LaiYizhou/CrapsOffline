@@ -178,28 +178,4 @@ public class CrapsTableArea : MonoBehaviour
         State = EState.Normal;
     }
 
-    //void OnTriggerEnter2D(Collider2D coll)
-    //{
-    //    Debug.Log("CrapsTableArea | OnTriggerEnter2D : " + coll.name);
-
-    //    if(State != EState.Dark)
-    //        State = EState.Select;
-    //}
-
-    //void OnTriggerStay2D(Collider2D coll)
-    //{
-    //    //Debug.Log("CrapsTableArea | OnTriggerStay2D : " + this.AreaType);
-
-    //    if (State != EState.Dark)
-    //        State = EState.Select;
-    //}
-
-    //void OnTriggerExit2D(Collider2D coll)
-    //{
-    //    //Debug.Log("CrapsTableArea | OnTriggerExit2D : " + this.AreaType);
-
-    //    if (State != EState.Dark)
-    //        State = EState.Normal;
-
-    //}
 }

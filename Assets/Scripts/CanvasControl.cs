@@ -14,6 +14,7 @@ public class CanvasControl : MonoBehaviour
     public GameSetting gameSetting;
     public GameStore gameStore;
     public GameDailyGift gameDailyGift;
+    public GameAchievement gameAchievement;
     public GameHourlyGift gameHourlyGift;
     public GamePromotion gamePromotion;
     public GameRewardedVideo gameRewardedVideo;
