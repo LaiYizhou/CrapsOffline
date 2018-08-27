@@ -387,13 +387,32 @@ public class GameCrap : MonoBehaviour
 
         if (!IsPointOn)
         {
-            if(CurrentDiceState.IsPoint())
+            if (CurrentDiceState.IsPoint())
+            {
                 SetPointOn(CurrentDiceState.Sum);
+
+                // A round begin with it
+                CanvasControl.Instance.gameAchievement.IsRoundStart = true;
+                GameHelper.Instance.ShowTip(Vector3.one, "New Round Start ! ! !");
+
+            }
+
+          
         }
         else
         {
             if (CurrentDiceState.IsAnySeven() || CurrentDiceState.Sum == CurrentCrapsPointValue)
+            {
                 SetPointOff();
+
+                // A round end with it
+                CanvasControl.Instance.gameAchievement.IsRoundStart = false;
+                GameHelper.Instance.ShowTip(Vector3.one, "Round End ! ! !");
+
+                UpdateGameAchievements();
+
+            }
+
         }
 
 
@@ -419,6 +438,46 @@ public class GameCrap : MonoBehaviour
         }
 
         
+
+    }
+
+    private void UpdateGameAchievements()
+    {
+        CanvasControl.Instance.gameAchievement.AchievementValueAddOne(1);
+
+        if(CanvasControl.Instance.gameAchievement.IsWinRound)
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(2);
+
+        if(CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.PassLine))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(3);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Come))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(4);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Field))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(5);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigSix))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(6);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigEight))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(7);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard22) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard33) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard44) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard55))
+        {
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(8);
+        }
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.AnyCraps))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(9);
+
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.AnySeven))
+            CanvasControl.Instance.gameAchievement.AchievementValueAddOne(10);
+
+
 
     }
 

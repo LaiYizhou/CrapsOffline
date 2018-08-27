@@ -503,6 +503,22 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     /// <returns></returns>
     private bool Win()
     {
+
+        if (this.OnArea == EArea.PassLine || this.OnArea == EArea.DontPassH || this.OnArea == EArea.DontPassV)
+        {
+            CanvasControl.Instance.gameAchievement.IsWinRound = true;
+            if (this.OnArea == EArea.PassLine)
+            {
+                CanvasControl.Instance.gameAchievement.SetWinDictionary(EArea.PassLine);
+            }
+        }
+        else
+        {
+            CanvasControl.Instance.gameAchievement.SetWinDictionary(this.OnArea);
+        }
+
+
+
         TakeBack();
 
         long winNumber = GameHelper.Instance.GetOdds(this, OnArea,

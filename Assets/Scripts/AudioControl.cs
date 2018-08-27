@@ -127,11 +127,6 @@ public class AudioControl : MonoBehaviour
 	    PlayBgMusic();
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void PlayBgMusic()
     {

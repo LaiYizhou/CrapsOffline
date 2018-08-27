@@ -315,11 +315,7 @@ public class DiceManager : MonoBehaviour
     {
         if (CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue() > 0)
         {
-            if (!CanvasControl.Instance.gameAchievement.IsRoundStart)
-            {
-                CanvasControl.Instance.gameAchievement.IsRoundStart = true;
-            }
-
+         
             DiceState diceState = GameHelper.Instance.RandomDice();
 
             CanvasControl.Instance.gameCrap.SetGameStateText(CanvasControl.Instance.gameCrap.chipsManager.GetAllChipsValue(), true);

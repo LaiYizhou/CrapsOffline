@@ -123,11 +123,6 @@ public class ChipsManager : MonoBehaviour
            
         }
 
-        Debug.LogError("Current Table All Remain : " + GetAllChipsValue());
-        if (CanvasControl.Instance.gameAchievement && GetAllChipsValue() <= 0)
-        {
-           //GameHelper.Instance.ShowDialogMessage("Round End ! ! !");
-        }
     }
 
     public void Undo()
@@ -201,13 +196,4 @@ public class ChipsManager : MonoBehaviour
         TableCurrentChipList.Clear();
     }
 
-// Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

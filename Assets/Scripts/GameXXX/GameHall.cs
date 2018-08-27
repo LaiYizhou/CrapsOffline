@@ -139,6 +139,7 @@ public class GameHall : MonoBehaviour
             //if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
             {
                 CanvasControl.Instance.gameCrap.Init(levelId);
+                CanvasControl.Instance.gameAchievement.Init();
                 LastGameHallId = levelId;
                 this.gameObject.SetActive(false);
             }
