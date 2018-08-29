@@ -1,0 +1,48 @@
+
+jindutiao.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+di
+  rotate: false
+  xy: 2, 147
+  size: 92, 92
+  orig: 92, 92
+  offset: 0, 0
+  index: -1
+di_liang
+  rotate: false
+  xy: 2, 57
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+jiangpai
+  rotate: false
+  xy: 171, 183
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1
+texiao2
+  rotate: false
+  xy: 57, 32
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+xingxing
+  rotate: false
+  xy: 96, 167
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+yuanhuan2
+  rotate: false
+  xy: 2, 2
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1

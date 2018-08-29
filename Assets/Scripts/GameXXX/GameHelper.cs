@@ -12,8 +12,11 @@ public class GameHelper : MonoBehaviour
 
     public static GameHelper Instance;
 
+   
     [SerializeField] private Text hallShowAddedCoinText;
     [SerializeField] private Text crapsShowAddedCoinText;
+
+    public CoinCollectEffect coinCollectEffect;
     public Tip tip;
     public DialogMessage dialogMessage;
     public PurchaseMessage purchaseMessage;
@@ -546,6 +549,11 @@ public class GameHelper : MonoBehaviour
 
         res = long.Parse(sb.ToString());
         return res;
+    }
+
+    public Vector3 ToCanvasLocalPos(Vector3 worldPos)
+    {
+        return coinCollectEffect.gameObject.transform.InverseTransformPoint(worldPos);
     }
 
     /// <summary>

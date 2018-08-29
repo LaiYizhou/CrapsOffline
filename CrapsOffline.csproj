@@ -142,6 +142,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Animations\CoinCollectEffect.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
     <Compile Include="Assets\IronSource\Scripts\AndroidAgent.cs" />
@@ -155,6 +156,8 @@
     <Compile Include="Assets\IronSource\Scripts\IronSourceSegment.cs" />
     <Compile Include="Assets\IronSource\Scripts\UnsupportedPlatformAgent.cs" />
     <Compile Include="Assets\IronSource\Scripts\iOSAgent.cs" />
+    <Compile Include="Assets\Scripts\AchievementsItem.cs" />
+    <Compile Include="Assets\Scripts\AchievementsManager.cs" />
     <Compile Include="Assets\Scripts\AppsFlyerManager.cs" />
     <Compile Include="Assets\Scripts\AudioControl.cs" />
     <Compile Include="Assets\Scripts\ButtonEffect.cs" />
@@ -300,6 +303,8 @@
     <None Include="Assets\Spine\spine-unity\Shaders\Skeleton.shader" />
     <None Include="Assets\Spine\spine-unity\Shaders\SkeletonLit.shader" />
     <None Include="Assets\Spine\spine-unity\version.txt" />
+    <None Include="Assets\SpineAnimations\jindutiao.atlas.txt" />
+    <None Include="Assets\SpineAnimations\liwu.atlas.txt" />
     <None Include="Assets\SpineAnimations\shipinanniu.atlas.txt" />
     <None Include="Assets\codeandweb.com\Editor\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\codeandweb.com\Readme.txt" />

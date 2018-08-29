@@ -129,6 +129,13 @@ public class GameHall : MonoBehaviour
         IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
     }
 
+    public void OnGameAchievementButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        CanvasControl.Instance.gameAchievement.Show();
+    }
+
     public void LoadCrapScene(int levelId)
     {
 
@@ -139,7 +146,10 @@ public class GameHall : MonoBehaviour
             //if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
             {
                 CanvasControl.Instance.gameCrap.Init(levelId);
+                CanvasControl.Instance.gameCrap.UpdateGameAchievementsEffect();
+
                 CanvasControl.Instance.gameAchievement.Init();
+
                 LastGameHallId = levelId;
                 this.gameObject.SetActive(false);
             }

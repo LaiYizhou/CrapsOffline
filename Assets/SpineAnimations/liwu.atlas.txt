@@ -1,0 +1,69 @@
+
+liwu.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gaizi
+  rotate: false
+  xy: 260, 233
+  size: 193, 113
+  orig: 193, 113
+  offset: 0, 0
+  index: -1
+gaizi_guang
+  rotate: false
+  xy: 2, 102
+  size: 216, 141
+  orig: 216, 141
+  offset: 0, 0
+  index: -1
+hezi1
+  rotate: false
+  xy: 220, 116
+  size: 149, 115
+  orig: 149, 115
+  offset: 0, 0
+  index: -1
+hezi_guang
+  rotate: false
+  xy: 260, 348
+  size: 186, 153
+  orig: 186, 153
+  offset: 0, 0
+  index: -1
+texiao
+  rotate: false
+  xy: 2, 27
+  size: 84, 73
+  orig: 84, 73
+  offset: 0, 0
+  index: -1
+texiao2
+  rotate: false
+  xy: 2, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+tiaowen1
+  rotate: false
+  xy: 448, 406
+  size: 23, 95
+  orig: 23, 95
+  offset: 0, 0
+  index: -1
+tiaowen2
+  rotate: false
+  xy: 371, 136
+  size: 20, 95
+  orig: 20, 95
+  offset: 0, 0
+  index: -1
+zg
+  rotate: false
+  xy: 2, 245
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1

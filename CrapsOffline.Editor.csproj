@@ -261,6 +261,8 @@
     <None Include="Assets\Spine\spine-unity\Shaders\Skeleton.shader" />
     <None Include="Assets\Spine\spine-unity\Shaders\SkeletonLit.shader" />
     <None Include="Assets\Spine\spine-unity\version.txt" />
+    <None Include="Assets\SpineAnimations\jindutiao.atlas.txt" />
+    <None Include="Assets\SpineAnimations\liwu.atlas.txt" />
     <None Include="Assets\SpineAnimations\shipinanniu.atlas.txt" />
     <None Include="Assets\codeandweb.com\Editor\SettingsTexturePackerImporter.txt" />
     <None Include="Assets\codeandweb.com\Readme.txt" />

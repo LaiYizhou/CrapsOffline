@@ -9,6 +9,8 @@ public class ButtonEffect : MonoBehaviour
 
     [SerializeField]
     private Image image;
+    [SerializeField]
+    private Transform transform;
     [Range(1.05f, 1.15f)]
     public float scale = 1.09f;
 
@@ -25,12 +27,25 @@ public class ButtonEffect : MonoBehaviour
 
     private void OnClicked()
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(image.GetComponent<RectTransform>().DOScale(new Vector3(scale, scale, scale), 0.2f));
-        sequence.AppendCallback(() =>
+        if (transform == null)
         {
-            image.GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
-        });
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(image.GetComponent<RectTransform>().DOScale(new Vector3(scale, scale, scale), 0.2f));
+            sequence.AppendCallback(() =>
+            {
+                image.GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
+            });
+        }
+        else
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(new Vector3(scale, scale, scale), 0.2f));
+            sequence.AppendCallback(() =>
+            {
+                transform.DOScale(Vector3.one, 0.2f);
+            });
+        }
+     
 
 
 

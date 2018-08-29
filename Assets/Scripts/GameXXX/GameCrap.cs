@@ -133,6 +133,15 @@ public class GameCrap : MonoBehaviour
 
     public long OneRollWinAndLoseResult;
 
+    [Header("GameAchievements")]
+    [SerializeField] private Transform notFullTransform;
+    [SerializeField] private Transform fullTransform;
+    [SerializeField] private Image slideImage;
+    [SerializeField] private Transform particleEffectTransform;
+
+    [SerializeField] private Image achievementPanelImage;
+    [SerializeField] private Text panelText;
+
     public void SetGameStateText(long number, bool isOnBet)
     {
         if (isOnBet)
@@ -263,6 +272,13 @@ public class GameCrap : MonoBehaviour
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
         IronSourceControl.Instance.ShowRewardedVideoButtonClicked();
+    }
+
+    public void OnAchievementEntranceButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        CanvasControl.Instance.gameAchievement.Show();
     }
 
     public void UpdatePlayerCoin()
@@ -409,7 +425,8 @@ public class GameCrap : MonoBehaviour
                 CanvasControl.Instance.gameAchievement.IsRoundStart = false;
                 GameHelper.Instance.ShowTip(Vector3.one, "Round End ! ! !");
 
-                UpdateGameAchievements();
+                UpdateGameAchievementsData();
+                UpdateGameAchievementsEffect();
 
             }
 
@@ -441,7 +458,67 @@ public class GameCrap : MonoBehaviour
 
     }
 
-    private void UpdateGameAchievements()
+    public void UpdateGameAchievementsEffect()
+    {
+        int currentCompleteAchievementCount = CanvasControl.Instance.gameAchievement.CompleteAchievementCount;
+        int lastCompleteAchievementCount = CanvasControl.Instance.gameAchievement.LastCompleteAchievementCount;
+
+        CanvasControl.Instance.gameAchievement.SaveLastCompleteAchievementCount();
+
+        float fillAmount = currentCompleteAchievementCount /
+                           (float) CanvasControl.Instance.gameAchievement.CurrentAchievementLevelTargetValue;
+
+        if (fillAmount >= 1.0f)
+        {
+            notFullTransform.gameObject.SetActive(false);
+            fullTransform.gameObject.SetActive(true);
+        }
+        else
+        {
+            notFullTransform.gameObject.SetActive(true);
+            fullTransform.gameObject.SetActive(false);
+    
+            if (fillAmount <= 0.0f)
+            {
+                particleEffectTransform.transform.localRotation = Quaternion.identity;
+                particleEffectTransform.gameObject.SetActive(false);
+                slideImage.fillAmount = fillAmount;
+            }
+            else
+            {
+                particleEffectTransform.gameObject.SetActive(true);
+
+                particleEffectTransform.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -360 * fillAmount), 1.0f);
+                slideImage.DOFillAmount(fillAmount, 1.0f);
+            }
+        }
+
+
+        int deltaValue = currentCompleteAchievementCount - lastCompleteAchievementCount;
+        if (deltaValue >= 1)
+        {
+            StartCoroutine(DelayShowAchievementPanel(deltaValue));
+        }
+
+    }
+
+    private IEnumerator DelayShowAchievementPanel(int deltaValue)
+    {
+        yield return new WaitForEndOfFrame();
+
+        achievementPanelImage.DOKill();
+        achievementPanelImage.fillAmount = 0.0f;
+        panelText.text = string.Format("{0} QUEST COMPLETED! \nGO COLLECT YOUR PRIZE!", deltaValue);
+
+        achievementPanelImage.DOFillAmount(1.0f, 0.3f);
+
+        yield return new WaitForSeconds(10.0f);
+
+        achievementPanelImage.DOFillAmount(0.0f, 0.3f);
+
+    }
+
+    private void UpdateGameAchievementsData()
     {
         CanvasControl.Instance.gameAchievement.AchievementValueAddOne(1);
 

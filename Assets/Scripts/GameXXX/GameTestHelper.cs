@@ -13,9 +13,11 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private HisDice showeDice;
     [SerializeField] private Transform Logbg;
     [SerializeField] private Text logText;
+    [SerializeField] private Transform showPanelTransform;
+    [SerializeField] private Text showText;
 
-	// Use this for initialization
-	IEnumerator Start ()
+    // Use this for initialization
+    IEnumerator Start ()
 	{
         yield return new WaitForEndOfFrame();
 
@@ -76,10 +78,13 @@ public class GameTestHelper : MonoBehaviour
     public void ShowLogSwitch()
     {
        
-        if(Logbg.gameObject.activeInHierarchy)
-            Logbg.gameObject.SetActive(false);
-        else
-            Logbg.gameObject.SetActive(true);
+        //if(Logbg.gameObject.activeInHierarchy)
+        //    Logbg.gameObject.SetActive(false);
+        //else
+        //    Logbg.gameObject.SetActive(true);
+
+        GameHelper.Instance.coinCollectEffect.RunEffect(-1);
+
     }
 
     public void ClearLog()
@@ -151,4 +156,29 @@ public class GameTestHelper : MonoBehaviour
     }
 
 
+    public void AchievementButton()
+    {
+        if (showPanelTransform.gameObject.activeInHierarchy)
+        {
+            showPanelTransform.gameObject.SetActive(false);
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+
+            showPanelTransform.gameObject.SetActive(true);
+            for (int i = 1; i < CanvasControl.Instance.gameAchievement.GameAchievementInfoList.Count; i++)
+            {
+                sb.Append(CanvasControl.Instance.gameAchievement.GameAchievementInfoList[i].ToString()).Append(System.Environment.NewLine);
+            }
+
+            showText.text = sb.ToString();
+        }
+    }
+
+
+    public void AchievementsResetButton()
+    {
+        CanvasControl.Instance.gameAchievement.ResetAchievementsData(); 
+    }
 }

@@ -4,6 +4,7 @@ tpsheetFileNames:
 - Assets/ResourcesSlots/wolf/Texture/bg.tpsheet
 - Assets/Textures/Activity/Quest/Quest.tpsheet
 - Assets/UI/Common/common_popup_background.tpsheet
+- Assets/UI/GameAchievement/GameAchievement.tpsheet
 - Assets/UI/GameCrap/CrapsGuide/craps_guide01.tpsheet
 - Assets/UI/GameCrap/CrapsGuide/craps_guide02.tpsheet
 - Assets/UI/GameCrap/CrapsGuide/craps_guide03.tpsheet
@@ -25,6 +26,7 @@ textureFileNames:
 - Assets/ResourcesSlots/wolf/Texture/bg.png
 - Assets/Textures/Activity/Quest/Quest.png
 - Assets/UI/Common/common_popup_background.png
+- Assets/UI/GameAchievement/GameAchievement.png
 - Assets/UI/GameCrap/CrapsGuide/craps_guide01.png
 - Assets/UI/GameCrap/CrapsGuide/craps_guide02.png
 - Assets/UI/GameCrap/CrapsGuide/craps_guide03.png
@@ -43,6 +45,7 @@ textureFileNames:
 - Assets/UI/GameSetting/GameSetting.png
 - Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
+- 
 - 
 - 
 - 

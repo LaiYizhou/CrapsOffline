@@ -38,6 +38,9 @@ public class CanvasControl : MonoBehaviour
         gameDailyGift.gameObject.SetActive(true);
         gameHourlyGift.gameObject.SetActive(true);
 
+        gameCrap.UpdateGameAchievementsEffect();
+        gameAchievement.DrawLine();
+
         yield return new WaitForEndOfFrame();
 
         IronSourceControl.Instance.LoadInterstitial();

@@ -102,10 +102,6 @@ public class GameDailyGift : MonoBehaviour
 
 	}
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
 
     private float scaleDuration = 0.2f;
     private float hideDuration = 0.2f;

@@ -1,0 +1,20 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameAchievement.png (512 x 512)
+# $TexturePacker:SmartUpdate:a8f47e027ae31bd757f3a5f27d525ae8:a0b14ad0cfad6ed7cfcb8df40e8177b1:a152c777c62e58cc3685aa6c9dce3d51$
+#
+
+_0002_coin;114;402;48;48;0.5;0.5
+_0003_complete;2;356;110;94;0.5;0.5
+_0004_Progress_4;240;494;236;16;0.5;0.5
+_0005_Progress_3;2;494;236;16;0.5;0.5
+_0006_COMPLETED;2;452;174;40;0.5;0.5
+_0009_subsection;478;468;20;42;0.5;0.5
+_0010_gift_2;178;392;158;100;0.5;0.5
+_0011_gift_1;114;288;94;102;0.5;0.5
+_0012_COLLECT;338;370;130;60;0.5;0.5
+_0013_GO;338;432;130;60;0.5;0.5
