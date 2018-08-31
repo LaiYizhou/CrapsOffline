@@ -24,13 +24,6 @@ public class GameHall : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    void Start () {
-
-        //PlayerPrefs.DeleteKey("LastGameHallId");
-
-    }
-
     public void UpdatePlayerCoin()
     {
 
@@ -148,7 +141,7 @@ public class GameHall : MonoBehaviour
                 CanvasControl.Instance.gameCrap.Init(levelId);
                 CanvasControl.Instance.gameCrap.UpdateGameAchievementsEffect();
 
-                CanvasControl.Instance.gameAchievement.Init();
+                CanvasControl.Instance.gameAchievement.Reset();
 
                 LastGameHallId = levelId;
                 this.gameObject.SetActive(false);

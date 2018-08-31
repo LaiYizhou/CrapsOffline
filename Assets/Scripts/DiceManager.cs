@@ -294,6 +294,10 @@ public class DiceManager : MonoBehaviour
         rollButton.interactable = true;
         undoButton.interactable = true;
         clearButton.interactable = true;
+
+        ////Test code
+        //GameTestHelper.Instance.gameObject.SetActive(true);
+
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = true;
 
     }
@@ -308,6 +312,10 @@ public class DiceManager : MonoBehaviour
         rollButton.interactable = true;
         undoButton.interactable = true;
         clearButton.interactable = true;
+
+        ////Test code
+        //GameTestHelper.Instance.gameObject.SetActive(true);
+
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = true;
     }
 
@@ -355,6 +363,10 @@ public class DiceManager : MonoBehaviour
         rollButton.interactable = false;
         undoButton.interactable = false;
         clearButton.interactable = false;
+
+        ////Test code
+        //GameTestHelper.Instance.gameObject.SetActive(false);
+
         CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag = false;
 
         hisDice.Init(diceState);

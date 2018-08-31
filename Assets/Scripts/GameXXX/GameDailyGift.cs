@@ -177,6 +177,7 @@ public class GameDailyGift : MonoBehaviour
 
         if (LastTime == DateTime.MinValue)
         {
+            LoginCount = 1;
             GetDailyGift(LoginCount, DateTime.Now);
             Debug.Log("First Login : " + LoginCount);
         }
@@ -191,6 +192,7 @@ public class GameDailyGift : MonoBehaviour
             {
                 if (totalSecond >= dailyGiftInterval * 1.0 && totalSecond < dailyGiftInterval * 2.0)
                 {
+                    LoginCount++;
                     GetDailyGift(LoginCount, DateTime.Now);
                     Debug.Log("Several Login : " + LoginCount);
 
@@ -206,7 +208,7 @@ public class GameDailyGift : MonoBehaviour
                 }
                 else
                 {
-                    for (int i = 0; i < (LoginCount - 1) % 30; i++)
+                    for (int i = 0; i <= (LoginCount - 1) % 30; i++)
                         dailyGiftItemList[i].SetMark(true);
 
                     Debug.Log("Have Logined Today ！！！ " + LoginCount);
@@ -265,7 +267,7 @@ public class GameDailyGift : MonoBehaviour
         dailyGiftItemList[index].Mark();
         isCurrentDailyGift = true;
         LastTime = getTime;
-        LoginCount++;
+        //LoginCount++;
         GainDailyGiftCount++;
     }
 

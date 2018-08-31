@@ -47,7 +47,7 @@ public class AchievementsItem : MonoBehaviour
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
-        if (this.achievementInfo == null || ! this.achievementInfo.IsComplete)
+        if (this.achievementInfo == null || !this.achievementInfo.IsComplete)
         {
             CanvasControl.Instance.gameAchievement.gameObject.SetActive(false);
         }
@@ -65,6 +65,8 @@ public class AchievementsItem : MonoBehaviour
 
                 CanvasControl.Instance.gameAchievement.GameAchievementInfoList[this.achievementInfo.Id].Collect();
                 this.achievementInfo.Collect();
+                //this.achievementInfo.TestForComplete();
+
                 Init(this.achievementInfo);
             }
         }

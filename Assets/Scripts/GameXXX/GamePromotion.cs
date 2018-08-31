@@ -102,8 +102,8 @@ public class GamePromotion : MonoBehaviour
 
     public void ResetGamePromotion()
     {
-
-        StartCoroutine(ResetPanelList());
+        if(this.gameObject.activeInHierarchy)
+            StartCoroutine(ResetPanelList());
     }
 
 

@@ -60,6 +60,13 @@ public class ChipsManager : MonoBehaviour
         
     }
 
+    public bool IsContainLineChip()
+    {
+        long sum = GetEAreaChipsValue(EArea.PassLine) + GetEAreaChipsValue(EArea.DontPassV) +
+                   GetEAreaChipsValue(EArea.DontPassH);
+        return sum > 0;
+    }
+
     public long GetEAreaChipsValue(EArea eArea)
     {
         int index = (int) eArea;

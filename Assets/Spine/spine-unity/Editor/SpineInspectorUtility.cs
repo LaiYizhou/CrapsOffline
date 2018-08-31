@@ -48,24 +48,79 @@ namespace Spine.Unity.Editor {
 			get { return "\u2014"; }
 		}
 
+		static GUIContent tempContent;
+		internal static GUIContent TempContent (string text, Texture2D image = null, string tooltip = null) {
+			if (tempContent == null) tempContent = new GUIContent();
+			tempContent.text = text;
+			tempContent.image = image;
+			tempContent.tooltip = tooltip;
+			return tempContent;
+		}
+
 		public static void PropertyFieldWideLabel (SerializedProperty property, GUIContent label = null, float minimumLabelWidth = 150) {
 			EditorGUIUtility.labelWidth = minimumLabelWidth;
-			EditorGUILayout.PropertyField(property, label ?? new GUIContent(property.displayName, property.tooltip));
+			EditorGUILayout.PropertyField(property, label ?? TempContent(property.displayName, null, property.tooltip));
 			EditorGUIUtility.labelWidth = 0; // Resets to default
 		}
 
 		public static void PropertyFieldFitLabel (SerializedProperty property, GUIContent label = null, float extraSpace = 5f) {
-			label = label ?? new GUIContent(property.displayName, property.tooltip);
-			float width = GUI.skin.label.CalcSize(new GUIContent(label.text)).x + extraSpace;
+			label = label ?? TempContent(property.displayName, null, property.tooltip);
+			float width = GUI.skin.label.CalcSize(TempContent(label.text)).x + extraSpace;
 			if (label.image != null)
 				width += EditorGUIUtility.singleLineHeight;
 			PropertyFieldWideLabel(property, label, width);
-
 		}
 
 		public static bool UndoRedoPerformed (UnityEngine.Event current) {
 			return current.type == EventType.ValidateCommand && current.commandName == "UndoRedoPerformed";
 		}
+
+		public static Texture2D UnityIcon<T>() {
+			return EditorGUIUtility.ObjectContent(null, typeof(T)).image as Texture2D;
+		}
+
+		public static Texture2D UnityIcon(System.Type type) {
+			return EditorGUIUtility.ObjectContent(null, type).image as Texture2D;
+		}
+
+		#region SerializedProperty Helpers
+		public static SerializedProperty FindBaseOrSiblingProperty (this SerializedProperty property, string propertyName) {
+			if (string.IsNullOrEmpty(propertyName)) return null;
+
+			SerializedProperty relativeProperty = property.serializedObject.FindProperty(propertyName); // baseProperty
+
+			// If base property is not found, look for the sibling property.
+			if (relativeProperty == null) { 
+				string propertyPath = property.propertyPath;
+				int localPathLength = property.name.Length;
+
+				string newPropertyPath = propertyPath.Remove(propertyPath.Length - localPathLength, localPathLength) + propertyName;
+				relativeProperty = property.serializedObject.FindProperty(newPropertyPath);
+
+				// If a direct sibling property was not found, try to find the sibling of the array.
+				if (relativeProperty == null && property.isArray) {
+					int propertyPathLength = propertyPath.Length;
+
+					int dotCount = 0;
+					const int SiblingOfListDotCount = 3;
+					for (int i = 1; i < propertyPathLength; i++) {
+						if (propertyPath[propertyPathLength - i] == '.') {
+							dotCount++;
+							if (dotCount >= SiblingOfListDotCount) {
+								localPathLength = i - 1;
+								break;
+							}
+						}
+					}
+
+					newPropertyPath = propertyPath.Remove(propertyPath.Length - localPathLength, localPathLength) + propertyName;
+					relativeProperty = property.serializedObject.FindProperty(newPropertyPath);
+				}
+			}
+
+			return relativeProperty;
+		}
+		#endregion
 
 		#region Layout Scopes
 		static GUIStyle grayMiniLabel;
@@ -102,7 +157,7 @@ namespace Spine.Unity.Editor {
 				get {
 					if (boxScopeStyle == null) {
 						boxScopeStyle = new GUIStyle(EditorStyles.helpBox);
-						var p = boxScopeStyle.padding;
+						RectOffset p = boxScopeStyle.padding; // RectOffset is a class
 						p.right += 6;
 						p.top += 1;
 						p.left += 3;
@@ -140,12 +195,12 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static bool LargeCenteredButton (string label, bool sideSpace = true) {
+		public static bool LargeCenteredButton (string label, bool sideSpace = true, float maxWidth = CenterButtonMaxWidth) {
 			if (sideSpace) {
 				bool clicked;
 				using (new EditorGUILayout.HorizontalScope()) {
 					EditorGUILayout.Space();
-					clicked = GUILayout.Button(label, SpineButtonStyle, GUILayout.MaxWidth(CenterButtonMaxWidth), GUILayout.Height(CenterButtonHeight));
+					clicked = GUILayout.Button(label, SpineButtonStyle, GUILayout.MaxWidth(maxWidth), GUILayout.Height(CenterButtonHeight));
 					EditorGUILayout.Space();
 				}
 				EditorGUILayout.Space();
@@ -155,12 +210,12 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static bool LargeCenteredButton (GUIContent content, bool sideSpace = true) {
+		public static bool LargeCenteredButton (GUIContent content, bool sideSpace = true, float maxWidth = CenterButtonMaxWidth) {
 			if (sideSpace) {
 				bool clicked;
 				using (new EditorGUILayout.HorizontalScope()) {
 					EditorGUILayout.Space();
-					clicked = GUILayout.Button(content, SpineButtonStyle, GUILayout.MaxWidth(CenterButtonMaxWidth), GUILayout.Height(CenterButtonHeight));
+					clicked = GUILayout.Button(content, SpineButtonStyle, GUILayout.MaxWidth(maxWidth), GUILayout.Height(CenterButtonHeight));
 					EditorGUILayout.Space();
 				}
 				EditorGUILayout.Space();
@@ -170,18 +225,18 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
-		public static bool CenteredButton (GUIContent content, float height = 20f, bool sideSpace = true) {
+		public static bool CenteredButton (GUIContent content, float height = 20f, bool sideSpace = true, float maxWidth = CenterButtonMaxWidth) {
 			if (sideSpace) {
 				bool clicked;
 				using (new EditorGUILayout.HorizontalScope()) {
 					EditorGUILayout.Space();
-					clicked = GUILayout.Button(content, GUILayout.MaxWidth(CenterButtonMaxWidth), GUILayout.Height(height));
+					clicked = GUILayout.Button(content, GUILayout.MaxWidth(maxWidth), GUILayout.Height(height));
 					EditorGUILayout.Space();
 				}
 				EditorGUILayout.Space();
 				return clicked;
 			} else {
-				return GUILayout.Button(content, GUILayout.MaxWidth(CenterButtonMaxWidth), GUILayout.Height(height));
+				return GUILayout.Button(content, GUILayout.MaxWidth(maxWidth), GUILayout.Height(height));
 			}
 		}
 		#endregion
@@ -190,9 +245,9 @@ namespace Spine.Unity.Editor {
 		public static bool TargetsUseSameData (SerializedObject so) {
 			if (so.isEditingMultipleObjects) {
 				int n = so.targetObjects.Length;
-				var first = so.targetObjects[0] as ISkeletonComponent;
+				var first = so.targetObjects[0] as IHasSkeletonDataAsset;
 				for (int i = 1; i < n; i++) {
-					var sr = so.targetObjects[i] as ISkeletonComponent;
+					var sr = so.targetObjects[i] as IHasSkeletonDataAsset;
 					if (sr != null && sr.SkeletonDataAsset != first.SkeletonDataAsset)
 						return false;
 				}

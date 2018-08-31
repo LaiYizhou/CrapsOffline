@@ -67,7 +67,9 @@ public class AudioControl : MonoBehaviour
         
         WinChip,
 
-        BetDownChip
+        BetDownChip,
+
+        CollectCoins
     }
 
     public enum ESpokenAudioClip

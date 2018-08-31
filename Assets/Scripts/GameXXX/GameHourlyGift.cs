@@ -119,7 +119,11 @@ public class GameHourlyGift : MonoBehaviour
         StartCoroutine(HourlyGiftTimeDown());
 
 
-        GameHelper.Instance.ShowAddCoins(HourlyGiftCoin, false);
+        //GameHelper.Instance.ShowAddCoins(HourlyGiftCoin, false);
+        GameHelper.Instance.coinCollectEffect.RunEffect(HourlyGiftCoin, 
+            new Vector3(432.0f, -254.0f),
+            new Vector3(35.0f, -130.0f),
+            new Vector3(-137.0f, 80.0f));
 
 
         if (GainHourlyGiftCount > 1)
@@ -136,7 +140,7 @@ public class GameHourlyGift : MonoBehaviour
 
     IEnumerator DelayShowInterstitial()
     {
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(2.3f);
 
         IronSourceControl.Instance.ShowInterstitial();
     }

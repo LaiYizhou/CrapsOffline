@@ -155,8 +155,10 @@ namespace Spine.Unity.Modules {
 		}
 
 		void OnDestroy () {
-			for (int i = 0; i < maximumGhosts; i++)
-				if (pool[i] != null) pool[i].Cleanup();
+			if (pool != null) {
+				for (int i = 0; i < maximumGhosts; i++)
+					if (pool[i] != null) pool[i].Cleanup();
+			}
 
 			foreach (var mat in materialTable.Values)
 				Destroy(mat);
@@ -164,16 +166,18 @@ namespace Spine.Unity.Modules {
 
 		//based on UnifyWiki  http://wiki.unity3d.com/index.php?title=HexConverter
 		static Color32 HexToColor (string hex) {
+			const System.Globalization.NumberStyles HexStyle = System.Globalization.NumberStyles.HexNumber;
+
 			if (hex.Length < 6)
 				return Color.magenta;
 
 			hex = hex.Replace("#", "");
-			byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-			byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-			byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+			byte r = byte.Parse(hex.Substring(0, 2), HexStyle);
+			byte g = byte.Parse(hex.Substring(2, 2), HexStyle);
+			byte b = byte.Parse(hex.Substring(4, 2), HexStyle);
 			byte a = 0xFF;
 			if (hex.Length == 8)
-				a = byte.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
+				a = byte.Parse(hex.Substring(6, 2), HexStyle);
 
 			return new Color32(r, g, b, a);
 		}

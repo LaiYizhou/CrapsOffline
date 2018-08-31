@@ -25,6 +25,8 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private List<Sprite> chipSpriteList;
     [SerializeField] private List<Sprite> chipDarkSpriteList;
 
+
+    // only for log
     private int rewardedVideoCount;
     public int RewardedVideoCount
     {
@@ -227,15 +229,8 @@ public class GameHelper : MonoBehaviour
     }
     
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void ShowTip(Vector3 pos, string s)
     {
-        //Debug.Log("pos" + pos);
         tip.ShowTip(pos, s);
     }
 
@@ -574,6 +569,9 @@ public class GameHelper : MonoBehaviour
 
         if (flag)
         {
+            Vector3 hallTextPos = hallShowAddedCoinText.GetComponent<RectTransform>().localPosition;
+            Vector3 crapsTextPos = crapsShowAddedCoinText.GetComponent<RectTransform>().localPosition;
+
             hallShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
             crapsShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
 
@@ -582,9 +580,9 @@ public class GameHelper : MonoBehaviour
             sequence.Insert(0.0f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
             sequence.Insert(0.0f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
 
-            sequence.Insert(0.3f, hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(340.0f, 1.0f));
+            sequence.Insert(0.3f, hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(hallTextPos.y + 85.0f, 1.0f));
             sequence.Insert(0.5f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
-            sequence.Insert(0.3f, crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(340.0f, 1.0f));
+            sequence.Insert(0.3f, crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(crapsTextPos.y + 85.0f, 1.0f));
             sequence.Insert(0.5f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
 
             sequence.AppendCallback(() =>
@@ -592,9 +590,9 @@ public class GameHelper : MonoBehaviour
                 GameHelper.player.ChangeCoins(number);
 
                 hallShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
-                hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
+                hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(hallTextPos.y, 0.1f);
                 crapsShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
-                crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(255.0f, 0.1f);
+                crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(crapsTextPos.y, 0.1f);
 
                 if (isShowRewardedCoins)
                     GameHelper.IsShowRewardedVideoCoins = false;

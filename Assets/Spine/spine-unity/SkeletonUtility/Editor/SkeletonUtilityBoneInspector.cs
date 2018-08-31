@@ -28,7 +28,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+//#define HINGECHAIN2D
 // Contributed by: Mitch Thompson
+
 
 using UnityEngine;
 using UnityEditor;
@@ -164,11 +166,11 @@ namespace Spine.Unity.Editor {
 			using (new GUILayout.HorizontalScope()) {
 				EditorGUILayout.Space();
 				using (new EditorGUI.DisabledGroupScope(multiObject || !utilityBone.valid || utilityBone.bone == null || utilityBone.bone.Children.Count == 0)) {
-					if (GUILayout.Button(new GUIContent("Add Child", Icons.bone), GUILayout.MinWidth(120), GUILayout.Height(24)))
+					if (GUILayout.Button(SpineInspectorUtility.TempContent("Add Child", Icons.bone), GUILayout.MinWidth(120), GUILayout.Height(24)))
 						BoneSelectorContextMenu("", utilityBone.bone.Children, "<Recursively>", SpawnChildBoneSelected);
 				}
 				using (new EditorGUI.DisabledGroupScope(multiObject || !utilityBone.valid || utilityBone.bone == null || containsOverrides)) {
-					if (GUILayout.Button(new GUIContent("Add Override", Icons.poseBones), GUILayout.MinWidth(120), GUILayout.Height(24)))
+					if (GUILayout.Button(SpineInspectorUtility.TempContent("Add Override", Icons.poseBones), GUILayout.MinWidth(120), GUILayout.Height(24)))
 						SpawnOverride();
 				}
 				EditorGUILayout.Space();
@@ -177,14 +179,14 @@ namespace Spine.Unity.Editor {
 			using (new GUILayout.HorizontalScope()) {
 				EditorGUILayout.Space();
 				using (new EditorGUI.DisabledGroupScope(multiObject || !utilityBone.valid || !canCreateHingeChain)) {
-					if (GUILayout.Button(new GUIContent("Create Hinge Chain", Icons.hingeChain), GUILayout.Width(150), GUILayout.Height(24)))
+					if (GUILayout.Button(SpineInspectorUtility.TempContent("Create Hinge Chain", Icons.hingeChain), GUILayout.Width(150), GUILayout.Height(24)))
 						CreateHingeChain();
 				}
 				EditorGUILayout.Space();
 			}
 
 			using (new EditorGUI.DisabledGroupScope(multiObject || boundingBoxTable.Count == 0)) {
-				EditorGUILayout.LabelField(new GUIContent("Bounding Boxes", Icons.boundingBox), EditorStyles.boldLabel);
+				EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Bounding Boxes", Icons.boundingBox), EditorStyles.boldLabel);
 
 				foreach (var entry in boundingBoxTable){
 					Slot slot = entry.Key;
@@ -200,7 +202,7 @@ namespace Spine.Unity.Editor {
 								string buttonLabel = box.IsWeighted() ? box.Name + " (!)" : box.Name;
 								if (GUILayout.Button(buttonLabel, GUILayout.Width(200))) {
 									utilityBone.bone.Skeleton.UpdateWorldTransform();
-									var bbTransform = utilityBone.transform.Find("[BoundingBox]" + box.Name);
+									var bbTransform = utilityBone.transform.Find("[BoundingBox]" + box.Name); // Use FindChild in older versions of Unity.
 									if (bbTransform != null) {
 										var originalCollider = bbTransform.GetComponent<PolygonCollider2D>();
 										if (originalCollider != null)
@@ -221,6 +223,8 @@ namespace Spine.Unity.Editor {
 					EditorGUI.indentLevel--;
 				}
 			}
+
+			BoneFollowerInspector.RecommendRigidbodyButton(utilityBone);
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -275,6 +279,54 @@ namespace Spine.Unity.Editor {
 			EditorGUIUtility.PingObject(go);
 		}
 
+
+#if HINGECHAIN2D
+		bool CanCreateHingeChain () {
+			if (utilityBone == null) return false;
+			if (utilityBone.GetComponent<Rigidbody2D>() != null) return false;
+			if (utilityBone.bone != null && utilityBone.bone.Children.Count == 0) return false;
+			var rigidbodies = utilityBone.GetComponentsInChildren<Rigidbody2D>();
+			return rigidbodies.Length <= 0;
+		}
+
+		void CreateHingeChain () {
+			var utilBoneArr = utilityBone.GetComponentsInChildren<SkeletonUtilityBone>();
+
+			foreach (var utilBone in utilBoneArr) {
+				if (utilBone.GetComponent<Collider2D>() == null) {
+					if (utilBone.bone.Data.Length == 0) {
+						var sphere = utilBone.gameObject.AddComponent<CircleCollider2D>();
+						sphere.radius = 0.1f;
+					} else {
+						float length = utilBone.bone.Data.Length;
+						var box = utilBone.gameObject.AddComponent<BoxCollider2D>();
+						box.size = new Vector3(length, length / 3f, 0.2f);
+						box.offset = new Vector3(length / 2f, 0, 0);
+					}
+				}
+
+				utilBone.gameObject.AddComponent<Rigidbody2D>();
+			}
+
+			utilityBone.GetComponent<Rigidbody2D>().isKinematic = true;
+
+			foreach (var utilBone in utilBoneArr) {
+				if (utilBone == utilityBone)
+					continue;
+
+				utilBone.mode = SkeletonUtilityBone.Mode.Override;
+
+				var joint = utilBone.gameObject.AddComponent<HingeJoint2D>();
+				joint.connectedBody = utilBone.transform.parent.GetComponent<Rigidbody2D>();
+				joint.useLimits = true;
+				joint.limits = new JointAngleLimits2D {
+					min = -20,
+					max = 20
+				};
+				utilBone.GetComponent<Rigidbody2D>().mass = utilBone.transform.parent.GetComponent<Rigidbody2D>().mass * 0.75f;
+			}
+		}
+#else
 		bool CanCreateHingeChain () {
 			if (utilityBone == null)
 				return false;
@@ -283,7 +335,7 @@ namespace Spine.Unity.Editor {
 			if (utilityBone.bone != null && utilityBone.bone.Children.Count == 0)
 				return false;
 
-			Rigidbody[] rigidbodies = utilityBone.GetComponentsInChildren<Rigidbody>();
+			var rigidbodies = utilityBone.GetComponentsInChildren<Rigidbody>();
 
 			return rigidbodies.Length <= 0;
 		}
@@ -330,6 +382,7 @@ namespace Spine.Unity.Editor {
 
 			utilBone.gameObject.AddComponent<Rigidbody>();
 		}
+#endif
 	}
 
 }

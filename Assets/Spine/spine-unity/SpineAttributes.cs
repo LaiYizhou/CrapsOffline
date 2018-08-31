@@ -31,12 +31,17 @@
 // Contributed by: Mitch Thompson
 
 using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Spine.Unity {
+
+	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
 	public abstract class SpineAttributeBase : PropertyAttribute {
 		public string dataField = "";
 		public string startsWith = "";
+		public bool includeNone = true;
+		public bool fallbackToTextField = false;
 	}
 
 	public class SpineSlot : SpineAttributeBase {
@@ -46,15 +51,19 @@ namespace Spine.Unity {
 		/// Smart popup menu for Spine Slots
 		/// </summary>
 		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name="containsBoundingBoxes">Disables popup results that don't contain bounding box attachments when true.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		/// <param name="containsBoundingBoxes">Disables popup results that don't contain bounding box attachments when true.</param>
-		public SpineSlot(string startsWith = "", string dataField = "", bool containsBoundingBoxes = false) {
+		public SpineSlot (string startsWith = "", string dataField = "", bool containsBoundingBoxes = false, bool includeNone = true, bool fallbackToTextField = false) {
 			this.startsWith = startsWith;
 			this.dataField = dataField;
 			this.containsBoundingBoxes = containsBoundingBoxes;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 	}
 
@@ -63,13 +72,73 @@ namespace Spine.Unity {
 		/// Smart popup menu for Spine Events (Spine.EventData)
 		/// </summary>
 		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
+		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
+		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent(SkeletonRenderer)() will be called as a fallback.
+		/// </param>
+		/// <param name="fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
+		public SpineEvent (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+			this.startsWith = startsWith;
+			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
+		}
+	}
+
+	public class SpineIkConstraint : SpineAttributeBase {
+		/// <summary>
+		/// Smart popup menu for Spine IK Constraints (Spine.IkConstraint)
+		/// </summary>
+		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
+		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
+		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent(SkeletonRenderer)() will be called as a fallback.
+		/// </param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
+		public SpineIkConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+			this.startsWith = startsWith;
+			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
+		}
+	}
+
+	public class SpinePathConstraint : SpineAttributeBase {
+		/// <summary>
+		/// Smart popup menu for Spine Events (Spine.PathConstraint)
+		/// </summary>
+		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
+		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
+		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent(SkeletonRenderer)() will be called as a fallback.
+		/// </param>
+		public SpinePathConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
+			this.startsWith = startsWith;
+			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
+		}
+	}
+
+	public class SpineTransformConstraint : SpineAttributeBase {
+		/// <summary>
+		/// Smart popup menu for Spine Transform Constraints (Spine.TransformConstraint)
+		/// </summary>
+		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives).
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineEvent(string startsWith = "", string dataField = "") {
+		public SpineTransformConstraint (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
 			this.startsWith = startsWith;
 			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 	}
 
@@ -78,13 +147,17 @@ namespace Spine.Unity {
 		/// Smart popup menu for Spine Skins
 		/// </summary>
 		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineSkin(string startsWith = "", string dataField = "") {
+		public SpineSkin (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
 			this.startsWith = startsWith;
 			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 	}
 	public class SpineAnimation : SpineAttributeBase {
@@ -92,13 +165,17 @@ namespace Spine.Unity {
 		/// Smart popup menu for Spine Animations
 		/// </summary>
 		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
+		/// <param name="includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineAnimation(string startsWith = "", string dataField = "") {
+		public SpineAnimation (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
 			this.startsWith = startsWith;
 			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 	}
 
@@ -106,6 +183,7 @@ namespace Spine.Unity {
 		public bool returnAttachmentPath = false;
 		public bool currentSkinOnly = false;
 		public bool placeholdersOnly = false;
+		public string skinField = "";
 		public string slotField = "";
 
 		/// <summary>
@@ -115,16 +193,22 @@ namespace Spine.Unity {
 		/// <param name="returnAttachmentPath">Returns a fully qualified path for an Attachment in the format "Skin/Slot/AttachmentName". This path format is only used by the SpineAttachment helper methods like SpineAttachment.GetAttachment and .GetHierarchy. Do not use full path anywhere else in Spine's system.</param>
 		/// <param name="placeholdersOnly">Filters popup results to exclude attachments that are not children of Skin Placeholders</param>
 		/// <param name="slotField">If specified, a locally scoped field with the name supplied by in slotField will be used to limit the popup results to children of a named slot</param>
+		/// <param name="skinField">If specified, a locally scoped field with the name supplied by in skinField will be used to limit the popup results to entries of the named skin</param>
+		/// <param name="includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineAttachment (bool currentSkinOnly = true, bool returnAttachmentPath = false, bool placeholdersOnly = false, string slotField = "", string dataField = "") {
+		public SpineAttachment (bool currentSkinOnly = true, bool returnAttachmentPath = false, bool placeholdersOnly = false, string slotField = "", string dataField = "", string skinField = "", bool includeNone = true, bool fallbackToTextField = false) {
 			this.currentSkinOnly = currentSkinOnly;
 			this.returnAttachmentPath = returnAttachmentPath;
 			this.placeholdersOnly = placeholdersOnly;
 			this.slotField = slotField;
-			this.dataField = dataField;		
+			this.dataField = dataField;
+			this.skinField = skinField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 
 		public static SpineAttachment.Hierarchy GetHierarchy (string fullPath) {
@@ -133,10 +217,7 @@ namespace Spine.Unity {
 
 		public static Spine.Attachment GetAttachment (string attachmentPath, Spine.SkeletonData skeletonData) {
 			var hierarchy = SpineAttachment.GetHierarchy(attachmentPath);
-			if (hierarchy.name == "")
-				return null;
-
-			return skeletonData.FindSkin(hierarchy.skin).GetAttachment(skeletonData.FindSlotIndex(hierarchy.slot), hierarchy.name);
+			return string.IsNullOrEmpty(hierarchy.name) ? null : skeletonData.FindSkin(hierarchy.skin).GetAttachment(skeletonData.FindSlotIndex(hierarchy.slot), hierarchy.name);
 		}
 
 		public static Spine.Attachment GetAttachment (string attachmentPath, SkeletonDataAsset skeletonDataAsset) {
@@ -176,13 +257,17 @@ namespace Spine.Unity {
 		/// Smart popup menu for Spine Bones
 		/// </summary>
 		/// <param name="startsWith">Filters popup results to elements that begin with supplied string.</param>
+		/// <param name="includeNone">If true, the dropdown list will include a "none" option which stored as an empty string.</param>
+		/// <param name = "fallbackToTextField">If true, and an animation list source can't be found, the field will fall back to a normal text field. If false, it will show an error.</param>
 		/// <param name="dataField">If specified, a locally scoped field with the name supplied by in dataField will be used to fill the popup results.
 		/// Valid types are SkeletonDataAsset and SkeletonRenderer (and derivatives)
 		/// If left empty and the script the attribute is applied to is derived from Component, GetComponent<SkeletonRenderer>() will be called as a fallback.
 		/// </param>
-		public SpineBone(string startsWith = "", string dataField = "") {
+		public SpineBone (string startsWith = "", string dataField = "", bool includeNone = true, bool fallbackToTextField = false) {
 			this.startsWith = startsWith;
 			this.dataField = dataField;
+			this.includeNone = includeNone;
+			this.fallbackToTextField = fallbackToTextField;
 		}
 
 		public static Spine.Bone GetBone(string boneName, SkeletonRenderer renderer) {
@@ -198,7 +283,7 @@ namespace Spine.Unity {
 	public class SpineAtlasRegion : PropertyAttribute {
 		public string atlasAssetField;
 
-		public SpineAtlasRegion(string atlasAssetField = "") {
+		public SpineAtlasRegion (string atlasAssetField = "") {
 			this.atlasAssetField = atlasAssetField;
 		}
 	}

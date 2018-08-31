@@ -55,7 +55,8 @@ namespace Spine.Unity.Modules {
 			meshRenderer.sharedMaterials = materials;
 			meshRenderer.sortingLayerID = sortingLayerID;
 			meshRenderer.sortingOrder = sortingOrder;
-			meshFilter.sharedMesh = Instantiate(mesh);
+			meshFilter.sharedMesh = Instantiate(mesh); // Copy mesh and assign to sharedMesh.
+
 			colors = meshFilter.sharedMesh.colors32;
 
 			if ((color.a + color.r + color.g + color.b) > 0) {
@@ -71,21 +72,22 @@ namespace Spine.Unity.Modules {
 				StartCoroutine(Fade());
 		}
 
+		void CopyMesh (Mesh source, Mesh destination) {
+			
+		}
+
 		IEnumerator Fade () {
 			Color32 c;
 			for (int t = 0; t < 500; t++) {
 				bool breakout = true;
 				for (int i = 0; i < colors.Length; i++) {
 					c = colors[i];
-					if (c.a > 0)
-						breakout = false;
-
+					if (c.a > 0) breakout = false;
 					colors[i] = Color32.Lerp(c, black, Time.deltaTime * fadeSpeed);
 				}
 				meshFilter.sharedMesh.colors32 = colors;
 
-				if (breakout)
-					break;
+				if (breakout) break;
 				
 				yield return null;
 			}
@@ -118,7 +120,6 @@ namespace Spine.Unity.Modules {
 			}
 
 			Destroy(meshFilter.sharedMesh);
-
 			gameObject.SetActive(false);
 		}
 

@@ -615,16 +615,6 @@ public class Chip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     }
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(CanvasControl.Instance.gameCrap.chipsManager.IsChipsCanDrag)

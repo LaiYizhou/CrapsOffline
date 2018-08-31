@@ -1,23 +1,31 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class CoinCollectEffect : MonoBehaviour {
 
-    public GameObject PlaceHolder0;
-    public GameObject PlaceHolder1;
-    public GameObject PlaceHolder2;
-    public GameObject PlaceHolder3;
+    [SerializeField] private GameObject PlaceHolder0;
+    [SerializeField] private GameObject PlaceHolder1;
+    [SerializeField] private GameObject PlaceHolder2;
+    [SerializeField] private GameObject PlaceHolder3;
+    [SerializeField] private GameObject CoinElement;
 
-    public int CoinCount = 10;
+    [Space(10)]
+    private int coinCount = 10;
+   
     public long ToAddChips = 0;
-    public GameObject CoinElement;
 
     private List<GameObject> CoinList;
-
     private IEnumerator curCoroutine;
+
+    [Space(10)]
+    [SerializeField] private Transform coinElementTransform;
+    [SerializeField] private Transform hallCoinTransform;
+    [SerializeField] private Transform crapsCoinTransform;
 
     private readonly Vector3 PlaceHolderPos0 = new Vector3(297.0f, 0.0f, 0.0f);
     private readonly Vector3 PlaceHolderPos1 = new Vector3(0.0f, 0.0f, 0.0f);
@@ -86,6 +94,22 @@ public class CoinCollectEffect : MonoBehaviour {
         RunEffect();
     }
 
+    public void TestRunEffect(long chips)
+    {
+        this.ToAddChips += chips;
+
+        SetPlaceHolder3Position();
+
+        //Debug.LogError(string.Format("Pos0 : {0}; Pos1: {1}; Pos2: {2}",
+        //    PlaceHolder0.GetComponent<RectTransform>().anchoredPosition.ToString(),
+        //    PlaceHolder1.GetComponent<RectTransform>().anchoredPosition.ToString(),
+        //    PlaceHolder2.GetComponent<RectTransform>().anchoredPosition.ToString()
+        //    ));
+
+        RunEffect();
+    }
+
+
     private void RunEffect()
     {
         this.gameObject.SetActive(true);
@@ -102,6 +126,9 @@ public class CoinCollectEffect : MonoBehaviour {
 
     private IEnumerator CoinFlyAction()
     {
+
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.CollectCoins);
+
         if (CoinList == null)
         {
             CoinList = new List<GameObject>();
@@ -109,12 +136,12 @@ public class CoinCollectEffect : MonoBehaviour {
 
         CoinList.Clear();
 
-        for (int i = 0; i < CoinCount; i++)
+        for (int i = 0; i < coinCount; i++)
         {
-            if (CoinList.Count <= i)
+            //if (CoinList.Count <= i)
             {
                 GameObject curCoin = Instantiate(CoinElement);
-                curCoin.transform.SetParent(this.transform);
+                curCoin.transform.SetParent(coinElementTransform);
                 curCoin.transform.localScale = Vector3.one;
                 curCoin.transform.localPosition = Vector3.zero;
                 CoinList.Add(curCoin);
@@ -125,7 +152,7 @@ public class CoinCollectEffect : MonoBehaviour {
             float randomY = Random.Range(1, 50) - 25;
             Vector3 pos0 = PlaceHolder0.transform.localPosition + new Vector3(randomX, randomY, 0.0f);
 
-            randomX *= Random.Range(5, 10);
+            randomX *= Random.Range(3, 5);
             randomY = Random.Range(1, 100) - 50;
             Vector3 pos1 = PlaceHolder1.transform.localPosition + new Vector3(randomX, randomY, 0.0f);
 
@@ -149,59 +176,54 @@ public class CoinCollectEffect : MonoBehaviour {
             yield return new WaitForSecondsRealtime(0.01f);
         }
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.8f);
 
-          
-        for (int i = 0; i < CoinList.Count; i++)
+
+        for (int i = 0; i < coinElementTransform.childCount; i++)
         {
-            Destroy(CoinList[i].gameObject);
-            yield return new WaitForSecondsRealtime(0.04f);
+            Destroy(coinElementTransform.GetChild(i).gameObject);
         }
 
-        this.gameObject.SetActive(false);
+        yield return new WaitForEndOfFrame();
+        CoinList.Clear();
 
         if (ToAddChips > 0)
         {
             GameHelper.Instance.ShowAddCoins(ToAddChips, false);
-            ToAddChips = 0;
-        }
-        else
-        {
-            ToAddChips = 0;
-            GameHelper.Instance.ShowAddCoins(0, false);
+           
         }
 
-        
+        ToAddChips = 0;
+        this.gameObject.SetActive(false);
 
         yield break;
     }
 
     private void SetPlaceHolder3Position()
     {
-        if (CanvasControl.Instance.gameHall.gameObject.activeInHierarchy)
-        {
-            PlaceHolder3.GetComponent<RectTransform>().anchoredPosition = new Vector3(-143, 289, 0);
-        }
-        else
-        {
-            PlaceHolder3.GetComponent<RectTransform>().anchoredPosition = new Vector3(-569, 284, 0);
-        }
+
+        Transform targetCoinTransform = CanvasControl.Instance.gameHall.gameObject.activeInHierarchy
+            ? hallCoinTransform
+            : crapsCoinTransform;
+
+        PlaceHolder3.GetComponent<RectTransform>().anchoredPosition = GameHelper.Instance.ToCanvasLocalPos(
+                targetCoinTransform.parent.TransformPoint(targetCoinTransform.localPosition));
 
     }
 
     private void OnDisable()
     {
-        if(ToAddChips > 0)
-            GameHelper.player.ChangeCoins(ToAddChips);
-
-        if (CoinList != null)
+        if (ToAddChips > 0)
         {
-            for (int i = 0; i < CoinList.Count; i++)
-            {
-                Destroy(CoinList[i].gameObject);
-            }
-        }     
-           
+            GameHelper.player.ChangeCoins(ToAddChips);
+            ToAddChips = 0;
+        }
 
+        for (int i = 0; i < coinElementTransform.childCount; i++)
+        {
+            Destroy(coinElementTransform.GetChild(i).gameObject);
+        }
+
+        CoinList.Clear();
     }
 }

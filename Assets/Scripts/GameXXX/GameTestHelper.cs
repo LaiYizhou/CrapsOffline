@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Text;
 using DG.Tweening;
@@ -16,6 +17,8 @@ public class GameTestHelper : MonoBehaviour
     [SerializeField] private Transform showPanelTransform;
     [SerializeField] private Text showText;
 
+    public InputField achievementInputField;
+
     // Use this for initialization
     IEnumerator Start ()
 	{
@@ -25,11 +28,6 @@ public class GameTestHelper : MonoBehaviour
 	    //GameTestHelper.Instance.Log(GameHelper.player.Coins.ToString());
 
     }
-
-    // Update is called once per frame
-	void Update () {
-	
-	}
 
     public void CrapsButton()
     {
@@ -83,7 +81,7 @@ public class GameTestHelper : MonoBehaviour
         //else
         //    Logbg.gameObject.SetActive(true);
 
-        GameHelper.Instance.coinCollectEffect.RunEffect(-1);
+        GameHelper.Instance.coinCollectEffect.TestRunEffect(0);
 
     }
 

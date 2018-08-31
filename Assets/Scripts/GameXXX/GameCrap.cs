@@ -407,10 +407,15 @@ public class GameCrap : MonoBehaviour
             {
                 SetPointOn(CurrentDiceState.Sum);
 
-                // A round begin with it
-                CanvasControl.Instance.gameAchievement.IsRoundStart = true;
-                GameHelper.Instance.ShowTip(Vector3.one, "New Round Start ! ! !");
 
+                if (chipsManager.IsContainLineChip())
+                {
+                    // A round begin with it
+                    CanvasControl.Instance.gameAchievement.IsRoundStart = true;
+                    //GameHelper.Instance.ShowTip(Vector3.one, " [Test Log] New Round Start ! ! !");
+                }
+
+             
             }
 
           
@@ -421,12 +426,17 @@ public class GameCrap : MonoBehaviour
             {
                 SetPointOff();
 
-                // A round end with it
-                CanvasControl.Instance.gameAchievement.IsRoundStart = false;
-                GameHelper.Instance.ShowTip(Vector3.one, "Round End ! ! !");
+                if (CanvasControl.Instance.gameAchievement.IsRoundStart && !chipsManager.IsContainLineChip())
+                {
+                    // A round end with it
+                    CanvasControl.Instance.gameAchievement.IsRoundStart = false;
+                    //GameHelper.Instance.ShowTip(Vector3.one, " [Test Log] Round End ! ! !");
 
-                UpdateGameAchievementsData();
-                UpdateGameAchievementsEffect();
+                    UpdateGameAchievementsData();
+                    //TestUpdateGameAchievementsData();
+                    UpdateGameAchievementsEffect();
+
+                }
 
             }
 
@@ -460,45 +470,63 @@ public class GameCrap : MonoBehaviour
 
     public void UpdateGameAchievementsEffect()
     {
-        int currentCompleteAchievementCount = CanvasControl.Instance.gameAchievement.CompleteAchievementCount;
-        int lastCompleteAchievementCount = CanvasControl.Instance.gameAchievement.LastCompleteAchievementCount;
 
-        CanvasControl.Instance.gameAchievement.SaveLastCompleteAchievementCount();
-
-        float fillAmount = currentCompleteAchievementCount /
-                           (float) CanvasControl.Instance.gameAchievement.CurrentAchievementLevelTargetValue;
-
-        if (fillAmount >= 1.0f)
-        {
-            notFullTransform.gameObject.SetActive(false);
-            fullTransform.gameObject.SetActive(true);
-        }
-        else
+        if (CanvasControl.Instance.gameAchievement.AchievementLevel == CanvasControl.Instance.gameAchievement.GameAchievementLevelInfos.Count)
         {
             notFullTransform.gameObject.SetActive(true);
             fullTransform.gameObject.SetActive(false);
-    
-            if (fillAmount <= 0.0f)
+
+            particleEffectTransform.transform.localRotation = Quaternion.identity;
+            particleEffectTransform.gameObject.SetActive(false);
+            slideImage.fillAmount = 1.0f;
+
+        }
+        else
+        {
+
+            int currentCompleteAchievementCount = CanvasControl.Instance.gameAchievement.CompleteAchievementCount;
+            int lastCompleteAchievementCount = CanvasControl.Instance.gameAchievement.LastCompleteAchievementCount;
+
+            CanvasControl.Instance.gameAchievement.SaveLastCompleteAchievementCount();
+
+            float fillAmount = currentCompleteAchievementCount /
+                               (float)CanvasControl.Instance.gameAchievement.CurrentAchievementLevelTargetValue;
+
+            if (fillAmount >= 1.0f)
             {
-                particleEffectTransform.transform.localRotation = Quaternion.identity;
-                particleEffectTransform.gameObject.SetActive(false);
-                slideImage.fillAmount = fillAmount;
+                notFullTransform.gameObject.SetActive(false);
+                fullTransform.gameObject.SetActive(true);
             }
             else
             {
-                particleEffectTransform.gameObject.SetActive(true);
+                notFullTransform.gameObject.SetActive(true);
+                fullTransform.gameObject.SetActive(false);
 
-                particleEffectTransform.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -360 * fillAmount), 1.0f);
-                slideImage.DOFillAmount(fillAmount, 1.0f);
+                if (fillAmount <= 0.0f)
+                {
+                    particleEffectTransform.transform.localRotation = Quaternion.identity;
+                    particleEffectTransform.gameObject.SetActive(false);
+                    slideImage.fillAmount = fillAmount;
+                }
+                else
+                {
+                    particleEffectTransform.gameObject.SetActive(true);
+
+                    particleEffectTransform.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -360 * fillAmount), 1.0f);
+                    slideImage.DOFillAmount(fillAmount, 1.0f);
+                }
             }
-        }
 
 
-        int deltaValue = currentCompleteAchievementCount - lastCompleteAchievementCount;
-        if (deltaValue >= 1)
-        {
-            StartCoroutine(DelayShowAchievementPanel(deltaValue));
+            int deltaValue = currentCompleteAchievementCount - lastCompleteAchievementCount;
+            if (deltaValue >= 1)
+            {
+                StartCoroutine(DelayShowAchievementPanel(deltaValue));
+            }
+
         }
+
+       
 
     }
 
@@ -528,16 +556,20 @@ public class GameCrap : MonoBehaviour
         if(CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.PassLine))
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(3);
 
-        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Come))
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Field))
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(4);
 
-        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Field))
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigSix))
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(5);
 
-        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigSix))
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigEight))
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(6);
 
-        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.BigEight))
+        if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Horn11) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Horn12) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard22) ||
+            CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Horn66)
+            )
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(7);
 
         if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.Hard22) ||
@@ -554,8 +586,23 @@ public class GameCrap : MonoBehaviour
         if (CanvasControl.Instance.gameAchievement.GetWinDictionary(EArea.AnySeven))
             CanvasControl.Instance.gameAchievement.AchievementValueAddOne(10);
 
+        CanvasControl.Instance.gameAchievement.Reset();
 
+    }
 
+    private void TestUpdateGameAchievementsData()
+    {
+        int achievementIndex;
+        if (int.TryParse(GameTestHelper.Instance.achievementInputField.text, out achievementIndex))
+        {
+            if (achievementIndex >= 1 && achievementIndex <= 10)
+            {
+                CanvasControl.Instance.gameAchievement.GameAchievementInfoList[achievementIndex].TestForComplete();
+
+            }
+        }
+
+        GameTestHelper.Instance.achievementInputField.text = "";
     }
 
     private void MovePoint(int diceNumber)

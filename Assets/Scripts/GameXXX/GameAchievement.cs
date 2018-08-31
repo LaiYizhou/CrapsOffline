@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using DG.Tweening;
-using JetBrains.Annotations;
 using Spine.Unity;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,16 +37,14 @@ public class GameAchievement : MonoBehaviour
     [HideInInspector] public List<AchievementInfo> GameAchievementInfoList = new List<AchievementInfo>()
     {
         new AchievementInfo(),
-        //new AchievementInfo(1, "Play <size=32>30</size> rounds", 30, 6000),
-        //new AchievementInfo(2, "Win <size=32>18</size> rounds", 18, 6000),
-        //new AchievementInfo(3, "Bet on <size=32>PASS LINE</size> and win <size=32>8</size> rounds", 8, 4500),
-        new AchievementInfo(1, "[Test] Play <size=32>3</size> rounds", 3, 6000),
-        new AchievementInfo(2, "[Test] Win <size=32>2</size> rounds", 2, 6000),
-        new AchievementInfo(3, "[Test] Bet on <size=32>PASS LINE</size> and win <size=32>2</size> rounds", 2, 4500),
-        new AchievementInfo(4, "Bet on <size=32>COME</size> and win <size=32>8</size> rounds", 8, 4500),
-        new AchievementInfo(5, "Bet on <size=32>FIELD</size> and win <size=32>8</size> rounds", 8, 4500),
-        new AchievementInfo(6, "Bet on <size=32>BIG 6</size> and win <size=32>5</size> rounds", 5, 5000),
-        new AchievementInfo(7, "Bet on <size=32>BIG 8</size> and win <size=32>5</size> rounds", 5, 5000),
+
+        new AchievementInfo(1, "Play <size=32>30</size> rounds", 30, 6000),
+        new AchievementInfo(2, "Win <size=32>18</size> rounds", 18, 6000),
+        new AchievementInfo(3, "Bet on <size=32>PASS LINE</size> and win <size=32>8</size> rounds", 8, 4500),
+        new AchievementInfo(4, "Bet on <size=32>FIELD</size> and win <size=32>8</size> rounds", 8, 4500),
+        new AchievementInfo(5, "Bet on <size=32>BIG 6</size> and win <size=32>5</size> rounds", 5, 5000),
+        new AchievementInfo(6, "Bet on <size=32>BIG 8</size> and win <size=32>5</size> rounds", 5, 5000),
+        new AchievementInfo(7, "Bet on <size=32>HORN</size> and win <size=32>5</size> rounds", 5, 4500),
         new AchievementInfo(8, "Bet on <size=32>HARD WAY</size> and win <size=32>5</size> rounds", 5, 5500),
         new AchievementInfo(9, "Bet on <size=32>ANY CRAPS</size> and win <size=32>3</size> rounds", 3, 5500),
         new AchievementInfo(10, "Bet on <size=32>ANY SEVEN</size> and win <size=32>3</size> rounds", 3, 5500)
@@ -117,7 +112,7 @@ public class GameAchievement : MonoBehaviour
             if (GameAchievementLevelInfos == null || GameAchievementLevelInfos.Count <= 0)
                 return 0;
 
-            if (AchievementLevel < 1 || AchievementLevel > GameAchievementLevelInfos.Count)
+            if (AchievementLevel < 1 || AchievementLevel >= GameAchievementLevelInfos.Count)
                 return 0;
 
             return GameAchievementLevelInfos[AchievementLevel].TargetValue;
@@ -153,7 +148,7 @@ public class GameAchievement : MonoBehaviour
     {
         AchievementLevel++;
         if (AchievementLevel > GameAchievementLevelInfos.Count - 1)
-            AchievementLevel = GameAchievementLevelInfos.Count - 1;
+            AchievementLevel = GameAchievementLevelInfos.Count;
     }
 
     public void AchievementValueAddOne(int index)
@@ -164,7 +159,7 @@ public class GameAchievement : MonoBehaviour
         }
     }
 
-    public void ResetRoundCounter()
+    private void ResetRoundCounter()
     {
         IsWinRound = false;
         eAreaWinDictionay = new Dictionary<EArea, bool>();
@@ -201,7 +196,7 @@ public class GameAchievement : MonoBehaviour
     [Space(10)]
     [SerializeField] private List<AchievementsItem> achievementsItemList; //index begins with 1
 
-    public void Init()
+    public void Reset()
     {
         IsRoundStart = false;
         ResetRoundCounter();
@@ -222,12 +217,11 @@ public class GameAchievement : MonoBehaviour
     public void Show()
     {
 
+        panel.transform.localScale = Vector3.zero;
+        this.gameObject.SetActive(true);
+
         InitTopPanel();
         InitAchievements();
-
-        panel.transform.localScale = Vector3.zero;
-
-        this.gameObject.SetActive(true);
 
         Sequence sequence = DOTween.Sequence();
 
@@ -239,35 +233,62 @@ public class GameAchievement : MonoBehaviour
 
     private void InitTopPanel()
     {
-        if (lineContainerTransform.childCount < GameAchievementLevelInfos[AchievementLevel].TargetValue)
+        if (AchievementLevel == GameAchievementLevelInfos.Count)
         {
-            DrawLine();
-        }
+            Debug.Log("AchievementLevel = " + AchievementLevel);
+            Debug.Log("GameAchievementLevelInfos.Count = " + GameAchievementLevelInfos.Count);
 
-        progressText.text = string.Format("{0}/{1}", CompleteAchievementCount,
-            CurrentAchievementLevelTargetValue);
+            progressText.text = string.Format("{0}/{1}", CompleteAchievementCount, CompleteAchievementCount);
+            sliderBarImage.fillAmount = 1.0f;
 
-        sliderBarImage.fillAmount =
-            CompleteAchievementCount / (float)CurrentAchievementLevelTargetValue;
-        
-        if (CompleteAchievementCount < CurrentAchievementLevelTargetValue)
-        {
             giftIconImage.gameObject.SetActive(true);
             giftButton.interactable = false;
             giftIconEffect.gameObject.SetActive(false);
+
         }
         else
         {
-            giftIconImage.gameObject.SetActive(false);
-            giftButton.interactable = true;
-            giftIconEffect.gameObject.SetActive(true);
-            giftIconEffect.AnimationState.SetAnimation(0, "animation", true);
+
+            if (lineContainerTransform.childCount < GameAchievementLevelInfos[AchievementLevel].TargetValue)
+            {
+                DrawLine();
+            }
+
+            Debug.Log("AchievementLevel = " + AchievementLevel);
+            Debug.Log("GameAchievementLevelInfos.Count = " + GameAchievementLevelInfos.Count);
+            Debug.Log("CompleteAchievementCount = " + CompleteAchievementCount);
+            Debug.Log("CurrentAchievementLevelTargetValue =" + CurrentAchievementLevelTargetValue);
+
+            progressText.text = string.Format("{0}/{1}", CompleteAchievementCount,
+                CurrentAchievementLevelTargetValue);
+
+            sliderBarImage.fillAmount =
+                CompleteAchievementCount / (float)CurrentAchievementLevelTargetValue;
+
+            if (CompleteAchievementCount < CurrentAchievementLevelTargetValue)
+            {
+
+                giftIconImage.gameObject.SetActive(true);
+                giftButton.interactable = false;
+                giftIconEffect.gameObject.SetActive(false);
+            }
+            else
+            {
+                giftIconImage.gameObject.SetActive(false);
+                giftButton.interactable = true;
+                giftIconEffect.gameObject.SetActive(true);
+                giftIconEffect.AnimationState.SetAnimation(0, "animation", true);
+            }
         }
+
 
     }
 
     private void InitAchievements()
     {
+        Debug.Log("achievementsItemList.Count = " + achievementsItemList.Count);
+        Debug.Log("GameAchievementInfoList.Count = "+ GameAchievementInfoList.Count);
+
         if (achievementsItemList.Count == GameAchievementInfoList.Count)
         {
             Queue<AchievementInfo> highQueue = new Queue<AchievementInfo>();
@@ -308,11 +329,16 @@ public class GameAchievement : MonoBehaviour
 
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
-        giftIconImage.gameObject.SetActive(false);
-        giftIconEffect.gameObject.SetActive(true);
-        giftIconEffect.AnimationState.SetAnimation(0, "animation2", false);
+        if (AchievementLevel < GameAchievementLevelInfos.Count &&
+            CompleteAchievementCount >= CurrentAchievementLevelTargetValue)
+        {
+            giftIconImage.gameObject.SetActive(false);
+            giftIconEffect.gameObject.SetActive(true);
+            giftIconEffect.AnimationState.SetAnimation(0, "animation2", false);
 
-        StartCoroutine(DelayEffect());
+            StartCoroutine(DelayEffect());
+        }
+
 
     }
 
@@ -361,32 +387,6 @@ public class AchievementLevelInfo
         TargetValue = targetValue;
         RewardChips = rewardChips;
     }
-
-    //private string stateExtention
-    //{
-    //    get { return string.Format("AchievementLevelState{0}", Level.ToString()); }
-    //}
-
-    //public bool IsCollected
-    //{
-    //    get
-    //    {
-    //        return PlayerPrefs.HasKey(stateExtention) && PlayerPrefs.GetInt(stateExtention) == 1;
-    //    }
-    //    set
-    //    {
-    //        PlayerPrefs.SetInt(stateExtention, value ? 1 : 0);
-    //    }
-    //}
-
-    //public void Complete()
-    //{
-    //    if (!IsCollected)
-    //    {
-    //        IsCollected = true;
-    //    }
-
-    //}
 
 }
 
@@ -457,6 +457,11 @@ public class AchievementInfo
     public bool IsComplete
     {
         get { return CurrentValue >= TargetValue; }
+    }
+
+    public void TestForComplete()
+    {
+        CurrentValue = TargetValue;
     }
 
     public void Collect()

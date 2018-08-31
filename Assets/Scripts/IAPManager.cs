@@ -200,6 +200,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 //GameHelper.Instance.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
                 // ... buy the product. Expect a response either through ProcessPurchase or OnPurchaseFailed 
                 // asynchronously.
+                IronSourceControl.IsShowInterstitalWhenBack = false;
                 m_StoreController.InitiatePurchase(product);
 
 #if UNITY_EDITOR
@@ -310,7 +311,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 }
                 else
                 {
-                    GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+                    //GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+
+                    GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
+                        new Vector3(0.0f, 0.0f),
+                        new Vector3(-95.0f, 100.0f),
+                        new Vector3(-140.0f, 190));
 
                     GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
                 }
@@ -362,7 +368,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 else
                 {
                     //GameHelper.player.ChangeCoins(marketProduct.ChipAmount);
-                    GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+                    //GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+
+                    GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
+                        new Vector3(0.0f, 0.0f),
+                        new Vector3(-95.0f, 100.0f),
+                        new Vector3(-140.0f, 190));
 
                     GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
                 }
@@ -383,132 +394,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         }
 
         return PurchaseProcessingResult.Complete;
-
-        //// A consumable product has been purchased by this user.
-        //if (String.Equals(args.purchasedProduct.definition.id, "Craps_4_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    //CanvasControl.Instance.PlayerCoinNumber += 1400;
-        //    GameHelper.player.ChangeCoins(200000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(200000);
-
-        //    if(!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("4.99", "1");
-
-        //    //IronSourceControl.Instance.DestroyBanner();
-        //}
-        //else if(String.Equals(args.purchasedProduct.definition.id, "Craps_9_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    //CanvasControl.Instance.PlayerCoinNumber += 1400;
-        //    GameHelper.player.ChangeCoins(450000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(450000);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("9.99", "1");
-
-        //    //IronSourceControl.Instance.DestroyBanner();
-        //}
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_19_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    //CanvasControl.Instance.PlayerCoinNumber += 2500;
-        //    GameHelper.player.ChangeCoins(1000000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(1000000);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("19.99", "1");
-        //    //IronSourceControl.Instance.DestroyBanner();
-        //}
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_39_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    GameHelper.player.ChangeCoins(3000000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(3000000);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("39.99", "1");
-
-        //    //IronSourceControl.Instance.DestroyBanner();
-        //    //CanvasControl.Instance.PlayerCoinNumber += 7000;
-        //}
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_49_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    GameHelper.player.ChangeCoins(4000000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(4000000);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("49.99", "1");
-        //    //IronSourceControl.Instance.DestroyBanner();
-        //    //CanvasControl.Instance.PlayerCoinNumber += 12000;
-        //}
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Craps_99_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-        //    //ScoreManager.score += 100;
-        //    GameHelper.player.ChangeCoins(12000000);
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(12000000);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("99.99", "1");
-
-        //}
-        //// Or ... a non-consumable product has been purchased by this user.
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Remove_Ads_1_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-
-        //    GameHelper.player.SetIsPaid(true);
-
-        //    if (!isSandBox)
-        //        AppsFlyerManager.Instance.TrackIAP("1.99", "1");
-
-
-        //}
-        //// Or ... a subscription product has been purchased by this user.
-        //else if (String.Equals(args.purchasedProduct.definition.id, "Pictoword_3_99", StringComparison.Ordinal))
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-        //    // TODO: The subscription item has been successfully purchased, grant this to the player.
-        //}
-        //// Or ... an unknown product has been purchased by this user. Fill in additional products here....
-        //else
-        //{
-        //    Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
-
-        //    GameHelper.Instance.purchaseMessage.ShowPurchasedFailTransform();
-        //}
-
-        // Return a flag indicating whether this product has completely been received, or if the application needs 
-        // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
-        // saving purchased products to the cloud, and when that save is delayed. 
-        //return PurchaseProcessingResult.Complete;
-
-
 
     }
 

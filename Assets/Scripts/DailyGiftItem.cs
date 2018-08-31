@@ -33,12 +33,7 @@ public class DailyGiftItem : MonoBehaviour
     private int dayNumber;
     private int coinNumber;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
+  
     public void SetImageType(EImageType eImageType)
     {
         this.eImageType = eImageType;
@@ -98,7 +93,12 @@ public class DailyGiftItem : MonoBehaviour
         sequence.AppendCallback(()=>
         {
             SetMark(true);
-            GameHelper.Instance.ShowAddCoins(this.coinNumber, false);
+            GameHelper.Instance.coinCollectEffect.RunEffect(this.coinNumber,
+                new Vector3(0.0f, 0.0f),
+                new Vector3(-95.0f, 100.0f),
+                new Vector3(-140.0f, 190));
+
+            //GameHelper.Instance.ShowAddCoins(this.coinNumber, false);
         });
     }
 

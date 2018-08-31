@@ -36,19 +36,22 @@ using UnityEngine;
 
 namespace Spine.Unity.Editor {
 	using Event = UnityEngine.Event;
+	using Icons = SpineEditorUtilities.Icons;
 
 	[CustomEditor(typeof(SkeletonRenderer))]
 	[CanEditMultipleObjects]
 	public class SkeletonRendererInspector : UnityEditor.Editor {
-		protected static bool advancedFoldout;
-		protected static bool showBoneNames, showPaths, showShapes, showConstraints = true;
+		public static bool advancedFoldout;
 
-		protected SerializedProperty skeletonDataAsset, initialSkinName, normals, tangents, meshes, immutableTriangles, separatorSlotNames, frontFacing, zSpacing, pmaVertexColors, clearStateOnDisable;
+		protected SerializedProperty skeletonDataAsset, initialSkinName;
+		protected SerializedProperty initialFlipX, initialFlipY;
+		protected SerializedProperty singleSubmesh, separatorSlotNames, clearStateOnDisable, immutableTriangles;
+		protected SerializedProperty normals, tangents, meshes, zSpacing, pmaVertexColors, tintBlack; // MeshGenerator settings
 		protected SpineInspectorUtility.SerializedSortingProperties sortingProperties;
 		protected bool isInspectingPrefab;
 
 		protected GUIContent SkeletonDataAssetLabel, SkeletonUtilityButtonContent;
-		protected GUIContent PMAVertexColorsLabel, ClearStateOnDisableLabel, ZSpacingLabel, MeshesLabel, ImmubleTrianglesLabel;
+		protected GUIContent PMAVertexColorsLabel, ClearStateOnDisableLabel, ZSpacingLabel, MeshesLabel, ImmubleTrianglesLabel, TintBlackLabel, SingleSubmeshLabel;
 		protected GUIContent NormalsLabel, TangentsLabel;
 		const string ReloadButtonLabel = "Reload";
 
@@ -74,8 +77,8 @@ namespace Spine.Unity.Editor {
 			SpineEditorUtilities.ConfirmInitialization();
 
 			// Labels
-			SkeletonDataAssetLabel = new GUIContent("SkeletonData Asset", SpineEditorUtilities.Icons.spine);
-			SkeletonUtilityButtonContent = new GUIContent("Add Skeleton Utility", SpineEditorUtilities.Icons.skeletonUtility);
+			SkeletonDataAssetLabel = new GUIContent("SkeletonData Asset", Icons.spine);
+			SkeletonUtilityButtonContent = new GUIContent("Add Skeleton Utility", Icons.skeletonUtility);
 			MeshesLabel = new GUIContent("Render MeshAttachments", "Disable to optimize rendering for skeletons that don't use Mesh Attachments");
 			ImmubleTrianglesLabel = new GUIContent("Immutable Triangles", "Enable to optimize rendering for skeletons that never change attachment visbility");
 			PMAVertexColorsLabel = new GUIContent("PMA Vertex Colors", "Use this if you are using the default Spine/Skeleton shader or any premultiply-alpha shader.");
@@ -83,21 +86,26 @@ namespace Spine.Unity.Editor {
 			ZSpacingLabel = new GUIContent("Z Spacing", "A value other than 0 adds a space between each rendered attachment to prevent Z Fighting when using shaders that read or write to the depth buffer. Large values may cause unwanted parallax and spaces depending on camera setup.");
 			NormalsLabel = new GUIContent("Add Normals", "Use this if your shader requires vertex normals. A more efficient solution for 2D setups is to modify the shader to assume a single normal value for the whole mesh.");
 			TangentsLabel = new GUIContent("Solve Tangents", "Calculates the tangents per frame. Use this if you are using lit shaders (usually with normal maps) that require vertex tangents.");
+			TintBlackLabel = new GUIContent("Tint Black (!)", "Adds black tint vertex data to the mesh as UV2 and UV3. Black tinting requires that the shader interpret UV2 and UV3 as black tint colors for this effect to work. You may also use the default [Spine/Skeleton Tint Black] shader.\n\nIf you only need to tint the whole skeleton and not individual parts, the [Spine/Skeleton Tint] shader is recommended for better efficiency and changing/animating the _Black material property via MaterialPropertyBlock.");
+			SingleSubmeshLabel = new GUIContent("Use Single Submesh", "Simplifies submesh determination by assuming you are only using one Material and need only one submesh. This is will disable render separation and custom slot materials.");
 
 			var so = this.serializedObject;
 			skeletonDataAsset = so.FindProperty("skeletonDataAsset");
 			initialSkinName = so.FindProperty("initialSkinName");
-			normals = so.FindProperty("calculateNormals");
+			initialFlipX = so.FindProperty("initialFlipX");
+			initialFlipY = so.FindProperty("initialFlipY");
+			normals = so.FindProperty("addNormals");
 			tangents = so.FindProperty("calculateTangents");
 			meshes = so.FindProperty("renderMeshes");
 			immutableTriangles = so.FindProperty("immutableTriangles");
 			pmaVertexColors = so.FindProperty("pmaVertexColors");
 			clearStateOnDisable = so.FindProperty("clearStateOnDisable");
+			tintBlack = so.FindProperty("tintBlack");
+			singleSubmesh = so.FindProperty("singleSubmesh");
 
 			separatorSlotNames = so.FindProperty("separatorSlotNames");
 			separatorSlotNames.isExpanded = true;
 
-			frontFacing = so.FindProperty("frontFacing");
 			zSpacing = so.FindProperty("zSpacing");
 
 			SerializedObject rso = SpineInspectorUtility.GetRenderersSerializedObject(serializedObject);
@@ -121,6 +129,9 @@ namespace Spine.Unity.Editor {
 				}
 			}
 		}
+
+		GUIContent[] skins;
+		ExposedList<Skin> loadedSkinList;
 
 		protected virtual void DrawInspectorGUI (bool multi) {
 			bool valid = TargetIsValid;
@@ -159,14 +170,15 @@ namespace Spine.Unity.Editor {
 					#if NO_PREFAB_MESH
 					if (isInspectingPrefab) {
 						MeshFilter meshFilter = component.GetComponent<MeshFilter>();
-						if (meshFilter != null)
+						if (meshFilter != null && meshFilter.sharedMesh != null)
 							meshFilter.sharedMesh = null;
 					}
 					#endif
 				}
 					
 				if (valid)
-					EditorGUILayout.PropertyField(initialSkinName);
+					EditorGUILayout.PropertyField(initialSkinName);					
+
 			} else {
 				var component = (SkeletonRenderer)target;
 
@@ -199,24 +211,34 @@ namespace Spine.Unity.Editor {
 				#if NO_PREFAB_MESH
 				if (isInspectingPrefab) {
 					MeshFilter meshFilter = component.GetComponent<MeshFilter>();
-					if (meshFilter != null)
+					if (meshFilter != null && meshFilter.sharedMesh != null)
 						meshFilter.sharedMesh = null;
 				}
 				#endif
 
 				// Initial skin name.
 				if (component.valid) {
-					string[] skins = new string[component.skeleton.Data.Skins.Count];
+					var skeletonDataSkins = component.skeleton.Data.Skins;
+					int skinCount = skeletonDataSkins.Count;
+					if (loadedSkinList != skeletonDataSkins) {
+						skins = new GUIContent[skinCount];
+						loadedSkinList = skeletonDataSkins;
+						for (int i = 0; i < skins.Length; i++) {
+							string skinNameString = skeletonDataSkins.Items[i].Name;
+							skins[i] = new GUIContent(skinNameString, Icons.skin);
+						}
+					}
+					
 					int skinIndex = 0;
 					for (int i = 0; i < skins.Length; i++) {
-						string skinNameString = component.skeleton.Data.Skins.Items[i].Name;
-						skins[i] = skinNameString;
+						string skinNameString = skeletonDataSkins.Items[i].Name;
 						if (skinNameString == initialSkinName.stringValue)
 							skinIndex = i;
 					}
-					skinIndex = EditorGUILayout.Popup("Initial Skin", skinIndex, skins);
+
+					skinIndex = EditorGUILayout.Popup(SpineInspectorUtility.TempContent("Initial Skin"), skinIndex, skins);
 					if (skins.Length > 0) // Support attachmentless/skinless SkeletonData.
-						initialSkinName.stringValue = skins[skinIndex];
+						initialSkinName.stringValue = skins[skinIndex].text;
 				}
 			}
 
@@ -230,13 +252,34 @@ namespace Spine.Unity.Editor {
 			// More Render Options...
 			using (new SpineInspectorUtility.BoxScope()) {
 				EditorGUI.BeginChangeCheck();
-				if (advancedFoldout = EditorGUILayout.Foldout(advancedFoldout, "Advanced")) {
-					using (new SpineInspectorUtility.IndentScope()) {
 
+				EditorGUILayout.BeginHorizontal(GUILayout.Height(EditorGUIUtility.singleLineHeight + 5));
+				advancedFoldout = EditorGUILayout.Foldout(advancedFoldout, "Advanced");
+				if (advancedFoldout) {
+					EditorGUILayout.Space();
+					if (GUILayout.Button("Debug", EditorStyles.miniButton, GUILayout.Width(65f)))
+						SkeletonDebugWindow.Init();
+				} else {
+					EditorGUILayout.Space();
+				}
+				EditorGUILayout.EndHorizontal();
+
+				if (advancedFoldout) {
+					
+					using (new SpineInspectorUtility.IndentScope()) {
+						using (new EditorGUILayout.HorizontalScope()) {
+							initialFlipX.boolValue = EditorGUILayout.ToggleLeft(initialFlipX.displayName, initialFlipX.boolValue, GUILayout.Width(120f));
+							initialFlipY.boolValue = EditorGUILayout.ToggleLeft(initialFlipY.displayName, initialFlipY.boolValue, GUILayout.Width(120f));
+							EditorGUILayout.Space();
+						}
+
+						EditorGUILayout.Space();
+						EditorGUILayout.LabelField("Renderer Settings", EditorStyles.boldLabel);
 						using (new SpineInspectorUtility.LabelWidthScope()) {
 							// Optimization options
-							EditorGUILayout.PropertyField(meshes, MeshesLabel);
-							EditorGUILayout.PropertyField(immutableTriangles, ImmubleTrianglesLabel);
+							if (singleSubmesh != null) EditorGUILayout.PropertyField(singleSubmesh, SingleSubmeshLabel);
+							//if (meshes != null) EditorGUILayout.PropertyField(meshes, MeshesLabel);
+							if (immutableTriangles != null) EditorGUILayout.PropertyField(immutableTriangles, ImmubleTrianglesLabel);
 							EditorGUILayout.PropertyField(clearStateOnDisable, ClearStateOnDisableLabel);
 							EditorGUILayout.Space();
 						}
@@ -251,26 +294,40 @@ namespace Spine.Unity.Editor {
 						EditorGUILayout.Space();
 
 						using (new SpineInspectorUtility.LabelWidthScope()) {
-							EditorGUILayout.LabelField("Vertex Data", EditorStyles.boldLabel);
-							EditorGUILayout.PropertyField(pmaVertexColors, PMAVertexColorsLabel);
+							EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Vertex Data", SpineInspectorUtility.UnityIcon<MeshFilter>()), EditorStyles.boldLabel);
+							if (pmaVertexColors != null) EditorGUILayout.PropertyField(pmaVertexColors, PMAVertexColorsLabel);
+							EditorGUILayout.PropertyField(tintBlack, TintBlackLabel);
 
 							// Optional fields. May be disabled in SkeletonRenderer.
 							if (normals != null) EditorGUILayout.PropertyField(normals, NormalsLabel);
 							if (tangents != null) EditorGUILayout.PropertyField(tangents, TangentsLabel);
-							if (frontFacing != null) EditorGUILayout.PropertyField(frontFacing);
+						}
 
-							EditorGUILayout.Space();
+						EditorGUILayout.Space();
 
-							EditorGUILayout.LabelField("Editor Preview", EditorStyles.boldLabel);
-							showBoneNames = EditorGUILayout.Toggle("Show Bone Names", showBoneNames);
-							showPaths = EditorGUILayout.Toggle("Show Paths", showPaths);
-							showShapes = EditorGUILayout.Toggle("Show Shapes", showShapes);
-							showConstraints = EditorGUILayout.Toggle("Show Constraints", showConstraints);
+						if (TargetIsValid && !isInspectingPrefab) {
+							if (multi) {
+								// Support multi-edit SkeletonUtility button.
+								//	EditorGUILayout.Space();
+								//	bool addSkeletonUtility = GUILayout.Button(buttonContent, GUILayout.Height(30));
+								//	foreach (var t in targets) {
+								//		var component = t as Component;
+								//		if (addSkeletonUtility && component.GetComponent<SkeletonUtility>() == null)
+								//			component.gameObject.AddComponent<SkeletonUtility>();
+								//	}
+							} else {
+								var component = (Component)target;
+								if (component.GetComponent<SkeletonUtility>() == null) {						
+									if (SpineInspectorUtility.CenteredButton(SkeletonUtilityButtonContent, 21, true, 200f))
+										component.gameObject.AddComponent<SkeletonUtility>();
+								}
+							}
 						}
 
 						EditorGUILayout.Space();
 					}
 				}
+
 				if (EditorGUI.EndChangeCheck())
 					SceneView.RepaintAll();
 			}
@@ -299,7 +356,14 @@ namespace Spine.Unity.Editor {
 			using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox)) {
 				const string SeparatorsDescription = "Stored names of slots where the Skeleton's render will be split into different batches. This is used by separate components that split the render into different MeshRenderers or GameObjects.";
 				if (separatorSlotNames.isExpanded) {
-					EditorGUILayout.PropertyField(separatorSlotNames, new GUIContent(separatorSlotNames.displayName + terminalSlotWarning, SeparatorsDescription), true);
+					EditorGUILayout.PropertyField(separatorSlotNames, SpineInspectorUtility.TempContent(separatorSlotNames.displayName + terminalSlotWarning, Icons.slotRoot, SeparatorsDescription), true);
+					GUILayout.BeginHorizontal();
+					GUILayout.FlexibleSpace();
+					if (GUILayout.Button("+", GUILayout.MaxWidth(28f), GUILayout.MaxHeight(15f))) {
+						separatorSlotNames.arraySize++;
+					}
+					GUILayout.EndHorizontal();
+
 					EditorGUILayout.Space();
 				} else
 					EditorGUILayout.PropertyField(separatorSlotNames, new GUIContent(separatorSlotNames.displayName + string.Format("{0} [{1}]", terminalSlotWarning, separatorSlotNames.arraySize), SeparatorsDescription), true);
@@ -310,34 +374,9 @@ namespace Spine.Unity.Editor {
 			var skeletonRenderer = (SkeletonRenderer)target;
 			var skeleton = skeletonRenderer.skeleton;
 			var transform = skeletonRenderer.transform;
-
 			if (skeleton == null) return;
 
-			if (showPaths) SpineHandles.DrawPaths(transform, skeleton);
 			SpineHandles.DrawBones(transform, skeleton);
-			if (showConstraints) SpineHandles.DrawConstraints(transform, skeleton);
-			if (showBoneNames) SpineHandles.DrawBoneNames(transform, skeleton);
-			if (showShapes) SpineHandles.DrawBoundingBoxes(transform, skeleton);
-		}
-
-		public void DrawSkeletonUtilityButton (bool multi) {
-			if (multi) {
-				// Support multi-edit SkeletonUtility button.
-				//	EditorGUILayout.Space();
-				//	bool addSkeletonUtility = GUILayout.Button(buttonContent, GUILayout.Height(30));
-				//	foreach (var t in targets) {
-				//		var component = t as Component;
-				//		if (addSkeletonUtility && component.GetComponent<SkeletonUtility>() == null)
-				//			component.gameObject.AddComponent<SkeletonUtility>();
-				//	}
-			} else {
-				EditorGUILayout.Space();
-				var component = (Component)target;
-				if (component.GetComponent<SkeletonUtility>() == null) {						
-					if (SpineInspectorUtility.LargeCenteredButton(SkeletonUtilityButtonContent))
-						component.gameObject.AddComponent<SkeletonUtility>();
-				}
-			}
 		}
 
 		override public void OnInspectorGUI () {

@@ -28,40 +28,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-/******************************************************************************
- * Spine Runtimes Software License
- * Version 2.3
- * 
- * Copyright (c) 2013-2015, Esoteric Software
- * All rights reserved.
- * 
- * You are granted a perpetual, non-exclusive, non-sublicensable and
- * non-transferable license to use, install, execute and perform the Spine
- * Runtimes Software (the "Software") and derivative works solely for personal
- * or internal use. Without the written permission of Esoteric Software (see
- * Section 2 of the Spine Software License Agreement), you may not (a) modify,
- * translate, adapt or otherwise create derivative works, improvements of the
- * Software or develop new applications using the Software or (b) remove,
- * delete, alter or obscure any trademarks or any copyright, trademark, patent
- * or other intellectual property or proprietary rights notices on or in the
- * Software, including any copy thereof. Redistributions in binary or source
- * form must include this license and terms.
- * 
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
- * EVENT SHALL ESOTERIC SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *****************************************************************************/
-#if (UNITY_5_0 || UNITY_5_1 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7)
-#define PREUNITY_5_2
-#endif
-
 using UnityEngine;
 using UnityEngine.UI;
 using Spine;
@@ -69,7 +35,7 @@ using Spine;
 namespace Spine.Unity {
 	[ExecuteInEditMode, RequireComponent(typeof(CanvasRenderer), typeof(RectTransform)), DisallowMultipleComponent]
 	[AddComponentMenu("Spine/SkeletonGraphic (Unity UI Canvas)")]
-	public class SkeletonGraphic : MaskableGraphic, ISkeletonComponent, IAnimationStateComponent, ISkeletonAnimation {
+	public class SkeletonGraphic : MaskableGraphic, ISkeletonComponent, IAnimationStateComponent, ISkeletonAnimation, IHasSkeletonDataAsset {
 
 		#region Inspector
 		public SkeletonDataAsset skeletonDataAsset;
@@ -77,6 +43,7 @@ namespace Spine.Unity {
 
 		[SpineSkin(dataField:"skeletonDataAsset")]
 		public string initialSkinName = "default";
+		public bool initialFlipX, initialFlipY;
 
 		[SpineAnimation(dataField:"skeletonDataAsset")]
 		public string startingAnimation;
@@ -89,7 +56,6 @@ namespace Spine.Unity {
 		protected override void OnValidate () {
 			// This handles Scene View preview.
 			base.OnValidate ();
-			#if !PREUNITY_5_2
 			if (this.IsValid) {
 				if (skeletonDataAsset == null) {
 					Clear();
@@ -102,18 +68,33 @@ namespace Spine.Unity {
 						Debug.LogError("Unity UI does not support multiple textures per Renderer. Your skeleton will not be rendered correctly. Recommend using SkeletonAnimation instead. This requires the use of a Screen space camera canvas.");
 				} else {
 					if (freeze) return;
-					skeleton.SetToSetupPose();
-					if (!string.IsNullOrEmpty(startingAnimation))
-						skeleton.PoseWithAnimation(startingAnimation, 0f, false);
+
+					if (!string.IsNullOrEmpty(initialSkinName)) {
+						var skin = skeleton.data.FindSkin(initialSkinName);
+						if (skin != null) {
+							if (skin == skeleton.data.defaultSkin)
+								skeleton.SetSkin((Skin)null);
+							else
+								skeleton.SetSkin(skin);
+						}
+							
+					}
+
+					// Only provide visual feedback to inspector changes in Unity Editor Edit mode.
+					if (!Application.isPlaying) {
+						skeleton.flipX = this.initialFlipX;
+						skeleton.flipY = this.initialFlipY;
+
+						skeleton.SetToSetupPose();
+						if (!string.IsNullOrEmpty(startingAnimation))
+							skeleton.PoseWithAnimation(startingAnimation, 0f, false);
+					}
+
 				}
 			} else {
 				if (skeletonDataAsset != null)
 					Initialize(true);
-			}
-			#else
-			Debug.LogWarning("SkeletonGraphic requres Unity 5.2 or higher.\nUnityEngine.UI 5.1 and below does not accept meshes and can't be used to render Spine skeletons. You may delete the SkeletonGraphic folder under `Modules` if you want to exclude it from your project." );
-			#endif
-				
+			}				
 		}
 
 		protected override void Reset () {
@@ -124,12 +105,37 @@ namespace Spine.Unity {
 		#endif
 		#endregion
 
-		#if !PREUNITY_5_2
+		#region Runtime Instantiation
+		public static SkeletonGraphic NewSkeletonGraphicGameObject (SkeletonDataAsset skeletonDataAsset, Transform parent) {
+			SkeletonGraphic sg = SkeletonGraphic.AddSkeletonGraphicComponent(new GameObject("New Spine GameObject"), skeletonDataAsset);
+			if (parent != null) sg.transform.SetParent(parent, false);
+			return sg;
+		}
+
+		public static SkeletonGraphic AddSkeletonGraphicComponent (GameObject gameObject, SkeletonDataAsset skeletonDataAsset) {
+			var c = gameObject.AddComponent<SkeletonGraphic>();
+			if (skeletonDataAsset != null) {
+				c.skeletonDataAsset = skeletonDataAsset;				
+				c.Initialize(false);
+			}
+			return c;
+		}
+		#endregion
+
 		#region Internals
 		// This is used by the UI system to determine what to put in the MaterialPropertyBlock.
+		Texture overrideTexture;
+		public Texture OverrideTexture {
+			get { return overrideTexture; }
+			set {
+				overrideTexture = value;
+				canvasRenderer.SetTexture(this.mainTexture); // Refresh canvasRenderer's texture. Make sure it handles null.
+			}
+		}
 		public override Texture mainTexture {
 			get { 
 				// Fail loudly when incorrectly set up.
+				if (overrideTexture != null) return overrideTexture;
 				return skeletonDataAsset == null ? null : skeletonDataAsset.atlasAssets[0].materials[0].mainTexture;
 			}
 		}
@@ -182,20 +188,28 @@ namespace Spine.Unity {
 
 		#region API
 		protected Skeleton skeleton;
-		public Skeleton Skeleton { get { return skeleton; } }
+		public Skeleton Skeleton { get { return skeleton; } internal set { skeleton = value; } }
 		public SkeletonData SkeletonData { get { return skeleton == null ? null : skeleton.data; } }
 		public bool IsValid { get { return skeleton != null; } }
 
 		protected Spine.AnimationState state;
 		public Spine.AnimationState AnimationState { get { return state; } }
 
-		// This is any object that can give you a mesh when you give it a skeleton to render.
-		protected Spine.Unity.MeshGeneration.ISimpleMeshGenerator spineMeshGenerator;
-		public Spine.Unity.MeshGeneration.ISimpleMeshGenerator SpineMeshGenerator { get { return this.spineMeshGenerator; } }
+		[SerializeField] protected Spine.Unity.MeshGenerator meshGenerator = new MeshGenerator();
+		public Spine.Unity.MeshGenerator MeshGenerator { get { return this.meshGenerator; } }
+		DoubleBuffered<Spine.Unity.MeshRendererBuffers.SmartMesh> meshBuffers;
+		SkeletonRendererInstruction currentInstructions = new SkeletonRendererInstruction();
+
+		public Mesh GetLastMesh () {
+			return meshBuffers.GetCurrent().mesh;
+		}
 
 		public event UpdateBonesDelegate UpdateLocal;
 		public event UpdateBonesDelegate UpdateWorld;
 		public event UpdateBonesDelegate UpdateComplete;
+
+		/// <summary> Occurs after the vertex data populated every frame, before the vertices are pushed into the mesh.</summary>
+		public event Spine.Unity.MeshGeneratorDelegate OnPostProcessVertices;
 
 		public void Clear () {
 			skeleton = null;
@@ -218,34 +232,68 @@ namespace Spine.Unity {
 				return;
 			}
 
-			this.skeleton = new Skeleton(skeletonData);
-			this.spineMeshGenerator = new Spine.Unity.MeshGeneration.ArraysSimpleMeshGenerator(); // You can switch this out with any other implementer of Spine.Unity.MeshGeneration.ISimpleMeshGenerator
-			this.spineMeshGenerator.PremultiplyVertexColors = true;
+			this.skeleton = new Skeleton(skeletonData) {
+				flipX = this.initialFlipX,
+				flipY = this.initialFlipY
+			};
+
+			meshBuffers = new DoubleBuffered<MeshRendererBuffers.SmartMesh>();
+			canvasRenderer.SetTexture(this.mainTexture); // Needed for overwriting initializations.
 
 			// Set the initial Skin and Animation
 			if (!string.IsNullOrEmpty(initialSkinName))
 				skeleton.SetSkin(initialSkinName);
 
-			if (!string.IsNullOrEmpty(startingAnimation))
+			#if UNITY_EDITOR
+			if (!string.IsNullOrEmpty(startingAnimation)) {
+				if (Application.isPlaying) {
+					state.SetAnimation(0, startingAnimation, startingLoop);
+				} else {
+					// Assume SkeletonAnimation is valid for skeletonData and skeleton. Checked above.
+					var animationObject = skeletonDataAsset.GetSkeletonData(false).FindAnimation(startingAnimation);
+					if (animationObject != null)
+						animationObject.PoseSkeleton(skeleton, 0);
+				}
+				Update(0);
+			}
+			#else
+			if (!string.IsNullOrEmpty(startingAnimation)) {
 				state.SetAnimation(0, startingAnimation, startingLoop);
+				Update(0);
+			}
+			#endif
 		}
 
 		public void UpdateMesh () {
-			if (this.IsValid) {
-				skeleton.SetColor(this.color);
-				if (canvas != null)
-					spineMeshGenerator.Scale = canvas.referencePixelsPerUnit; //JOHN: left a todo: move this to a listener to of the canvas?
+			if (!this.IsValid) return;
 
-				canvasRenderer.SetMesh(spineMeshGenerator.GenerateMesh(skeleton));
-				//this.UpdateMaterial(); // TODO: This allocates memory.
+			skeleton.SetColor(this.color);
+			var smartMesh = meshBuffers.GetNext();
+			var currentInstructions = this.currentInstructions;
+
+			MeshGenerator.GenerateSingleSubmeshInstruction(currentInstructions, skeleton, this.material);
+			bool updateTriangles = SkeletonRendererInstruction.GeometryNotEqual(currentInstructions, smartMesh.instructionUsed);
+
+			meshGenerator.Begin();
+			if (currentInstructions.hasActiveClipping) {
+				meshGenerator.AddSubmesh(currentInstructions.submeshInstructions.Items[0], updateTriangles);
+			} else {
+				meshGenerator.BuildMeshWithArrays(currentInstructions, updateTriangles);
 			}
+
+			if (canvas != null) meshGenerator.ScaleVertexData(canvas.referencePixelsPerUnit);
+			if (OnPostProcessVertices != null) OnPostProcessVertices.Invoke(this.meshGenerator.Buffers);
+
+			var mesh = smartMesh.mesh;
+			meshGenerator.FillVertexData(mesh);
+			if (updateTriangles) meshGenerator.FillTrianglesSingle(mesh);
+			meshGenerator.FillLateVertexData(mesh);
+
+			canvasRenderer.SetMesh(mesh);
+			smartMesh.instructionUsed.Set(currentInstructions);
+
+			//this.UpdateMaterial(); // TODO: This allocates memory.
 		}
 		#endregion
-		#else
-		public Skeleton Skeleton { get { return null; } }
-		public AnimationState AnimationState { get { return null; } }
-		public event UpdateBonesDelegate UpdateLocal, UpdateWorld, UpdateComplete;
-		public void LateUpdate () { }
-		#endif
 	}
 }

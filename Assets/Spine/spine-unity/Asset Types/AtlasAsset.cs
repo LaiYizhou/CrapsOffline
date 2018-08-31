@@ -57,13 +57,10 @@ namespace Spine.Unity {
 
 			return atlasAsset;
 		}
-			
+
 		/// <summary>
 		/// Creates a runtime AtlasAsset. Only providing the textures is slower because it has to search for atlas page matches. <seealso cref="Spine.Unity.AtlasAsset.CreateRuntimeInstance(TextAsset, Material[], bool)"/></summary>
-		public static AtlasAsset CreateRuntimeInstance (TextAsset atlasText, Texture2D[] textures, Shader shader, bool initialize) {
-			if (shader == null)
-				shader = Shader.Find("Spine/Skeleton");
-
+		public static AtlasAsset CreateRuntimeInstance (TextAsset atlasText, Texture2D[] textures, Material materialPropertySource, bool initialize) {
 			// Get atlas page names.
 			string atlasString = atlasText.text;
 			atlasString = atlasString.Replace("\r", "");
@@ -84,7 +81,7 @@ namespace Spine.Unity {
 				for (int j = 0, m = textures.Length; j < m; j++) {
 					if (string.Equals(pageName, textures[j].name, System.StringComparison.OrdinalIgnoreCase)) {
 						// Match found.
-						mat = new Material(shader);
+						mat = new Material(materialPropertySource);
 						mat.mainTexture = textures[j];
 						break;
 					}
@@ -94,11 +91,22 @@ namespace Spine.Unity {
 					materials[i] = mat;
 				else
 					throw new ArgumentException("Could not find matching atlas page in the texture array.");
-
 			}
 
 			// Create AtlasAsset normally
 			return CreateRuntimeInstance(atlasText, materials, initialize);
+		}
+
+		/// <summary>
+		/// Creates a runtime AtlasAsset. Only providing the textures is slower because it has to search for atlas page matches. <seealso cref="Spine.Unity.AtlasAsset.CreateRuntimeInstance(TextAsset, Material[], bool)"/></summary>
+		public static AtlasAsset CreateRuntimeInstance (TextAsset atlasText, Texture2D[] textures, Shader shader, bool initialize) {
+			if (shader == null)
+				shader = Shader.Find("Spine/Skeleton");
+
+			Material materialProperySource = new Material(shader);
+			var oa = CreateRuntimeInstance(atlasText, textures, materialProperySource, initialize);
+
+			return oa;
 		}
 		#endregion
 

@@ -14,6 +14,7 @@ public class IronSourceControl : MonoBehaviour
     public static string appKey = "6ee1d435";
 
     public static IronSourceControl Instance;
+    public static bool IsShowInterstitalWhenBack = true;
 
     private bool isRewardedVideoReady;
 
@@ -234,6 +235,7 @@ public class IronSourceControl : MonoBehaviour
     {
         Debug.Log("I got InterstitialAdShowSucceededEvent");
         IsInterstitialReady = false;
+        IsShowInterstitalWhenBack = false;
         AudioControl.Instance.StopBgMusic();
         //ShowText.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.red;
     }
@@ -301,6 +303,7 @@ public class IronSourceControl : MonoBehaviour
         //userTotalCredits = userTotalCredits + ssp.getRewardAmount();
         //GameHelper.player.ChangeCoins(ssp.getRewardAmount());
         GameHelper.IsShowRewardedVideoCoins = true;
+        IsShowInterstitalWhenBack = false;
         AudioControl.Instance.StopBgMusic();
         GameHelper.RewardedVideoCoin = ssp.getRewardAmount();
         //AmountText.GetComponent<UnityEngine.UI.Text>().text = "" + userTotalCredits;
@@ -315,7 +318,11 @@ public class IronSourceControl : MonoBehaviour
         GameHelper.Instance.RewardedVideoCount++;
         Debug.Log("### GameHelper.Instance.RewardedVideoCount = " + GameHelper.Instance.RewardedVideoCount);
 
-        GameHelper.Instance.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
+        //GameHelper.Instance.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
+        GameHelper.Instance.coinCollectEffect.RunEffect(GameHelper.RewardedVideoCoin,
+            new Vector3(0.0f, 0.0f),
+            new Vector3(-95.0f, 100.0f),
+            new Vector3(-140.0f, 190));
 
         AppsFlyerManager.Instance.TrackAd(GameHelper.RewardedVideoCoin.ToString(), "1");
 
@@ -357,9 +364,17 @@ public class IronSourceControl : MonoBehaviour
         //}
         //else
         //{
-        //    if (IronSourceControl.Instance != null)
-        //        IronSourceControl.Instance.ShowInterstitial(0.5f);
+        //    Debug.Log("IsShowInterstitalWhenBack = " + IsShowInterstitalWhenBack);
+        //    if (IsShowInterstitalWhenBack)
+        //    {
+        //        if (IronSourceControl.Instance != null)
+        //            IronSourceControl.Instance.ShowInterstitial(0.5f);
+        //    }
+        //    else
+        //    {
+        //        IsShowInterstitalWhenBack = true;
+        //    }
         //}
-        
+
     }
 }
