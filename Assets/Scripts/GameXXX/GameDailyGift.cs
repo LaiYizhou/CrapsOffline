@@ -169,7 +169,13 @@ public class GameDailyGift : MonoBehaviour
     /// 60 * 60 * 24 seconds in a day
     /// 60 * 15 seconds in 15 minutes
     /// </summary>
+
+#if TEST
+    private const int dailyGiftInterval = 60 * 15;
+#else
     private const int dailyGiftInterval = 60 * 60 * 24;
+#endif
+
     private void GainDailyGifts()
     {
 

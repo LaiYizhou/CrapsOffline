@@ -19,6 +19,9 @@ tpsheetFileNames:
 - Assets/UI/GameDailyGift/GameDailyGift.tpsheet
 - Assets/UI/GameHall/GameHall.tpsheet
 - Assets/UI/GameHourlyGift/HourlyGift.tpsheet
+- Assets/UI/GameScratcher/GameScratcher.tpsheet
+- Assets/UI/GameScratcher/Poker.tpsheet
+- Assets/UI/GameScratcherHall/GameScratcherHall.tpsheet
 - Assets/UI/GameSetting/craps_help_bg.tpsheet
 - Assets/UI/GameSetting/GameSetting.tpsheet
 - Assets/UI/GameStore/GameStore.tpsheet
@@ -41,10 +44,16 @@ textureFileNames:
 - Assets/UI/GameDailyGift/GameDailyGift.png
 - Assets/UI/GameHall/GameHall.png
 - Assets/UI/GameHourlyGift/HourlyGift.png
+- Assets/UI/GameScratcher/GameScratcher.png
+- Assets/UI/GameScratcher/Poker.png
+- Assets/UI/GameScratcherHall/GameScratcherHall.png
 - Assets/UI/GameSetting/craps_help_bg.png
 - Assets/UI/GameSetting/GameSetting.png
 - Assets/UI/GameStore/GameStore.png
 normalmapFileNames:
+- 
+- 
+- 
 - 
 - 
 - 

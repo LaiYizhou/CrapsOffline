@@ -129,6 +129,18 @@ public class GameHall : MonoBehaviour
         CanvasControl.Instance.gameAchievement.Show();
     }
 
+    public void OnScratcherButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        CanvasControl.Instance.gameCrap.gameObject.SetActive(false);
+
+        CanvasControl.Instance.gameScratcherHall.gameObject.SetActive(true);
+        CanvasControl.Instance.gameScratcherHall.Show(-1);
+
+        this.gameObject.SetActive(false);
+    }
+
     public void LoadCrapScene(int levelId)
     {
 
@@ -138,6 +150,10 @@ public class GameHall : MonoBehaviour
         {
             //if (GameHelper.player.Coins >= GameHelper.Instance.GetCrapSceneInfo(levelId).JoinMinCoins)
             {
+
+                CanvasControl.Instance.gameCrap.gameObject.SetActive(true);
+                CanvasControl.Instance.gameScratcherHall.gameObject.SetActive(false);
+
                 CanvasControl.Instance.gameCrap.Init(levelId);
                 CanvasControl.Instance.gameCrap.UpdateGameAchievementsEffect();
 

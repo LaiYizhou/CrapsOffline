@@ -7,7 +7,7 @@ PlayerSettings:
   productGUID: 1fdf2c06753b4974987ceca7ea817690
   AndroidProfiler: 0
   defaultScreenOrientation: 3
-  targetDevice: 0
+  targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Casinocraps
@@ -588,7 +588,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    4: IronSourceControl
+    4: IronSourceControl;TEST
   platformArchitecture:
     iOS: 2
   scriptingBackend:

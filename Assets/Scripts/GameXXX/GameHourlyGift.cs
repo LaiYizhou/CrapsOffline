@@ -16,7 +16,12 @@ public class GameHourlyGift : MonoBehaviour
     /// 60 * 60 seconds in an hour
     /// 60 * 5 seconds in 5 minutes
     /// </summary>
-    private const int HourlyGiftInterval = 60 * 60;
+#if TEST
+    private const int HourlyGiftInterval = 60 * 5;
+#else
+     private const int HourlyGiftInterval = 60 * 60;
+#endif
+
 
     [SerializeField] private Button hourlyGiftButton;
     [SerializeField] private Sprite readySprite;
@@ -120,8 +125,8 @@ public class GameHourlyGift : MonoBehaviour
 
 
         //GameHelper.Instance.ShowAddCoins(HourlyGiftCoin, false);
-        GameHelper.Instance.coinCollectEffect.RunEffect(HourlyGiftCoin, 
-            new Vector3(432.0f, -254.0f),
+        GameHelper.Instance.coinCollectEffect.RunEffect(HourlyGiftCoin,
+            GameHelper.Instance.ToCanvasLocalPos(hourlyGiftButton.transform.position),
             new Vector3(35.0f, -130.0f),
             new Vector3(-137.0f, 80.0f));
 

@@ -15,10 +15,25 @@ public class PurchaseMessage : MonoBehaviour
 
     [SerializeField] private Transform purchasedFailTransform;
 
+    [Header("Scratcher")]
+    [SerializeField] private Transform scratcherPurchasedTransform;
 
     public void ShowWaitImage()
     {
         purchasingTransform.gameObject.SetActive(true);
+    }
+
+    public void ShowScratcherPurchasedTransform()
+    {
+        CanvasControl.Instance.gameScratcherHall.ResetGameScratcherHall();
+
+        purchasingTransform.gameObject.SetActive(false);
+        purchasedFailTransform.gameObject.SetActive(false);
+        purchasedTransform.gameObject.SetActive(false);
+
+        scratcherPurchasedTransform.gameObject.SetActive(true);
+
+        ScratcherManager.Instance.NumberAddOne(EScratcherType.Poker);
     }
 
     public void ShowPurchasedTransform(long number)
@@ -53,6 +68,8 @@ public class PurchaseMessage : MonoBehaviour
         purchasingTransform.gameObject.SetActive(false);
         purchasedFailTransform.gameObject.SetActive(false);
         purchasedTransform.gameObject.SetActive(false);
+
+        scratcherPurchasedTransform.gameObject.SetActive(false);
     }
 
     IEnumerator DelayReset()

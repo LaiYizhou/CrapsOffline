@@ -15,7 +15,9 @@ public class GameHelper : MonoBehaviour
    
     [SerializeField] private Text hallShowAddedCoinText;
     [SerializeField] private Text crapsShowAddedCoinText;
+    [SerializeField] private Text scratcherHallShowAddedCoinText;
 
+    [Space(10)]
     public CoinCollectEffect coinCollectEffect;
     public Tip tip;
     public DialogMessage dialogMessage;
@@ -25,6 +27,10 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private List<Sprite> chipSpriteList;
     [SerializeField] private List<Sprite> chipDarkSpriteList;
 
+    [Header("Poker")]
+    [SerializeField] private List<Sprite> pokerColorSpriteList;
+    [SerializeField] private List<Sprite> pokerNumberSpriteList;
+    [SerializeField] private List<Sprite> pokerIconSpriteList;
 
     // only for log
     private int rewardedVideoCount;
@@ -41,6 +47,8 @@ public class GameHelper : MonoBehaviour
 
     public static bool IsShowRewardedVideoCoins;
     public static int RewardedVideoCoin = 2000;
+
+    public static int ScratcherMaxNumber = 99;
 
     public static int CloseStore_RewardedVideo_P = 50;
     public static int CloseStore_Promotion_P = 50;
@@ -214,6 +222,7 @@ public class GameHelper : MonoBehaviour
     };
 
     public static Player player;
+    //private static ScratcherManager scratcherManager;
 
     // Use this for initialization
     void Start()
@@ -221,7 +230,9 @@ public class GameHelper : MonoBehaviour
         Instance = this;
 
         IsShowRewardedVideoCoins = false;
+
         player = new Player();
+        //scratcherManager = new ScratcherManager();
 
         UpdatePlayerCoin();
 
@@ -247,6 +258,8 @@ public class GameHelper : MonoBehaviour
         return new DiceState(number1, number2);
 
     }
+
+   
 
     public long GetOdds(Chip chip, EArea eArea, DiceState diceState)
     {
@@ -457,7 +470,7 @@ public class GameHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// ! ! !Attention: diceSpriteList.Count == 7, and diceSpriteList[0] is null
+    /// ! ! ! Attention: diceSpriteList.Count == 7, and diceSpriteList[0] is null
     /// So, the DiceNumber can match the Index
     /// </summary>
     /// <param name="number">the DiceNumber (can match the Index) </param>
@@ -569,35 +582,12 @@ public class GameHelper : MonoBehaviour
 
         if (flag)
         {
-            Vector3 hallTextPos = hallShowAddedCoinText.GetComponent<RectTransform>().localPosition;
-            Vector3 crapsTextPos = crapsShowAddedCoinText.GetComponent<RectTransform>().localPosition;
+            ShowAddCoinsEffect(hallShowAddedCoinText, number, isShowRewardedCoins);
+            ShowAddCoinsEffect(crapsShowAddedCoinText, number, isShowRewardedCoins);
+            ShowAddCoinsEffect(scratcherHallShowAddedCoinText, number, isShowRewardedCoins);
 
-            hallShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
-            crapsShowAddedCoinText.text = "+" + GameHelper.CoinLongToString(number);
-
-            Sequence sequence = DOTween.Sequence();
-
-            sequence.Insert(0.0f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
-            sequence.Insert(0.0f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
-
-            sequence.Insert(0.3f, hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(hallTextPos.y + 85.0f, 1.0f));
-            sequence.Insert(0.5f, hallShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
-            sequence.Insert(0.3f, crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(crapsTextPos.y + 85.0f, 1.0f));
-            sequence.Insert(0.5f, crapsShowAddedCoinText.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
-
-            sequence.AppendCallback(() =>
-            {
-                GameHelper.player.ChangeCoins(number);
-
-                hallShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
-                hallShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(hallTextPos.y, 0.1f);
-                crapsShowAddedCoinText.GetComponent<CanvasGroup>().alpha = 0.0f;
-                crapsShowAddedCoinText.GetComponent<RectTransform>().DOLocalMoveY(crapsTextPos.y, 0.1f);
-
-                if (isShowRewardedCoins)
-                    GameHelper.IsShowRewardedVideoCoins = false;
-            });
-
+            yield return new WaitForSeconds(1.2f);
+            GameHelper.player.ChangeCoins(number);
 
         }
         else
@@ -606,10 +596,33 @@ public class GameHelper : MonoBehaviour
         }
     }
 
+    private void ShowAddCoinsEffect(Text text, long number, bool isShowRewardedCoins)
+    {
+        Vector3 textPos = text.GetComponent<RectTransform>().localPosition;
+        text.text = "+" + GameHelper.CoinLongToString(number);
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Insert(0.0f, text.GetComponent<CanvasGroup>().DOFade(1.0f, 0.3f));
+        sequence.Insert(0.3f, text.GetComponent<RectTransform>().DOLocalMoveY(textPos.y + 85.0f, 1.0f));
+        sequence.Insert(0.5f, text.GetComponent<CanvasGroup>().DOFade(0.0f, 0.5f));
+
+        sequence.AppendCallback(() =>
+        {
+            
+
+            text.GetComponent<CanvasGroup>().alpha = 0.0f;
+            text.GetComponent<RectTransform>().DOLocalMoveY(textPos.y, 0.1f);
+
+            if (isShowRewardedCoins)
+                GameHelper.IsShowRewardedVideoCoins = false;
+        });
+    }
+
     public void UpdatePlayerCoin()
     {
         CanvasControl.Instance.gameHall.UpdatePlayerCoin();
         CanvasControl.Instance.gameCrap.UpdatePlayerCoin();
+        CanvasControl.Instance.gameScratcherHall.UpdatePlayerCoin();
     }
 
     public long GetChipValue(EChip eChip)
@@ -621,6 +634,179 @@ public class GameHelper : MonoBehaviour
         else
         {
             return -1;
+        }
+    }
+
+    public Poker GetRandomTargetPoker()
+    {
+        float p = Random.Range(0.0f, 10.0f);
+        if (p <= 2)
+        {
+            return RandomPoker(EPokerNumber._5);
+        }
+        else if (p <= 4)
+        {
+            return RandomPoker(EPokerNumber._6);
+        }
+        else if (p <= 6)
+        {
+            return RandomPoker(EPokerNumber._7);
+        }
+        else if (p <= 8)
+        {
+            return RandomPoker(EPokerNumber._8);
+        }
+        else if (p <= 9)
+        {
+            return RandomPoker(EPokerNumber._9);
+        }
+        else
+        {
+            return RandomPoker(EPokerNumber._10);
+        }
+    }
+
+    public List<Poker> GetScratchPokers(Poker targetPoker)
+    {
+        List<Poker> res = new List<Poker>();
+        int greaterPokerNumber = 0;
+        int notGreaterPokerNumber = 9 - greaterPokerNumber;
+
+        float p = Random.Range(0.0f, 100.0f);
+        if (p <= 5)
+        {
+            greaterPokerNumber = 3;
+        }
+        else if (p <= 40)
+        {
+            greaterPokerNumber = 4;
+        }
+        else if (p <= 74)
+        {
+            greaterPokerNumber = 5;
+        }
+        else if (p <= 94)
+        {
+            greaterPokerNumber = 6;
+        }
+        else if (p <= 99)
+        {
+            greaterPokerNumber = 7;
+        }
+        else
+        {
+            greaterPokerNumber = 8;
+        }
+        notGreaterPokerNumber = 9 - greaterPokerNumber;
+
+        Debug.Log("greaterPokerNumber = " + greaterPokerNumber);
+
+        for (int i = 0; i < greaterPokerNumber; i++)
+        {
+            res.Add(GetGreaterRandomPoker(targetPoker));
+        }
+
+        for (int i = 0; i < notGreaterPokerNumber; i++)
+        {
+            res.Add(GetNotGreaterRandomPoker(targetPoker));
+        }
+
+        if (res.Count == 9)
+            Shuffle(ref res);
+        else
+            Debug.LogError("res.Count is not 9 ! ! !");
+
+        return res;
+    }
+
+    private Poker GetGreaterRandomPoker(Poker targetPoker)
+    {
+        Poker res = RandomPoker();
+        while (! (res > targetPoker))
+        {
+            res = RandomPoker();
+        }
+
+        return res;
+    }
+
+    private Poker GetNotGreaterRandomPoker(Poker targetPoker)
+    {
+        Poker res = RandomPoker();
+        while (res > targetPoker)
+        {
+            res = RandomPoker();
+        }
+
+        return res;
+    }
+
+
+    private Poker RandomPoker(EPokerNumber number)
+    {
+        EPokerColor color = (EPokerColor)Random.Range(0, 4);
+        return new Poker(color, number);
+
+    }
+
+    private Poker RandomPoker()
+    {
+        EPokerColor color = (EPokerColor)Random.Range(0, 4);
+        EPokerNumber number = (EPokerNumber)Random.Range(1, 14);
+
+        return new Poker(color, number);
+
+    }
+
+    public Sprite GetPokerColorSprite(Poker poker)
+    {
+        int index = (int)poker.Color;
+        if (index >= 0 && index <= 3)
+        {
+            return pokerColorSpriteList[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public Sprite GetPokerNumberSprite(Poker poker)
+    {
+        int index = (int)(poker.Number);
+        if (index >= 1 && index <= 13)
+        {
+            return pokerNumberSpriteList[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public Sprite GetPokerIconSprite(Poker poker)
+    {
+        if (poker.Number <= EPokerNumber._10)
+        {
+            return GetPokerColorSprite(poker);
+        }
+        else
+        {
+            int startIndex = 0 + (poker.Color - EPokerColor.Heart) * 3;
+            int index = startIndex + (poker.Number - EPokerNumber._J);
+
+            return pokerIconSpriteList[index];
+        }
+    }
+
+    private void Shuffle<T>(ref List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            var temp = list[i];
+            int randomIndex = Random.Range(0, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
         }
     }
 

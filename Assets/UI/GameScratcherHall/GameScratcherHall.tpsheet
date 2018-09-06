@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameScratcherHall.png (512 x 512)
+# $TexturePacker:SmartUpdate:0272cb94cb305d9932b8b100b21f0876:c80bec97d0fc41df8677624e2c4ffa86:92705485de336e775db7cd9e70c9888a$
+#
+
+bought_icon;2;382;256;128;0.5;0.5
+btn_scratch;373;311;131;66;0.5;0.5
+comingsoon;2;309;148;71;0.5;0.5
+line;152;370;85;10;0.5;0.5
+price_btn_back;239;311;132;66;0.5;0.5
+product_tips;260;379;168;131;0.5;0.5

@@ -202,13 +202,19 @@ public class CoinCollectEffect : MonoBehaviour {
     private void SetPlaceHolder3Position()
     {
 
-        Transform targetCoinTransform = CanvasControl.Instance.gameHall.gameObject.activeInHierarchy
+        Transform targetCoinTransform = IsUseHallCoinTransform()
             ? hallCoinTransform
             : crapsCoinTransform;
 
         PlaceHolder3.GetComponent<RectTransform>().anchoredPosition = GameHelper.Instance.ToCanvasLocalPos(
                 targetCoinTransform.parent.TransformPoint(targetCoinTransform.localPosition));
 
+    }
+
+    private bool IsUseHallCoinTransform()
+    {
+        return CanvasControl.Instance.gameHall.gameObject.activeInHierarchy ||
+               CanvasControl.Instance.gameScratcherHall.gameObject.activeInHierarchy;
     }
 
     private void OnDisable()
@@ -224,6 +230,7 @@ public class CoinCollectEffect : MonoBehaviour {
             Destroy(coinElementTransform.GetChild(i).gameObject);
         }
 
-        CoinList.Clear();
+        if(CoinList != null)
+            CoinList.Clear();
     }
 }

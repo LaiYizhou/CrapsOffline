@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: GameScratcher.png (512 x 512)
+# $TexturePacker:SmartUpdate:d196575818b2d568a024c75eff1a23aa:af53c66ea97bfe0b5106d3efc32d5b9b:7680f76bf9d694210c2fc80affe5ca36$
+#
+
+bg_jiantou;449;445;26;31;0.5;0.5
+bg_pays;449;495;44;15;0.5;0.5
+bg_shuju;368;435;79;75;0.5;0.5
+bg_win;449;478;36;15;0.5;0.5
+bjscene_girl;228;332;138;178;0.5;0.5
+btn_scratchall;2;418;224;92;0.5;0.5

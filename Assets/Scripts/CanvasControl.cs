@@ -10,6 +10,8 @@ public class CanvasControl : MonoBehaviour
     [Header("Game XXX")]
     public GameCrap gameCrap;
     public GameTutorial gameTutorial;
+    public GameScratcher gameScratcher;
+    public GameScratcherHall gameScratcherHall;
     public GameHall gameHall;
     public GameSetting gameSetting;
     public GameStore gameStore;
@@ -24,6 +26,7 @@ public class CanvasControl : MonoBehaviour
     [SerializeField] private Button gameCrapsAdButton;
 
     [Header("Test")]
+    [SerializeField] private GameTestHelper gameTestHelper;
     [SerializeField] private Button loadButton;
     [SerializeField] private Button playButton;
 
@@ -34,12 +37,22 @@ public class CanvasControl : MonoBehaviour
         Instance = this;
 
         gameCrap.gameObject.SetActive(true);
+
+        gameScratcherHall.gameObject.SetActive(false);
+        gameScratcher.gameObject.SetActive(false);
+
         gameHall.gameObject.SetActive(true);
         gameDailyGift.gameObject.SetActive(true);
         gameHourlyGift.gameObject.SetActive(true);
 
         gameCrap.UpdateGameAchievementsEffect();
         gameAchievement.DrawLine();
+
+#if TEST
+        gameTestHelper.gameObject.SetActive(true);
+#else
+        gameTestHelper.gameObject.SetActive(false);
+#endif
 
         yield return new WaitForEndOfFrame();
 

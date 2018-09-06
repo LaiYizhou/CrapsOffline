@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
 using DG.Tweening;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -281,6 +280,16 @@ public class GameCrap : MonoBehaviour
         CanvasControl.Instance.gameAchievement.Show();
     }
 
+    public void OnScratcherButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        CanvasControl.Instance.gameScratcherHall.gameObject.SetActive(true);
+        CanvasControl.Instance.gameScratcherHall.Show(-1);
+
+        this.gameObject.SetActive(false);
+    }
+
     public void UpdatePlayerCoin()
     {
 
@@ -412,7 +421,7 @@ public class GameCrap : MonoBehaviour
                 {
                     // A round begin with it
                     CanvasControl.Instance.gameAchievement.IsRoundStart = true;
-                    //GameHelper.Instance.ShowTip(Vector3.one, " [Test Log] New Round Start ! ! !");
+
                 }
 
              
@@ -430,10 +439,11 @@ public class GameCrap : MonoBehaviour
                 {
                     // A round end with it
                     CanvasControl.Instance.gameAchievement.IsRoundStart = false;
-                    //GameHelper.Instance.ShowTip(Vector3.one, " [Test Log] Round End ! ! !");
 
                     UpdateGameAchievementsData();
-                    //TestUpdateGameAchievementsData();
+#if TEST
+                    TestUpdateGameAchievementsData();
+#endif
                     UpdateGameAchievementsEffect();
 
                 }

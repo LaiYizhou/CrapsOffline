@@ -1,0 +1,42 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Poker.png (512 x 512)
+# $TexturePacker:SmartUpdate:08cdcdc538c61843b54ac550037b1346:a3ae1551ef4968c74fa91fff82f502da:6c3f07562839ac64583a182bba7c0cdb$
+#
+
+bg_puke;2;47;117;153;0.5;0.5
+poker_10;269;194;36;36;0.5;0.5
+poker_2;264;98;36;36;0.5;0.5
+poker_3;265;232;36;36;0.5;0.5
+poker_4;265;270;36;36;0.5;0.5
+poker_5;231;136;36;36;0.5;0.5
+poker_6;231;174;36;36;0.5;0.5
+poker_7;193;136;36;36;0.5;0.5
+poker_8;193;174;36;36;0.5;0.5
+poker_9;154;10;36;36;0.5;0.5
+poker_a;116;9;36;36;0.5;0.5
+poker_bg;2;202;117;153;0.5;0.5
+poker_club;121;48;66;66;0.5;0.5
+poker_club_j;193;212;70;94;0.5;0.5
+poker_club_k;192;20;70;94;0.5;0.5
+poker_club_q;121;116;70;94;0.5;0.5
+poker_diamond;442;308;66;66;0.5;0.5
+poker_diamond_j;121;212;70;94;0.5;0.5
+poker_diamond_k;370;320;70;94;0.5;0.5
+poker_diamond_q;298;320;70;94;0.5;0.5
+poker_heart;442;376;66;66;0.5;0.5
+poker_heart_j;226;320;70;94;0.5;0.5
+poker_heart_k;154;320;70;94;0.5;0.5
+poker_heart_q;370;416;70;94;0.5;0.5
+poker_j;78;9;36;36;0.5;0.5
+poker_k;40;9;36;36;0.5;0.5
+poker_q;2;9;36;36;0.5;0.5
+poker_shadow;2;357;117;153;0.5;0.5
+poker_spade;442;444;66;66;0.5;0.5
+poker_spade_j;298;416;70;94;0.5;0.5
+poker_spade_k;226;416;70;94;0.5;0.5
+poker_spade_q;154;416;70;94;0.5;0.5

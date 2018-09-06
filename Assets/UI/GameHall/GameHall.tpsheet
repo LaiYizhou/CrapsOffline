@@ -5,7 +5,7 @@
 # http://www.codeandweb.com/texturepacker/unity
 #
 # Sprite sheet: GameHall.png (1024 x 1024)
-# $TexturePacker:SmartUpdate:cf30b00e203d75277d71b8e6e9b943bf:07c88f560daac65d98d36bca7add268e:5fc27d398a65e6409c24ae23f0304270$
+# $TexturePacker:SmartUpdate:0405441df4b055a1de11924d22ebac16:ff13ba79585169299b6599add3e5c4d9:5fc27d398a65e6409c24ae23f0304270$
 #
 
 Craps_level1;2;234;258;196;0.5;0.5
@@ -16,9 +16,3 @@ Craps_level5;262;710;258;196;0.5;0.5
 Craps_level6;2;630;258;392;0.5;0.5
 Craps_playnow;647;826;258;196;0.5;0.5
 bg_AD_lobby;262;908;383;114;0.5;0.5
-bg_buttom;973;840;42;122;0.5;0.5
-bth_chips;907;840;56;56;0.5;0.5
-btn_gift;907;964;95;58;0.5;0.5
-btn_setting;907;898;64;64;0.5;0.5
-button_add_normal;907;796;54;42;0.5;0.5
-gems_background;782;746;210;48;0.5;0.5

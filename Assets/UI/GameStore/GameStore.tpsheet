@@ -5,20 +5,19 @@
 # http://www.codeandweb.com/texturepacker/unity
 #
 # Sprite sheet: GameStore.png (512 x 512)
-# $TexturePacker:SmartUpdate:d58889165ebb34bc636f8678ce79ff2c:a34d910a4fd5e44c308f1fa8cf32df18:d7b96d0dd55c38e9d055dfca27f3746a$
+# $TexturePacker:SmartUpdate:e29bbb678ab4683f3598846915c85f9d:91f1eb2d10b8349942670dbd71a59dc3:d7b96d0dd55c38e9d055dfca27f3746a$
 #
 
-best-seller;320;416;184;46;0.5;0.5
-best;320;464;184;46;0.5;0.5
-bg_remove ADS;79;296;69;70;0.5;0.5
-bg_store;2;4;121;35;0.5;0.5
-bth_chips;241;454;56;56;0.5;0.5
-common_btn_close;241;400;52;52;0.5;0.5
-prompt_icon_2;79;368;160;142;0.5;0.5
-prompt_icon_3;2;120;160;142;0.5;0.5
-prompt_message_bg;2;264;75;246;0.5;0.5
-store_button_buy;150;308;168;58;0.5;0.5
-store_free_icon;125;21;63;19;0.5;0.5
-store_item_background;2;41;39;77;0.5;0.5
-store_percent_bg_on;43;42;138;76;0.5;0.5
-wait;164;176;122;130;0.5;0.5
+best-seller;188;464;184;46;0.5;0.5
+best;2;464;184;46;0.5;0.5
+bg_remove ADS;164;211;69;70;0.5;0.5
+bg_store;164;283;121;35;0.5;0.5
+bth_chips;67;202;56;56;0.5;0.5
+common_btn_close;2;185;52;52;0.5;0.5
+prompt_icon_2;2;260;160;142;0.5;0.5
+prompt_icon_3;172;320;160;142;0.5;0.5
+store_button_buy;2;404;168;58;0.5;0.5
+store_free_icon;2;239;63;19;0.5;0.5
+store_item_background;287;241;39;77;0.5;0.5
+store_percent_bg_on;334;302;138;76;0.5;0.5
+wait;374;380;122;130;0.5;0.5

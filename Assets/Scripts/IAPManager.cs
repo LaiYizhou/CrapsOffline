@@ -13,7 +13,9 @@ public enum EMarketProduct
     LoginSale,
     CloseShopSale,
     BackToHallSale,
-    RemoveAdSale
+    RemoveAdSale,
+
+    Scratcher499Sale,
 }
 
 public class MarketProduct
@@ -80,6 +82,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         new MarketProduct("Craps_removeads_sale_4_99", ProductType.Consumable, "Craps_removeads_sale_4_99", 200000, 400000, 4.99, EMarketProduct.RemoveAdSale),
         new MarketProduct("Craps_removeads_sale_9_99", ProductType.Consumable, "Craps_removeads_sale_9_99", 450000, 900000, 9.99, EMarketProduct.RemoveAdSale),
+
+        new MarketProduct("Craps_4_99_scratcher", ProductType.Consumable, "Craps_4_99_scratcher", -1, -1, 4.99, EMarketProduct.Scratcher499Sale)
 
     };
 
@@ -311,14 +315,20 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 }
                 else
                 {
-                    //GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
+                    if (marketProduct.Id == "Craps_4_99_scratcher")
+                    {
+                        GameHelper.Instance.purchaseMessage.ShowScratcherPurchasedTransform();
+                    }
+                    else
+                    {
+                        GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
+                            new Vector3(0.0f, 0.0f),
+                            new Vector3(-95.0f, 100.0f),
+                            new Vector3(-140.0f, 190));
 
-                    GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
-                        new Vector3(0.0f, 0.0f),
-                        new Vector3(-95.0f, 100.0f),
-                        new Vector3(-140.0f, 190));
+                        GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
+                    }
 
-                    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
                 }
 
                 break;
@@ -367,15 +377,22 @@ public class IAPManager : MonoBehaviour, IStoreListener
                 }
                 else
                 {
-                    //GameHelper.player.ChangeCoins(marketProduct.ChipAmount);
-                    //GameHelper.Instance.ShowAddCoins(marketProduct.ChipAmount, false);
 
-                    GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
-                        new Vector3(0.0f, 0.0f),
-                        new Vector3(-95.0f, 100.0f),
-                        new Vector3(-140.0f, 190));
+                    if (args.purchasedProduct.definition.id == "Craps_4_99_scratcher")
+                    {
+                        GameHelper.Instance.purchaseMessage.ShowScratcherPurchasedTransform();
+                    }
+                    else
+                    {
+                        GameHelper.Instance.coinCollectEffect.RunEffect(marketProduct.ChipAmount,
+                            new Vector3(0.0f, 0.0f),
+                            new Vector3(-95.0f, 100.0f),
+                            new Vector3(-140.0f, 190));
 
-                    GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
+                        GameHelper.Instance.purchaseMessage.ShowPurchasedTransform(marketProduct.ChipAmount);
+                    }
+
+                  
                 }
 
 
