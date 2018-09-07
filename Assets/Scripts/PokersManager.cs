@@ -37,6 +37,7 @@ public class PokersManager : MonoBehaviour
 
     public void ScratchAll()
     {
+        //AudioControl.Instance.PlaySound(AudioControl.EAudioClip.Scratch);
 
         for (int i = 0; i < pokerItemList.Count; i++)
         {
@@ -66,12 +67,15 @@ public class PokersManager : MonoBehaviour
             pokerItemList.Add(pokerItem);
             pokerItem.Init(pokerList[i]);
 
+            AudioControl.Instance.PlaySound(AudioControl.EAudioClip.Deal);
+
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Insert(0.0f, go.transform.DOScale(Vector3.one, 0.4f));
-            sequence.Insert(0.0f, go.transform.DOLocalMove(pokerPosList[i], 0.4f));
+            sequence.Insert(0.0f, go.transform.DOScale(Vector3.one, 0.3f));
+            sequence.Insert(0.0f, go.transform.DOLocalMove(pokerPosList[i], 0.3f));
 
-            yield return new WaitForSeconds(0.05f);
+            //yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.2f);
 
         }
     }

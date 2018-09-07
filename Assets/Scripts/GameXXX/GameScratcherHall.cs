@@ -64,6 +64,8 @@ public class GameScratcherHall : MonoBehaviour
             new Vector3(-95.0f, 100.0f),
             new Vector3(-140.0f, 190));
 
+        resultChips = 0;
+
         resultPanelTransform.gameObject.SetActive(false);
     }
 
@@ -75,6 +77,31 @@ public class GameScratcherHall : MonoBehaviour
 
         CanvasControl.Instance.gameScratcher.Show();
         GameHelper.Instance.purchaseMessage.ResetAllTransforms();
+    }
+
+    public void OnScratchAnotherButtonClicked()
+    {
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
+
+        GameHelper.Instance.coinCollectEffect.RunEffect(resultChips,
+            GameHelper.Instance.ToCanvasLocalPos(resultChipsText.transform.position),
+            new Vector3(-95.0f, 100.0f),
+            new Vector3(-140.0f, 190));
+
+        resultChips = 0;
+        resultPanelTransform.gameObject.SetActive(false);
+
+        StartCoroutine(DelayPurchase());
+
+        
+    }
+
+    IEnumerator DelayPurchase()
+    {
+        yield return new WaitForSeconds(1.8f);
+
+        GameHelper.Instance.purchaseMessage.ShowWaitImage();
+        IAPManager.Instance.BuyProductID("Craps_4_99_scratcher");
     }
 
     public void OnPurcheseButtonClicked()

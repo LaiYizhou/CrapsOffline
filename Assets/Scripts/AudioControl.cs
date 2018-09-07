@@ -69,7 +69,12 @@ public class AudioControl : MonoBehaviour
 
         BetDownChip,
 
-        CollectCoins
+        CollectCoins,
+
+        Deal,
+
+        Scratch,
+        ScratchWin
     }
 
     public enum ESpokenAudioClip
@@ -124,6 +129,7 @@ public class AudioControl : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+
 	    Instance = this;
 	    
 	    PlayBgMusic();

@@ -304,7 +304,7 @@ public class IronSourceControl : MonoBehaviour
         //GameHelper.player.ChangeCoins(ssp.getRewardAmount());
         GameHelper.IsShowRewardedVideoCoins = true;
         IsShowInterstitalWhenBack = false;
-        AudioControl.Instance.StopBgMusic();
+
         GameHelper.RewardedVideoCoin = ssp.getRewardAmount();
         //AmountText.GetComponent<UnityEngine.UI.Text>().text = "" + userTotalCredits;
     }
@@ -312,13 +312,12 @@ public class IronSourceControl : MonoBehaviour
     void RewardedVideoAdClosedEvent()
     {
         Debug.Log("I got RewardedVideoAdClosedEvent");
-        //CanvasControl.Instance.ShowRewardedCoins(GameHelper.RewardedVideoCoin);
-        //CanvasControl.Instance.gameHall.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
 
         GameHelper.Instance.RewardedVideoCount++;
         Debug.Log("### GameHelper.Instance.RewardedVideoCount = " + GameHelper.Instance.RewardedVideoCount);
 
-        //GameHelper.Instance.ShowAddCoins(GameHelper.RewardedVideoCoin, true);
+        AudioControl.Instance.PlayBgMusic();
+
         GameHelper.Instance.coinCollectEffect.RunEffect(GameHelper.RewardedVideoCoin,
             new Vector3(0.0f, 0.0f),
             new Vector3(-95.0f, 100.0f),
@@ -326,7 +325,7 @@ public class IronSourceControl : MonoBehaviour
 
         AppsFlyerManager.Instance.TrackAd(GameHelper.RewardedVideoCoin.ToString(), "1");
 
-        AudioControl.Instance.PlayBgMusic();
+        
     }
 
     void RewardedVideoAdStartedEvent()

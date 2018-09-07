@@ -284,6 +284,8 @@ public class GameCrap : MonoBehaviour
     {
         AudioControl.Instance.PlaySound(AudioControl.EAudioClip.ButtonClick);
 
+        ResetData();
+
         CanvasControl.Instance.gameScratcherHall.gameObject.SetActive(true);
         CanvasControl.Instance.gameScratcherHall.Show(-1);
 

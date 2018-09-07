@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Spine.Unity;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class PokerItem : MonoBehaviour
+public class PokerItem : MonoBehaviour, IPointerDownHandler
 {
 
     public static Color BlackColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
@@ -81,11 +82,12 @@ public class PokerItem : MonoBehaviour
     IEnumerator DelayScratchEffect()
     {
         shineEffect.gameObject.SetActive(false);
-
         Show();
 
         scratchEffect.gameObject.SetActive(true);
         scratchEffect.AnimationState.SetAnimation(0, "animation2", false);
+
+        AudioControl.Instance.PlaySound(AudioControl.EAudioClip.Scratch);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -132,5 +134,14 @@ public class PokerItem : MonoBehaviour
     }
 
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (!isShow)
+        {
+            pokerButton.interactable = false;
+            StartCoroutine(DelayScratchEffect());
+        }
+
+    }
 }
 

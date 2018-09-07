@@ -10,6 +10,7 @@ TextureImporter:
     21300006: line
     21300008: price_btn_back
     21300010: product_tips
+    21300012: coin_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -108,10 +109,23 @@ TextureImporter:
       name: btn_scratch
       rect:
         serializedVersion: 2
-        x: 373
-        y: 311
+        x: 2
+        y: 173
         width: 131
         height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: coin_2
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 287
+        width: 143
+        height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,8 +161,8 @@ TextureImporter:
       name: price_btn_back
       rect:
         serializedVersion: 2
-        x: 239
-        y: 311
+        x: 2
+        y: 241
         width: 132
         height: 66
       alignment: 0
